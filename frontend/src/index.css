@@ -239,4 +239,14 @@ i:hover {
   padding-right: 20px;
 }
 
-
+.sidebox
+{
+  position: absolute;
+  z-index: 2;
+  margin: 40px;
+  margin-top: 5px;
+  height: 340px;
+  width: 250px;
+  background-color: red;
+  border-radius: 8px;
+}

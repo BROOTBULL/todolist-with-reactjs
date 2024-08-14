@@ -49,11 +49,16 @@ function Home() {
             </div>
              
 
-    <div>
-    <TaskBox  onAdd={handleAdd} />
+  <div className="bigbox">
+  <div className="sidebox"></div>
+<div>
+<TaskBox  onAdd={handleAdd} />
+</div>
   
-    </div>
+
+   
   
+  </div>
   
           </div>
         </div>

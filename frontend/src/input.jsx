@@ -65,7 +65,6 @@ function Input(props) {
 
   return (
     
-    <div>
       <form className="inputform" onSubmit={HandleSubmit}>
         
             <input
@@ -93,7 +92,7 @@ function Input(props) {
            </div>
         
       </form>
-    </div>
+
   );
 }
 

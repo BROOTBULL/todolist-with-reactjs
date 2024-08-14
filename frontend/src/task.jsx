@@ -4,6 +4,21 @@ import $ from "jquery";
 import { useEffect } from "react";
 
 
+function handleClick(event){
+    const clickheight=(event).clientY;
+    const clickleft=(event).clientX;
+
+   console.log(event.clientY);
+
+   $(".sidebox").css({
+    "top":(clickheight)+"px",
+    "left":(clickleft)+"px",
+    
+});
+}
+
+
+
 function Tasknote(props)
 {  
     const content=props.content.replace(/\n/g, "<br>");
@@ -23,8 +38,9 @@ useEffect(() => {
 
 
 
+
     return(
-        <div id={Id} className="tasknote text">
+        <div id={Id} onClick={handleClick} className="tasknote text">
             <div className="tasktitle">{task}</div>
             <div className="taskdecs" dangerouslySetInnerHTML={{ __html: content }}></div>
         </div>
@@ -40,6 +56,5 @@ Tasknote.propTypes=
 }
 
 export default Tasknote
-
 
 
