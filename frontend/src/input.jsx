@@ -41,14 +41,14 @@ function Input(props) {
  
     }
 
-    async function HandleSubmit(event) {
+    const HandleSubmit = async (event) => {
         event.preventDefault();
         console.log("handle submit")
     
         try {
-            axios.post('http://localhost:3000/', newtask);
+            await axios.post('http://localhost:3000/', newtask);
             console.log("axios post")
-             await props.onAdd(); 
+            if (props.onAdd) props.onAdd();
              console.log("onAdd executed")
              setnewTask({
                 title: "",
@@ -89,7 +89,7 @@ function Input(props) {
             id="description"
             required
             > </textarea>
-            <button className="addbtn"><i className='bx bx-plus' ></i></button>
+            <button type="submit" className="addbtn"><i className='bx bx-plus' ></i></button>
            </div>
         
       </form>

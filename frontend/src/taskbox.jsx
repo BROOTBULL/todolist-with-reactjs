@@ -2,27 +2,29 @@ import { useState, useEffect } from "react";
 import Tasknote from './task';
 import Input from "./input";
 import axios from "axios";
+import PropTypes from "prop-types";
 
-function TaskBox() {
+
+function TaskBox(props) {
   const [data, setData] = useState([]);
 
-  // Fetch data from the server
-  async function re_renderTaskBox() {
-    console.log("re_render")
+  const fetchTasks = async () => {
     try {
-      const response = await axios.get('http://localhost:3000/data');
+      const response = await axios.get('http://localhost:3000/');
       setData(response.data);
-      console.log("axios get")
-
     } catch (error) {
-      console.error('Error fetching data:', error);
+      console.error('Error fetching tasks:', error);
     }
-  }
+  };
 
   useEffect(() => {
-    re_renderTaskBox();
-    console.log("useeffect")
+    fetchTasks();
   }, []);
+
+  const handleAdd = () => {
+    fetchTasks(); // Refresh the task list
+    if (props.onAdd) props.onAdd(); // Call onAdd if provided
+  };
 
   return (
     <>
@@ -39,9 +41,14 @@ function TaskBox() {
           />
         ))}
       </div>
-      <Input onAdd={re_renderTaskBox} />
+      <Input onAdd={handleAdd} />
     </>
   );
+}
+
+TaskBox.propTypes=
+{
+   onAdd: PropTypes.func.isRequired
 }
 
 export default TaskBox;

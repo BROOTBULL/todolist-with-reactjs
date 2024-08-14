@@ -3,7 +3,6 @@ import $ from "jquery";
 import TaskBox from "./taskbox"
 
 
-
 function Home() {
     const [isSidebarActive, setIsSidebarActive] = useState(false);
     function togglemenu() {
@@ -11,6 +10,11 @@ function Home() {
       $(".sidebar").toggleClass("active");
       $(".navitem a").fadeToggle(180);
     }
+
+    const handleAdd = () => {
+      // This function will be passed down to TaskBox and used to refresh tasks
+      console.log("Task added, refreshing list...");
+    };
 
     return (
       <>
@@ -45,9 +49,10 @@ function Home() {
             </div>
              
 
-  <TaskBox />
+    <div>
+    <TaskBox  onAdd={handleAdd} />
   
-  
+    </div>
   
   
           </div>

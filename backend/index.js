@@ -31,23 +31,31 @@ const Listwork = mongoose.model("List", itemSchema);
 
 app.post("/", async (req, res) => {
   try {
-    const tasklist=req.body;
+    const tasklist = req.body;
+    console.log("Received tasklist:", tasklist);
+
     const list = new Listwork(tasklist);
     await list.save();
+
     console.log("Task saved successfully");
+    res.status(201).send("Task saved successfully"); // Send success response with status code 201
   } catch (err) {
     console.error("Error saving task:", err);
+    res.status(500).send("Error saving task"); // Send error response with status code 500
   }
 });
 
-app.get("/data", async (req, res) => {
+
+app.get("/", async (req, res) => {
   try {
     const lists = await Listwork.find();
-    res.json(lists);
+    res.status(200).json(lists); // Send JSON response with status code 200
   } catch (err) {
-    console.error("Error saving task:", err);
+    console.error("Error fetching tasks:", err);
+    res.status(500).send("Error fetching tasks"); // Send error response with status code 500
   }
 });
+
 
 
 app.listen(3000, () => {
