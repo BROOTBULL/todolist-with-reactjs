@@ -1,0 +1,242 @@
+html,
+body {
+  background-image: -webkit-linear-gradient(
+    -50deg,
+    rgb(7, 7, 14) 50%,
+    rgb(11, 10, 43)
+  );
+  margin: 0;
+  overflow: hidden;
+  overflow-y: scroll;
+  scrollbar-width: none;
+  min-height: 100vh;
+}
+
+.text {
+  color: white;
+  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+}
+/* ///////////////// Fullpage ////////////////// */
+
+.fullPage {
+  display: flex;
+}
+
+/* ///////////////// Sidebar ////////////////// */
+
+.sidebar {
+position: fixed;
+  min-height: 100vh;
+  width: 0%;
+  transition: 0.3s;
+  background-image: -webkit-linear-gradient(
+    90deg,
+    rgb(8, 8, 22) 40%,
+    rgba(8, 8, 48, 0.701)
+  );
+}
+
+.sidebar.active {
+  width: 16%;
+  transition: 0.3s;
+}
+
+/* //// NavBar //// */
+
+.navbox {
+  padding: 10px 8px 0px 5px;
+}
+
+.navitem {
+  border-radius: 6px;
+  height: 45px;
+  margin-bottom: 3px;
+  align-content: center;
+  font-size: 14px;
+  background-color: rgba(10, 30, 50, 0.21);
+}
+.profile {
+  font-size: 18px;
+  margin-bottom: 25px;
+}
+
+.navitem a {
+  color: rgba(201, 230, 255, 0.752);
+  text-decoration: none;
+  padding-left: 10px;
+  display: none;
+}
+
+/* ///////////////// Main ////////////////// */
+.changeMainBody
+{
+  margin-left: 16%;
+  transition: .3s;
+}
+
+.mainBody {
+  min-height: 100vh;
+  flex-grow: 1;
+  transition: .3s;
+}
+.heading {
+  display: flex;
+  align-items: center;
+  padding: 8px;
+  padding-right: 12px;
+}
+.head {
+  margin: 0px;
+  font-size: 40px;
+  padding: 10px;
+  padding-left:25px;
+}
+/* ///////////////// inputbox ////////////////// */
+
+.inputform
+{
+  display: flex;
+  flex-direction: column;
+  width:600px;
+  margin: 30px;
+  margin-left: 4%;
+  border-radius: 7px;
+  box-shadow: 0px 0px 10px rgb(91, 100, 137);
+  margin-bottom: 100px;
+}
+
+#title
+{
+  color: rgb(208, 233, 255);
+  height: 30px;
+  font-size: 16px;
+  padding: 8px;
+  font-weight: 400;
+  letter-spacing: 1px;
+  flex-grow: 1;
+  border-width: 0px;
+  border-color: rgba(205, 231, 254, 0.521);
+  border-bottom-left-radius:0px;
+  border-bottom-right-radius:0px;
+  background-color: rgba(202, 202, 255, 0.015);
+  
+}
+#description
+{
+  color: rgb(156, 186, 213);
+  width: 564px;
+  overflow-y: hidden;
+  box-sizing: border-box;
+  min-height:18px;
+  height: auto;
+  font-size:12px;
+  letter-spacing: 1px;
+  border-top-left-radius: 0px;
+  border-top-right-radius:0px;
+  padding:8px ;
+  border: 0px;
+  resize: none;
+  background-color: rgba(0, 0, 0, 0);
+
+}
+.inputbox
+{
+  border-radius: 7px;
+  background-color: rgba(202, 202, 255, 0.015);
+ 
+}
+.inputbox:focus
+{
+  
+    outline: none;
+}
+.des-box
+{
+  background-color: rgba(240, 248, 255, 0.063);
+}
+.addbtn
+{
+  position: relative;
+  top: 18px;
+  padding-top: 5px;
+  border-radius: 50%;
+  font-size: 20px;
+  height: 35px;
+  width:35px;
+  background-color:rgb(25, 27, 38);
+  color: rgb(124, 157, 186);
+}
+
+
+
+
+/* ///////////////// taskList ////////////////// */
+.TaskBox
+{
+  display: grid;
+  grid-template-columns:repeat(3,1fr);
+  grid-auto-rows: 100px;
+  grid-gap: 5px;
+  margin-left: 4%;
+  width: 600px;
+  color:rgb(172, 178, 212)!;
+  padding: 5px;
+}
+.tasknote
+{ width: 100%;
+  border-radius: 7px;
+  height: 100%;
+  background-image: -webkit-linear-gradient(
+    -50deg,
+    rgba(64, 64, 125, 0.232) 50%,
+    rgba(20, 20, 45, 0.563)
+  );
+}
+.tasknote:hover
+{
+  background-color:rgba(76, 83, 114, 0.527) ;
+  transition: 0.3s;
+}
+.tasktitle
+{
+  color: rgba(233, 236, 255, 0.922);
+  font-size: 20px;
+  font-weight: 400;
+  padding: 4px;
+  
+}
+.taskdecs
+{
+  color: rgba(173, 180, 216, 0.752);
+  font-size: 13px;
+  padding: 4px;
+}
+
+/* ///////////////// Buttons ////////////////// */
+
+.btn {
+  color: aliceblue;
+  border-width: 0px;
+  background-color: #43698e00;
+}
+i:hover {
+  text-shadow: 0px 1px 10xp white;
+  transition: 0.3s;
+}
+
+.menubtn {
+  align-content: center;
+  font-size: 23px;
+  padding: 8px;
+  padding-top: 13px;
+  padding-left: 0px;
+}
+
+.viewbtn {
+  margin-left: auto;
+  font-size: 15px;
+  height: 30px;
+  padding-right: 20px;
+}
+
+
