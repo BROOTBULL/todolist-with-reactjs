@@ -65,7 +65,11 @@ function Input(props) {
 
   return (
     
-      <form className="inputform" onSubmit={HandleSubmit}>
+      <form 
+      className="inputform" 
+      onClick={()=> {$(".des-box").slideDown(300);}} 
+      onSubmit={HandleSubmit}
+      >
         
             <input
             onChange={handleChange}
@@ -74,16 +78,18 @@ function Input(props) {
             name="title"
             value={newtask.title}
             id="title"
+            placeholder="Add task"
             required
             > </input>
             
         
-           <div className=" des-box">
+           <div className=" des-box"    style={{display:"none"}}>
            <textarea
             onChange={handleChange}
             className="descriptionbox inputbox text"
             type="text"
             name="description"
+            placeholder="Description"
             value={newtask.description}
             id="description"
             required

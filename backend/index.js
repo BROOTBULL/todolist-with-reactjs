@@ -57,6 +57,22 @@ app.get("/", async (req, res) => {
 });
 
 
+app.put('/tasks/:id', async (req, res) => {
+  try {
+    const { id } = req.params;
+    const updatedTask = await Listwork.findByIdAndUpdate(id, req.body, { new: true });
+
+    if (!updatedTask) {
+      return res.status(404).send('Task not found');
+    }
+
+    res.send(updatedTask);
+  } catch (error) {
+    console.error('Error updating task:', error);
+    res.status(500).send('Internal Server Error');
+  }
+});
+
 
 app.listen(3000, () => {
   console.log("Server started on port 3000");
