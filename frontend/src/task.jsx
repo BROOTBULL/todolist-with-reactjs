@@ -15,17 +15,24 @@ function Tasknote(props) {
 
     console.log(event.target.id);
     props.onEdit(event.target.id);
-    const clickheight = event.pageY;
-    const clickleft = event.pageX;
+  
     console.log(event.target);
     $(".editbox").slideToggle(120);
     $(".sidebox").toggleClass("sideboxOpen");
     $("#edit_title").focus();
-    $(".sidebox").css({
-      top: clickheight + "px",
-      left: clickleft + "px",
-    });
+
   }
+
+function handleMouseMove(event)
+{
+    const clickheight = event.pageY;
+    const clickleft = event.pageX;
+    $(".sidebox").css({
+        top: clickheight + "px",
+        left: clickleft + "px",
+      });
+}
+
 
   useEffect(() => {
     $("#" + Id).css(
@@ -40,7 +47,7 @@ function Tasknote(props) {
   }, [tlength, clength, Id]);
 
   return (
-    <div id={Id} onClick={handleClick} className="tasknote text">
+    <div id={Id} onClick={handleClick} onMouseMove={handleMouseMove} className="tasknote text">
       <div className="tasktitle">{task}</div>
       <div
         className="taskdecs"

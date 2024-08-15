@@ -13,10 +13,6 @@ function handleMouseOut() {
 }
   
 
-
-
-
-
 function TaskBox(props)
  {
 
