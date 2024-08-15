@@ -3,8 +3,9 @@ import Tasknote from './task';
 import Input from "./input";
 import axios from "axios";
 import PropTypes from "prop-types";
+// import $ from "jquery"
 
-
+  
 function TaskBox(props) {
   const [data, setData] = useState([]);
 
@@ -28,7 +29,7 @@ function TaskBox(props) {
 
   return (
     <>
-      <div className="TaskBox">
+      <div className="TaskBox" >
         {    console.log("Map start")}
         {data.map((task, index) => (
           <Tasknote

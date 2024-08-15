@@ -9,7 +9,7 @@ body {
   overflow: hidden;
   overflow-y: scroll;
   scrollbar-width: none;
-  min-height: 100vh;
+  min-height: 100%;
 }
 
 .text {
@@ -195,6 +195,7 @@ position: fixed;
 .tasknote:hover
 {
   background-color:rgba(76, 83, 114, 0.527) ;
+  cursor: pointer;
   transition: 0.3s;
 }
 .tasktitle
@@ -238,15 +239,27 @@ i:hover {
   height: 30px;
   padding-right: 20px;
 }
+.bigbox
+{
+  display: flex;
+  width: fit-content;
+}
 
 .sidebox
 {
-  position: absolute;
-  z-index: 2;
+  position: relative;
   margin: 40px;
   margin-top: 5px;
-  height: 340px;
-  width: 250px;
+  height:0px;
+  width:0px;
   background-color: red;
   border-radius: 8px;
+  transition: .3s;
+}
+.sidebox.sideboxOpen
+{
+  height: 340px;
+  width: 250px;
+  background-color:blue;
+  transition: .3s;
 }

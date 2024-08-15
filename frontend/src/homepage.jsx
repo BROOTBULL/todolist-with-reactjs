@@ -3,6 +3,12 @@ import $ from "jquery";
 import TaskBox from "./taskbox"
 
 
+ 
+function handleMouseOut()
+{
+    // $(".sidebox").removeClass("sideboxOpen")
+}
+
 function Home() {
     const [isSidebarActive, setIsSidebarActive] = useState(false);
     function togglemenu() {
@@ -49,12 +55,16 @@ function Home() {
             </div>
              
 
-  <div className="bigbox">
-  <div className="sidebox"></div>
+
+ 
+
+ 
+<div className="bigbox" onMouseLeave={handleMouseOut}>
 <div>
 <TaskBox  onAdd={handleAdd} />
 </div>
-  
+<div className="sidebox"></div>
+
 
    
   

@@ -4,18 +4,25 @@ import $ from "jquery";
 import { useEffect } from "react";
 
 
+
+
 function handleClick(event){
     const clickheight=(event).clientY;
-    const clickleft=(event).clientX;
 
    console.log(event.clientY);
 
+   $(".sidebox").toggleClass("sideboxOpen")
+
    $(".sidebox").css({
-    "top":(clickheight)+"px",
-    "left":(clickleft)+"px",
-    
+    "top":(clickheight-130)+"px" , 
 });
+
+
+const index=event.target.id;
+console.log(index);
+$("#"+ index).css(  "grid-row","span 2" );
 }
+
 
 
 
@@ -40,7 +47,7 @@ useEffect(() => {
 
 
     return(
-        <div id={Id} onClick={handleClick} className="tasknote text">
+        <div id={Id}  onClick={handleClick} className="tasknote text">
             <div className="tasktitle">{task}</div>
             <div className="taskdecs" dangerouslySetInnerHTML={{ __html: content }}></div>
         </div>
