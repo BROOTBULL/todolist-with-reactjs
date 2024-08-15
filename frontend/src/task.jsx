@@ -3,6 +3,8 @@ import PropTypes from "prop-types";
 import $ from "jquery";
 import { useEffect } from "react";
 
+
+
 function Tasknote(props) {
   const content = props.content.replace(/\n/g, "<br>");
   const task = props.task;
@@ -20,16 +22,16 @@ function Tasknote(props) {
     $(".editbox").slideToggle(120);
     $(".sidebox").toggleClass("sideboxOpen");
     $("#edit_title").focus();
-
   }
+
 
 function handleMouseMove(event)
 {
     const clickheight = event.pageY;
     const clickleft = event.pageX;
     $(".sidebox").css({
-        top: clickheight + "px",
-        left: clickleft + "px",
+        top: clickheight-20 + "px",
+        left: clickleft-20 + "px",
       });
 }
 
@@ -47,7 +49,7 @@ function handleMouseMove(event)
   }, [tlength, clength, Id]);
 
   return (
-    <div id={Id} onClick={handleClick} onMouseMove={handleMouseMove} className="tasknote text">
+    <div id={Id} onClick={handleClick} onMouseEnter={handleMouseMove} className="tasknote text">
       <div className="tasktitle">{task}</div>
       <div
         className="taskdecs"
