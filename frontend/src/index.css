@@ -260,9 +260,10 @@ i:hover {
   position: absolute;
   z-index: 100;
   margin: 40px;
-height: 0px;
+  padding: 0px;
+  min-height: 0px;
   margin-top: 5px;
-  width:0px;
+  min-width:0px;
   background-image: -webkit-linear-gradient(-30deg,rgb(23, 23, 42) 10%,rgb(9, 9, 21));
   box-shadow: 0px 0px 30px black;
   border-radius: 8px;
@@ -270,16 +271,45 @@ height: 0px;
 }
 .sidebox.sideboxOpen
 {
-  width: 250px;
-  height: 340px;
+  padding: 8px;
+  min-width: 250px;
+  min-height: 65px ;
   transition: .2s;
 }
-.editbox
+.sideboxOptions
 {
+  border-radius: 5px;
+  color: rgba(200, 229, 255, 0.873);
+  margin: 0px;
+  padding: 8px;
+  font-size: 16px;
+  cursor: pointer;
+}
+.sideboxOptions.delete
+{
+  color: rgba(225, 2, 2, 0.845);
+  font-weight: 300;
+}
+.sideboxOptions.delete:hover
+{
+  background-color: rgba(255, 0, 0, 0.033);
+}
+.sideboxOptions.delete .bx
+{
+  padding-left: 70%;
+}
+
+.sideboxOptions:hover
+{
+background-color: rgba(0, 255, 255, 0.047);
+}
+.editform
+{
+  background-image: -webkit-linear-gradient(-30deg,rgba(19, 19, 34, 0.477) 10%,rgba(5, 5, 11, 0.334));
   display: flex;
   flex-direction: column;
+  border-radius: 7px;
   align-items: center;
-  padding: 10px;
 }
 .edit-content
 {
@@ -332,4 +362,11 @@ height: 0px;
 .edit.inputbox::placeholder
 {
   color: rgba(119, 255, 255, 0.286);
+}
+.editbtn:hover
+{
+
+  background-color: rgba(71, 71, 144, 0.314);
+  box-shadow: 0px 0px 5px rgba(152, 194, 214, 0.777);
+  cursor: pointer;
 }

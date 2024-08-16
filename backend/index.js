@@ -74,6 +74,24 @@ app.put('/tasks/:id', async (req, res) => {
 });
 
 
+app.delete('/tasks/:id', async (req, res) => {
+  try {
+    const { id } = req.params;
+    const result = await Listwork.deleteOne({ _id: id });
+
+    if (result.deletedCount === 0) {
+      return res.status(404).send('Task not found');
+    }
+
+    res.send({ message: 'Task deleted successfully', deletedCount: result.deletedCount });
+  } catch (error) {
+    console.error('Error deleting task:', error);
+    res.status(500).send('Internal Server Error');
+  }
+});
+
+
+
 app.listen(3000, () => {
   console.log("Server started on port 3000");
 });

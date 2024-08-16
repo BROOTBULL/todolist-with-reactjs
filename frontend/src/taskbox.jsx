@@ -6,8 +6,9 @@ import PropTypes from "prop-types";
 import $ from "jquery"
 
 function handleMouseOut() {
-  $(".editbox").slideUp(150);
+  $(".sideboxOptions").slideUp(120);
   $(".sidebox").removeClass("sideboxOpen");
+  $(".editform").slideUp(120);
   $(".des-box").slideUp(500);
 
 }
@@ -15,6 +16,7 @@ function handleMouseOut() {
 
 function TaskBox(props)
  {
+
 
 
   const [id, setid] = useState();
@@ -25,7 +27,52 @@ function TaskBox(props)
   });
 
 
-  function handleSubmit(event) {
+
+
+function handleEdit()
+{
+  $(".editform").slideToggle(120);
+  $(".sideboxOptions").slideUp(120);
+  $("#edit_title").focus()
+}
+
+
+function handleLeavesidebox()
+{   
+  $(".sidebox").removeClass("sideboxOpen");
+  $(".sideboxOptions").slideUp(120);
+  $(".editform").slideUp(120);
+  
+}
+
+
+
+function handledelete()
+{
+
+  if (id) {
+    axios.delete(`http://localhost:3000/tasks/${id}`)
+      .then(response => {
+        console.log('Task deleted successfully:', response.data);
+        fetchTasks(); // Refresh the task list
+      })
+      .catch(error => {
+        console.error('Error updating task:', error);
+      });
+  } else {
+    console.error('ID or edit data is missing.');
+  }
+
+
+
+  $(".editform").slideUp(120);
+  $(".sideboxOptions").slideUp(120);
+  $(".sidebox").removeClass("sideboxOpen");
+}
+
+
+  function handleSubmit(event) 
+  {
 
    event.preventDefault()
    console.log(editData)
@@ -47,11 +94,12 @@ function TaskBox(props)
     console.error('ID or edit data is missing.');
   }
 
-  $(".editbox").slideUp(150);
-  $(".sidebox").removeClass("sideboxOpen");
 
-  
-  }
+
+  $(".sidebox").removeClass("sideboxOpen");
+  $(".editform").slideUp(120);
+
+}
 
 
 
@@ -93,14 +141,17 @@ function TaskBox(props)
       <Input onAdd={handleAdd} />
  
 
-      <div className="sidebox">
+      <div className="sidebox" onMouseLeave={handleLeavesidebox} >
+           <div className="text sideboxOptions" onClick={handleEdit} style={{display:"none"}}>Edit
+            
+           </div>
     
               <form
-                className="editbox"
+                className="editform"
                 onSubmit={handleSubmit}
                 style={{ display: "none" }}
               >
-                    <h1 className="text" style={{margin:"0px",fontSize:"20px"}}>Edit</h1>
+                  
                 <input
                   id="edit_title"
                   className="edit-title edit inputbox"
@@ -110,6 +161,7 @@ function TaskBox(props)
                   placeholder="Title"
                   type="text"
                   autoComplete="off"
+                  required
                 />
                 <textarea
                   className="edit-content edit inputbox"
@@ -122,6 +174,7 @@ function TaskBox(props)
                 />
                 <button className="editbtn">edit</button>
               </form>
+              <h3 className="text sideboxOptions delete" onClick={handledelete} style={{display:"none"}}>Delete<i className='bx bxs-x-square'></i></h3>
             </div>
             </div>
     </>

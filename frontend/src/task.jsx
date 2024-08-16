@@ -13,27 +13,28 @@ function Tasknote(props) {
   const tlength = props.taskLength;
   const clength = props.contentLength;
 
-  function handleClick(event) {
 
-    console.log(event.target.id);
+
+  function handleClick(event)
+   {
+    
     props.onEdit(event.target.id);
   
-    console.log(event.target);
-    $(".editbox").slideToggle(120);
+
+
+    const clickheight =event.target.offsetTop;
+    const clickleft = event.target.offsetLeft;
+    $(".sidebox").css({
+        top: clickheight + "px",
+        left: clickleft+150 + "px",
+      });
+
+
+    $(".sideboxOptions").slideToggle(120);
     $(".sidebox").toggleClass("sideboxOpen");
     $("#edit_title").focus();
   }
 
-
-function handleMouseMove(event)
-{
-    const clickheight = event.pageY;
-    const clickleft = event.pageX;
-    $(".sidebox").css({
-        top: clickheight-20 + "px",
-        left: clickleft-20 + "px",
-      });
-}
 
 
   useEffect(() => {
@@ -49,7 +50,7 @@ function handleMouseMove(event)
   }, [tlength, clength, Id]);
 
   return (
-    <div id={Id} onClick={handleClick} onMouseEnter={handleMouseMove} className="tasknote text">
+    <div id={Id} onClick={handleClick} className="tasknote text">
       <div className="tasktitle">{task}</div>
       <div
         className="taskdecs"
