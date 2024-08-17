@@ -46,7 +46,7 @@ function Input(props) {
         console.log("handle submit")
     
         try {
-            await axios.post('http://localhost:3000/', newtask);
+            await axios.post(`http://localhost:3000/`, newtask);
             console.log("axios post")
             if (props.onAdd) props.onAdd();
              console.log("onAdd executed")
@@ -94,6 +94,10 @@ function Input(props) {
             id="description"
             required
             > </textarea>
+
+            {/* <input type="date" /> */}
+
+
             <button type="submit" className="addbtn"><i className='bx bx-plus' ></i></button>
            </div>
         

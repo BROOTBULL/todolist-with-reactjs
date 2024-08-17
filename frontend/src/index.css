@@ -12,6 +12,8 @@ body {
   min-height: 100%;
 }
 
+.bx{cursor: pointer;}
+
 .text {
   color: white;
   font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
@@ -95,11 +97,11 @@ position: fixed;
 {
   display: flex;
   flex-direction: column;
-  width:600px;
+  width:580px;
   margin-top: 20px;
   border-radius: 7px;
   box-shadow: 0px 0px 4px rgb(91, 100, 137);
-  margin-bottom: 100px;
+  margin-bottom: 30px;
 }
 .inputbox::placeholder
 {
@@ -126,7 +128,7 @@ position: fixed;
 #description
 {
   color: rgb(156, 186, 213);
-  width: 564px;
+  width: 524px;
   overflow-y: hidden;
   box-sizing: border-box;
   min-height:68px;
@@ -179,9 +181,10 @@ position: fixed;
   grid-template-columns:repeat(3,1fr);
   grid-auto-rows: 100px;
   grid-gap: 5px;
-  width: 600px;
+  width: 580px;
   color:rgb(172, 178, 212);
   padding: 5px;
+  margin: 10px;
 }
 .tasknote
 { width: 100%;
@@ -233,6 +236,13 @@ i:hover {
   padding: 8px;
   padding-top: 13px;
   padding-left: 0px;
+  border-radius: 7px;
+}
+.menubtn:hover
+{
+  text-shadow: 0px 0px 10px rgb(184, 180, 255);
+  transition: .2s
+
 }
 
 .viewbtn {
@@ -250,9 +260,10 @@ i:hover {
   flex-direction: column;
   align-items: center;
   width: fit-content;
-  padding-right: 250px ;
-  padding-bottom: 340px;
   margin-left: 60px;
+  border-radius: 7px;
+  border-width: 4px;
+  /* background-color: rgba(15, 16, 33, 0.547); */
 }
 
 .sidebox
@@ -369,4 +380,41 @@ background-color: rgba(0, 255, 255, 0.047);
   background-color: rgba(71, 71, 144, 0.314);
   box-shadow: 0px 0px 5px rgba(152, 194, 214, 0.777);
   cursor: pointer;
+}
+
+/* /////////////////// Section /////////////////// */
+.section
+{
+  display: flex;
+  width: 600px;
+  height: 50px;
+  background-image: -webkit-linear-gradient(30deg,rgb(18, 18, 41)1%,rgb(46, 46, 85) 50%,rgb(18, 18, 41));
+  box-shadow: 0px 2px 4px rgba(152, 167, 255, 0.577);
+  color: rgba(194, 226, 255, 0.773);
+  align-items: center;
+  justify-content: space-between;
+  margin-left: 65px;
+  border-radius: 7px;
+  margin-bottom: 10px;
+}
+.sectionName
+{
+border-radius: 5px;
+font-size: 20px;
+border: 0px;
+background-color: rgba(0, 0, 0, 0);
+height: fit-content;
+align-content: center;
+min-width:fit-content;
+margin: 10px;
+}
+.sectionName:focus
+{
+  outline-style:solid;
+  outline-color:rgba(73, 68, 125, 0.33) ;
+}
+
+.section .bx
+{
+  padding: 18px;
 }

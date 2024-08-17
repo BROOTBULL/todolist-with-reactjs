@@ -1,0 +1,47 @@
+[33mcommit 7f7f55d1439110d0e80fdbd1a5a305bb9d762935[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m)[m
+Author: Arjit Gupta <arjit0228@gmai.com>
+Date:   Fri Aug 16 16:24:24 2024 +0530
+
+    added edit and delete btn
+
+[33mcommit 73f906186f23acf654b20348253e54ec57543581[m[33m ([m[1;31morigin/main[m[33m)[m
+Author: Arjit Gupta <arjit0228@gmai.com>
+Date:   Fri Aug 16 03:01:22 2024 +0530
+
+    onmouseEnter
+
+[33mcommit 890cc95c04381b805eb23a3e2a03ad8422857c7c[m
+Author: Arjit Gupta <arjit0228@gmai.com>
+Date:   Fri Aug 16 02:31:43 2024 +0530
+
+    made edit window to follow mouse until click which makes it appear it open from the pointed place
+
+[33mcommit b7154a052dde7daf482ae2d482dd7c44fba7ff31[m
+Author: Arjit Gupta <arjit0228@gmai.com>
+Date:   Fri Aug 16 02:17:59 2024 +0530
+
+    made floating window editing window it now put values via axios
+
+[33mcommit ea382f5691fbeb08e1aaf5f5dc3a317a3691cd02[m
+Author: Arjit Gupta <arjit0228@gmai.com>
+Date:   Thu Aug 15 15:45:02 2024 +0530
+
+    edit window is now fixed on right
+
+[33mcommit 554be05c68fda840cfcb29666e9dc81ac4c82a89[m
+Author: Arjit Gupta <arjit0228@gmai.com>
+Date:   Thu Aug 15 04:05:09 2024 +0530
+
+    made a floating window with onmousemove property
+
+[33mcommit c3f30dec34b285df4708da4671aca9dca625ff92[m
+Author: Arjit Gupta <arjit0228@gmai.com>
+Date:   Thu Aug 15 02:17:19 2024 +0530
+
+    updated the backend respond on post req
+
+[33mcommit 04cc3927c5d36c1fec01fa35bcc2d202a1829542[m
+Author: Arjit Gupta <arjit0228@gmai.com>
+Date:   Thu Aug 15 00:17:26 2024 +0530
+
+    1st
