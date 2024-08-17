@@ -21,21 +21,44 @@ async function connectToMongo() {
 }
 connectToMongo();
 
-const itemSchema = new mongoose.Schema({
+const taskSchema = new mongoose.Schema({
   title: String,
   description: String,
   time: String,
 });
 
-const Listwork = mongoose.model("List", itemSchema);
+const sectionSchema=new mongoose.Schema({
+  sectionName:String,
+  tasks:[taskSchema]
+})
 
-app.post("/", async (req, res) => {
+const projectSchema=new mongoose.Schema({
+  projectName:String,
+  sections:[sectionSchema]
+})
+
+const TodoList = mongoose.model("TodoTask", projectSchema);
+
+
+ app.post("/", async (req, res) => {
   try {
-    const tasklist = req.body;
+    const tasklist = req.body; // { title: '1', description: '1' }
     console.log("Received tasklist:", tasklist);
 
-    const list = new Listwork(tasklist);
-    await list.save();
+    const list = await TodoList.findOne({ projectName: "HomeWork" });
+
+    if (!list) {
+      return res.status(404).send("TodoList not found"); 
+    }
+    const section = list.sections.find(sec => sec.sectionName === "Work"); 
+
+    if (section) {
+      section.tasks.push(tasklist);
+    } else {
+      return res.status(404).send("Section not found"); 
+    }
+
+    await list.save(); // Save the updated TodoList document
 
     console.log("Task saved successfully");
     res.status(201).send("Task saved successfully"); // Send success response with status code 201
@@ -46,12 +69,26 @@ app.post("/", async (req, res) => {
 });
 
 
+
+
+
 app.get("/", async (req, res) => {
   try {
-    const lists = await Listwork.find();
-    res.status(200).json(lists); // Send JSON response with status code 200
+    const list = await TodoList.findOne({ projectName: "HomeWork" });
+    if (!list) {
+      return res.status(404).send("TodoList not found"); 
+    }
+    const section = list.sections.find(sec => sec.sectionName === "Work");
+const tasks=section.tasks;
+    console.log(tasks); 
+
+    if (section) {
+      res.status(200).json(tasks);
+    } else {
+      return res.status(404).send("Section not found"); // Handle case where section is not found
+    }
   } catch (err) {
-    console.error("Error fetching tasks:", err);
+    console.error("Error fetching tasks:", err); // Log the error
     res.status(500).send("Error fetching tasks"); // Send error response with status code 500
   }
 });

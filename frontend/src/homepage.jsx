@@ -1,6 +1,7 @@
 import { useState } from "react";
 import $ from "jquery";
 import TaskBox from "./taskbox";
+import InputSections from "./inputSection";
 
 
 
@@ -64,6 +65,7 @@ function Home() {
             </button>
           </div>
 
+          <InputSections/>
           <TaskBox onAdd={handleAdd} />
 
             

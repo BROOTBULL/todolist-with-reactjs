@@ -23,8 +23,8 @@ async function handleSectionName(event)
 { 
   event.preventDefault();
 
-  const sectionName=$(".sectionName").val();
-  console.log(sectionName);
+  const EditsectionName=$(".EditsectionName").val();
+  console.log(EditsectionName);
 
   // try
   // {
@@ -51,6 +51,7 @@ function TaskBox(props)
     try {
       const response = await axios.get('http://localhost:3000/');
       setData(response.data);
+      console.log(data)
     } catch (error) {
       console.error('Error fetching tasks:', error);
     }
@@ -67,8 +68,8 @@ function TaskBox(props)
 
   return (
     <>
-    <form onSubmit={handleSectionName} className="section">
-    <input className="text sectionName" defaultValue={"Home"} ></input>
+    <form onSubmit={handleSectionName} className="Editsection">
+    <input className="text EditsectionName" defaultValue={"Home"} ></input>
     <i className='bx bxs-chevron-down'  onClick={()=>{$(".bigbox").slideToggle(300)}} ></i>
     </form>
    
