@@ -51,7 +51,7 @@ function TaskBox(props)
     try {
       const response = await axios.get('http://localhost:3000/');
       setData(response.data);
-      console.log(data)
+      console.log(response.data)
     } catch (error) {
       console.error('Error fetching tasks:', error);
     }

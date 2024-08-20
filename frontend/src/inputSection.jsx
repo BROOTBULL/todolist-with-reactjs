@@ -1,12 +1,15 @@
 import axios from "axios";
 import { useState } from "react";
+import PropTypes from "prop-types"
 
 
 
 
 
-function InputSections()
+
+function InputSections(props)
 {
+    const activeProject =props.activeProject;
 
 const [sectionName,setSectionName]=useState("")
 
@@ -15,7 +18,7 @@ const [sectionName,setSectionName]=useState("")
 {
     e.preventDefault();
     try {
-        await axios.post(`http://localhost:3000/section`,{secname:sectionName});
+        await axios.post(`http://localhost:3000/${activeProject}`,{sectionName:sectionName,tasks:[]});
         console.log(sectionName)
 
     } catch (error) {
@@ -27,15 +30,25 @@ const [sectionName,setSectionName]=useState("")
 
     return(
 <>
-<form onSubmit={handleSubmit}>
-    <input 
+<form className="addSections" onSubmit={handleSubmit}>
+    <input
+     
     type="text"
     onChange={(e)=>{setSectionName(e.target.value)}}
     name="SectionName" 
     id="InputSection"
-    value={sectionName} />
+    placeholder="Add sections.."
+    value={sectionName} 
+    autoComplete="off"
+    />
+    <i className='bx bx-plus'></i>
 </form>
 </> 
 )
 }
+InputSections.propTypes=
+{
+   activeProject: PropTypes.string.isRequired
+}
+
 export default InputSections

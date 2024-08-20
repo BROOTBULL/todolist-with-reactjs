@@ -29,7 +29,7 @@ body {
 .sidebar {
 position: fixed;
   min-height: 100vh;
-  width: 0%;
+  width: 0px;
   transition: 0.3s;
   background-image: -webkit-linear-gradient(
     90deg,
@@ -39,7 +39,7 @@ position: fixed;
 }
 
 .sidebar.active {
-  width: 16%;
+  width: 250px;
   transition: 0.3s;
 }
 
@@ -47,6 +47,7 @@ position: fixed;
 
 .navbox {
   padding: 10px 8px 0px 5px;
+  transition: .3s;
 }
 
 .navitem {
@@ -56,13 +57,34 @@ position: fixed;
   align-content: center;
   font-size: 14px;
   background-color: rgba(10, 30, 50, 0.21);
+  transition: .3s;
+}
+.projects
+{
+  border-radius: 6px;
+  height: 35px;
+  margin-bottom: 3px;
+  align-content: center;
+  font-size: 12px;
+  transition: .3s;
+  background-color: rgba(31, 96, 160, 0.21);
+}
+.projectbox{
+  padding: 5px;
+  cursor: pointer;
+}
+.navitem:hover
+{
+  background-color: rgba(18, 59, 99, 0.21);
+  cursor: pointer;
+  transform: .2;
 }
 .profile {
   font-size: 18px;
   margin-bottom: 25px;
 }
 
-.navitem a {
+a {
   color: rgba(201, 230, 255, 0.752);
   text-decoration: none;
   padding-left: 10px;
@@ -71,7 +93,7 @@ position: fixed;
 /* ///////////////// Main ////////////////// */
 .changeMainBody
 {
-  margin-left: 16%;
+  margin-left: 250px;
   transition: .3s;
 }
 
@@ -91,6 +113,35 @@ position: fixed;
   margin-bottom: 20px;
   font-size: 40px;
 }
+/* ///////////////// Sections ////////////////// */
+
+.addSections
+{
+  display: flex;
+  width: 600px;
+  height: 40px;
+  margin-left: 30px;
+  border-radius: 7px; 
+  box-shadow:inset 0px 0px 10px rgba(197, 197, 255, 0.326);
+  align-items: center;
+}
+.addSections .bx{
+color: rgba(208, 233, 255, 0.482) ;
+font-size: 30px;
+}
+#InputSection
+{
+ color: rgb(208, 233, 255);
+ height: 35px;
+ width: 550px;
+ background-color: transparent;
+ border:0px ;
+ letter-spacing: 2px;
+ outline: none;
+ padding-left: 10px;
+ background-color: rgba(4, 4, 30, 0.048);
+}
+
 /* ///////////////// inputbox ////////////////// */
 
 .inputform
@@ -422,4 +473,39 @@ margin: 10px;
 .Editsection .bx:hover
 {
   text-shadow: 0px 0px 8px rgb(196, 237, 255);
+}
+
+/* /////////////////// Project /////////////////// */
+
+#InputProject
+{
+color: aliceblue;
+border: 0px;
+height:35px;
+padding-left: 10px;
+margin-left: 5px;
+width: 215px;
+outline: none;
+background-color: rgba(18, 59, 99, 0.21);
+border-radius: 5px;
+}
+.inputproject.openproject
+{
+  height: 90px;
+  transition: .3s;
+}
+.inputproject
+{
+  border-radius: 6px;
+  height: 45px;
+  margin-bottom: 3px;
+  font-size: 14px;
+  background-color: rgba(10, 30, 50, 0.21);
+  transition: .3s;
+}
+.Addtask
+{
+  padding:15px 0px;
+  color: rgba(201, 230, 255, 0.752);
+  padding-left: 10px;
 }
