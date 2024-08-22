@@ -11,16 +11,20 @@ function InputSections(props)
 {
     const activeProject =props.activeProject;
 
-const [sectionName,setSectionName]=useState("")
+const [sectionName,setSectionName]=useState({
+    sectionName:"",task:[]
+})
 
 
     async function handleSubmit(e)
 {
     e.preventDefault();
     try {
-        await axios.post(`http://localhost:3000/${activeProject}`,{sectionName:sectionName,tasks:[]});
-        console.log(sectionName)
-
+        await axios.post(`http://localhost:3000/${activeProject}`,sectionName);
+        console.log("Section Names: ",sectionName)
+        setSectionName({sectionName:"",tasks:[]});
+        props.AddSection()
+      
     } catch (error) {
         console.error('Error posting data:', error);
     }
@@ -34,11 +38,11 @@ const [sectionName,setSectionName]=useState("")
     <input
      
     type="text"
-    onChange={(e)=>{setSectionName(e.target.value)}}
+    onChange={(e)=>{setSectionName({ ...sectionName, sectionName: e.target.value })}}
     name="SectionName" 
     id="InputSection"
-    placeholder="Add sections.."
-    value={sectionName} 
+    value={sectionName.sectionName}
+    placeholder="Add sections.." 
     autoComplete="off"
     />
     <i className='bx bx-plus'></i>
@@ -48,7 +52,9 @@ const [sectionName,setSectionName]=useState("")
 }
 InputSections.propTypes=
 {
-   activeProject: PropTypes.string.isRequired
+   activeProject: PropTypes.string.isRequired,
+   AddSection: PropTypes.func
+
 }
 
 export default InputSections

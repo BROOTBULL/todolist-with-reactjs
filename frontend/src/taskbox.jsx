@@ -43,13 +43,14 @@ function TaskBox(props)
 
   const [index, setindex] = useState();
   const [data, setData] = useState([]);
-
+  const projectName=props.activeProject;
+  const section=props.section;
 
 
 
   const fetchTasks = async () => {
     try {
-      const response = await axios.get('http://localhost:3000/');
+      const response = await axios.get(`http://localhost:3000/${props.activeProject}/${props.section}/`);
       setData(response.data);
       console.log(response.data)
     } catch (error) {
@@ -63,18 +64,17 @@ function TaskBox(props)
 
   const handleAdd = () => {
     fetchTasks(); // Refresh the task list
-    if (props.onAdd) props.onAdd(); // Call onAdd if provided
   };
 
   return (
     <>
     <form onSubmit={handleSectionName} className="Editsection">
-    <input className="text EditsectionName" defaultValue={"Home"} ></input>
-    <i className='bx bxs-chevron-down'  onClick={()=>{$(".bigbox").slideToggle(300)}} ></i>
+    <input className="text EditsectionName" defaultValue={section} ></input>
+    <i className='bx bxs-chevron-down'  onClick={()=>{$(`#${section}`).slideToggle(300)}} ></i>
     </form>
    
 
-    <div className="bigbox" style={{display:"none"}} onMouseLeave={handleMouseOut}>
+    <div id={section} className="bigbox" style={{display:"none"}} onMouseLeave={handleMouseOut}>
     <div className="TaskBox" >
         {data.map((task, index) => (
           <Tasknote
@@ -89,7 +89,11 @@ function TaskBox(props)
         ))}
       </div>
 
-      <Input onAdd={handleAdd} />
+      <Input 
+      onAdd={handleAdd} 
+      projectName={projectName}
+      section={section}
+       />
 
       <FloatingEditBox Id={index} fetchTasks={fetchTasks}/>
 
@@ -100,7 +104,9 @@ function TaskBox(props)
 
 TaskBox.propTypes=
 {
-   onAdd: PropTypes.func.isRequired
+   activeProject: PropTypes.string.isRequired,
+   section: PropTypes.string.isRequired
+
 }
 
 export default TaskBox;

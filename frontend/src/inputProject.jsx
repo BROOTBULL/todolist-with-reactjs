@@ -16,7 +16,10 @@ $("#InputProject").focus();
 
 function InputProjects(props)
 {
-    const [ProjectName,setProjectName]=useState("");
+    const [ProjectName,setProjectName]=useState({
+        projectName:"",
+        sections:[]
+    });
 
 
     
@@ -30,9 +33,12 @@ function InputProjects(props)
         e.preventDefault()
         console.log(ProjectName)
         try {
-            await axios.post(`http://localhost:3000/projects`,{projectName:ProjectName ,sections:[]});
+            await axios.post(`http://localhost:3000/projects`,ProjectName);
             console.log("axios post project name")
-    
+            setProjectName({
+                projectName:"",
+                sections:[]
+            })
         } catch (error) {
             console.error('Error posting data:', error);
         }
@@ -51,7 +57,8 @@ function InputProjects(props)
     name="projectName" 
     id="InputProject"
     style={{display:"none"}}
-    onChange={(e)=>{setProjectName(e.target.value)}}
+    value={ProjectName.projectName}
+    onChange={(e)=>setProjectName({...ProjectName , projectName:e.target.value})}
     autoComplete="off"
     />
 </form>

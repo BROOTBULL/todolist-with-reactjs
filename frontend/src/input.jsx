@@ -5,6 +5,8 @@ import axios from "axios";
 
 
 function Input(props) {
+
+
     const [newtask,setnewTask]=useState({
         title:"",
         description:"",
@@ -46,7 +48,7 @@ function Input(props) {
         console.log("handle submit")
     
         try {
-            await axios.post(`http://localhost:3000/`, newtask);
+            await axios.post(`http://localhost:3000/${props.projectName}/${props.section}/`, newtask);
             console.log("axios post")
             if (props.onAdd) props.onAdd();
              console.log("onAdd executed")
@@ -67,7 +69,7 @@ function Input(props) {
     
       <form 
       className="inputform" 
-      onClick={()=> {$(".des-box").slideDown(300);}} 
+      onClick={()=> {$(`#${props.section}.des-box`).slideDown(300);}} 
       onSubmit={HandleSubmit}
       >
         
@@ -83,7 +85,7 @@ function Input(props) {
             > </input>
             
         
-           <div className=" des-box"    style={{display:"none"}}>
+           <div id={props.section} className=" des-box "    style={{display:"none"}}>
            <textarea
             onChange={handleChange}
             className="descriptionbox inputbox text"
@@ -108,6 +110,8 @@ function Input(props) {
 
 Input.propTypes=
 {
-   onAdd: PropTypes.func.isRequired
+   onAdd: PropTypes.func.isRequired,
+   projectName: PropTypes.string.isRequired,
+   section: PropTypes.string.isRequired
 }
 export default Input

@@ -1,9 +1,8 @@
 import { useState,useEffect } from "react";
 import $ from "jquery";
-// import TaskBox from "./taskbox";
 import InputProjects from "./inputProject";
 import axios from "axios";
-import InputSections from "./inputSection";
+import ProjectBox from "./projectbox";
 
 
 
@@ -11,10 +10,14 @@ import InputSections from "./inputSection";
 
 function Home() {
   const [isSidebarActive, setIsSidebarActive] = useState(false);
-  const [activeProject,setActiveProject]=useState("TodoList");
+  const [activeProject,setActiveProject]=useState("Home");
   const [data, setData] = useState([]);
 
-
+function selectProject(e)
+{
+  console.log(e.target.id);
+  setActiveProject(e.target.id);
+}
 
 
 
@@ -57,7 +60,7 @@ useEffect(() => {
 
             <div className="projectbox">
             {data.map((project,index)=>(
-                <div className="projects" id={project.projectName} onClick={(e)=>{console.log(e.target.id);setActiveProject(e.target.id)}} key={index}>
+                <div className="projects" id={project.projectName} onClick={selectProject} key={index}>
                 <a style={{pointerEvents:"none"}}>{project.projectName}</a>
                 </div>
             ))}
@@ -95,8 +98,9 @@ useEffect(() => {
 
 
 
+          <ProjectBox activeProject={activeProject}/>
 
-          <InputSections activeProject={activeProject}/>
+
 
           {/* <TaskBox activeProject={activeProject} onAdd={handleAdd} /> */}
 
@@ -106,5 +110,7 @@ useEffect(() => {
     </>
   );
 }
+
+
 
 export default Home;

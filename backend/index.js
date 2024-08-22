@@ -46,7 +46,7 @@ app.post("/projects", async (req, res) => {
     console.log("Received tasklist:", ProjectName);
 
 const project =new TodoWebsite(ProjectName);
-project.sections.push({sectionName:"Routiens",tasks:[]})
+project.sections.push({sectionName:"Routiens",tasks:[{title:"Task tittle",description:"Task descriptions ..."}]})
     await project.save(); // Save the updated TodoWebsite document
 
     console.log("project saved successfully");
@@ -72,17 +72,24 @@ app.get("/projects", async (req, res) => {
 
 
 
- app.post("/", async (req, res) => {
+ app.post("/:project/:section/", async (req, res) => {
+
+  
+const projectName=req.params.project;
+const sectionName=req.params.section;
+
+
   try {
+
     const tasklist = req.body; // { title: '1', description: '1' }
     console.log("Received tasklist:", tasklist);
 
-    const list = await TodoWebsite.findOne({ projectName: "HomeWork" });
+    const list = await TodoWebsite.findOne({ projectName: projectName });
 
     if (!list) {
       return res.status(404).send("TodoWebsite not found"); 
     }
-    const section = list.sections.find(sec => sec.sectionName === "Work"); 
+    const section = list.sections.find(sec => sec.sectionName === sectionName); 
 
     if (section) {
       section.tasks.push(tasklist);
@@ -124,13 +131,37 @@ app.post("/:project", async (req, res) => {
 });
 
 
-app.get("/", async (req, res) => {
+app.get("/:project", async (req, res) => {
   try {
-    const list = await TodoWebsite.findOne({ projectName: "HomeWork" });
+    const projectName = req.params.project; // Extract the project name from params   important
+
+    const project= await TodoWebsite.findOne({ projectName: projectName });
+
+    if (!project) {
+      return res.status(404).send("Project not found");
+    }
+
+    res.status(200).json(project.sections);
+
+  } catch (err) {
+    console.error("Error updating tasks:", err); // Log the error
+    res.status(500).send("Error updating tasks"); // Send error response with status code 500
+  }
+});
+
+
+app.get("/:project/:section/", async (req, res) => {
+
+const projectName=req.params.project;
+const sectionName=req.params.section;
+
+
+  try {
+    const list = await TodoWebsite.findOne({ projectName: projectName });
     if (!list) {
       return res.status(404).send("TodoWebsite not found"); 
     }
-    const section = list.sections.find(sec => sec.sectionName === "Work");
+    const section = list.sections.find(sec => sec.sectionName === sectionName);
     const tasks=section.tasks;
 
     if (section) {
