@@ -1,5 +1,5 @@
 import $ from "jquery"
-import { useState } from "react";
+import { useState,useEffect } from "react";
 import axios from "axios";
 import PropTypes from "prop-types";
 
@@ -37,10 +37,16 @@ function FloatingEditBox(props)
     const id=props.Id;
 
     const [editData, setEditData] = useState({
-        title:"",
-        description:""
+      title: props.title,
+      description: props.content,
       });
-    
+      
+      useEffect(() => {
+        setEditData({
+          title: props.title,
+          description: props.content,
+        });
+      }, [props.title, props.content]);
 
     
 
@@ -48,7 +54,7 @@ function handledelete()
 {
 
   if (id) {
-    axios.delete(`http://localhost:3000/tasks/${id}`)
+    axios.delete(`http://localhost:3000/${props.projectName}/${props.section}/${id}`)
       .then(response => {
         console.log('Task deleted successfully:', response.data);
         props.fetchTasks(); // Refresh the task list
@@ -78,7 +84,7 @@ function handleSubmit(event)
  console.log(editData)
  
  if (id && editData) {
-  axios.put(`http://localhost:3000/tasks/${id}`, editData)
+  axios.put(`http://localhost:3000/${props.projectName}/${props.section}/${id}`, editData)
     .then(response => {
       console.log('Task updated successfully:', response.data);
       setEditData({
@@ -129,7 +135,7 @@ $(".editform").slideUp(120);
                className="edit-content edit inputbox"
                onChange={(e) => setEditData({ ...editData, description: e.target.value })}
                name="edit_content"
-               value={editData.description}
+               value={editData.description.replace(/<[^>]*>/g, '')}
                placeholder="description"
                type="text"
                autoComplete="off"
@@ -147,6 +153,10 @@ $(".editform").slideUp(120);
 
 FloatingEditBox.propTypes={
   Id: PropTypes.string,
+  section: PropTypes.string,
+  projectName: PropTypes.string,
+  title: PropTypes.string,
+  content: PropTypes.string,
   fetchTasks:PropTypes.func.isRequired
 }
 

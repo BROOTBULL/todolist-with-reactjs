@@ -140,6 +140,7 @@ app.get("/:project", async (req, res) => {
     if (!project) {
       return res.status(404).send("Project not found");
     }
+console.log("happy:",project.sections);
 
     res.status(200).json(project.sections);
 
@@ -175,18 +176,20 @@ const sectionName=req.params.section;
   }
 });
 
-app.put('/tasks/:id', async (req, res) => {
-  const { id } = req.params;
+app.put('/:project/:section/:id', async (req, res) => {
+  const id = req.params.id;
+  const projectName =req.params.project;
+  const sectionName =req.params.section;
   console.log("put:", req.body);
   
   try {
-    const list = await TodoWebsite.findOne({ projectName: "HomeWork" });
+    const list = await TodoWebsite.findOne({ projectName:projectName });
 
     if (!list) {
       return res.status(404).send("TodoWebsite not found"); 
     }
 
-    const section = list.sections.find(sec => sec.sectionName === "Work");
+    const section = list.sections.find(sec => sec.sectionName === sectionName);
 
     if (!section) {
       return res.status(404).send("Section not found"); 
@@ -208,15 +211,17 @@ app.put('/tasks/:id', async (req, res) => {
   }
 });
 
-app.delete('/tasks/:id', async (req, res) => {
-  const { id } = req.params;
+app.delete('/:project/:section/:id', async (req, res) => {
+  const id = req.params.id;
+  const projectName =req.params.project;
+  const sectionName =req.params.section;
 
   try {
-    const list = await TodoWebsite.findOne({ projectName: "HomeWork" });
+    const list = await TodoWebsite.findOne({ projectName:projectName});
     if (!list) {
       return res.status(404).send("TodoWebsite not found");
     }
-    const section = list.sections.find(sec => sec.sectionName === "Work");
+    const section = list.sections.find(sec => sec.sectionName === sectionName);
 
     if (!section) {
       return res.status(404).send("Section not found");
@@ -235,6 +240,68 @@ app.delete('/tasks/:id', async (req, res) => {
     res.status(500).send('Internal Server Error');
   }
 });
+
+
+
+
+
+app.put('/:project/:section', async (req, res) => {
+
+  const EditsectionName=req.body.sectionName;
+  const projectName =req.params.project;
+  const sectionName =req.params.section;
+  console.log("put:", req.body.sectionName);
+  
+  try {
+    const list = await TodoWebsite.findOne({ projectName:projectName });
+
+    if (!list) {
+      return res.status(404).send("TodoWebsite not found"); 
+    }
+
+    const section = list.sections.find(sec => sec.sectionName === sectionName);
+
+    if (!section) {
+      return res.status(404).send("Section not found"); 
+    }
+
+    section.sectionName = EditsectionName;
+    await list.save();
+
+    res.send(section.sectionName);
+  } catch (error) {
+    console.error('Error updating task:', error);
+    res.status(500).send('Internal Server Error');
+  }
+});
+
+
+
+app.delete('/:project/:section', async (req, res) => {
+
+  const projectName =req.params.project;
+  const sectionName =req.params.section;
+
+  try {
+    const list = await TodoWebsite.findOne({ projectName:projectName});
+    if (!list) {
+      return res.status(404).send("TodoWebsite not found");
+    }
+    const section = list.sections.find(sec => sec.sectionName === sectionName);
+
+    if (!section) {
+      return res.status(404).send("Section not found");
+    }
+    section.deleteOne(); 
+    await list.save();
+
+    res.send({ message: 'Task deleted successfully' });
+  } catch (error) {
+    console.error('Error deleting task:', error);
+    res.status(500).send('Internal Server Error');
+  }
+});
+
 
 
 

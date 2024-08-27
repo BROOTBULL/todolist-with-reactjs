@@ -12,7 +12,7 @@ function InputSections(props)
     const activeProject =props.activeProject;
 
 const [sectionName,setSectionName]=useState({
-    sectionName:"",task:[]
+    sectionName:"",task:[{title:"Tasks...",description:"Descriptions..."}]
 })
 
 
@@ -44,6 +44,7 @@ const [sectionName,setSectionName]=useState({
     value={sectionName.sectionName}
     placeholder="Add sections.." 
     autoComplete="off"
+    required
     />
     <i className='bx bx-plus'></i>
 </form>

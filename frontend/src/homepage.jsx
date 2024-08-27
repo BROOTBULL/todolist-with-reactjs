@@ -46,6 +46,8 @@ useEffect(() => {
    
   }
 
+
+
   return (
     <>
       <div className="fullPage">
@@ -89,7 +91,7 @@ useEffect(() => {
                 }
               ></i>
             </button>
-            <h1 className="text">{activeProject}</h1>
+            <h1 id="ProjectHeading" className="text">{activeProject}</h1>
             <button className="viewbtn btn">
               view <i className="bx bx-slider-alt"></i>
             </button>
@@ -102,7 +104,6 @@ useEffect(() => {
 
 
 
-          {/* <TaskBox activeProject={activeProject} onAdd={handleAdd} /> */}
 
             
         </div>
