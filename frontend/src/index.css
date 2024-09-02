@@ -3,7 +3,7 @@ body {
   background-image: -webkit-linear-gradient(
     -50deg,
     rgb(7, 7, 14) 50%,
-    rgb(11, 10, 43)
+    rgb(20, 19, 51)
   );
   margin: 0;
   overflow: hidden;
@@ -28,8 +28,9 @@ body {
 
 .sidebar {
 position: fixed;
+opacity: 1;
   min-height: 100vh;
-  width: 0px;
+  width: 250px;
   transition: 0.3s;
   background-image: -webkit-linear-gradient(
     90deg,
@@ -38,8 +39,9 @@ position: fixed;
   );
 }
 
-.sidebar.active {
-  width: 250px;
+.sidebar.close {
+  width: 0px;
+  opacity: 0;
   transition: 0.3s;
 }
 
@@ -55,27 +57,130 @@ position: fixed;
   height: 45px;
   margin-bottom: 3px;
   align-content: center;
+  font-size: 16px;
+  background-image: -webkit-linear-gradient(
+    50deg,
+    rgba(64, 64, 125, 0.232) 50%,
+    rgba(20, 20, 45, 0.563)
+  );
+  transition: .3s;
+}
+.navitem a
+{
+  pointer-events: none;
+}
+.Addtask
+{
+  display: flex;
+  cursor: pointer;
+  font-size: 16px;
+  height: 45px;
+  align-items: center;
+  margin-bottom: 5px;
+  color: rgba(201, 230, 255, 0.752);
+  background-image: -webkit-linear-gradient(
+    50deg,
+    rgba(64, 64, 125, 0.232) 50%,
+    rgba(20, 20, 45, 0.563)
+  );
+  border-radius: 5px;
+}
+
+
+/* /////////////////// Project /////////////////// */
+
+#InputProject
+{
+color: aliceblue;
+border: 0px;
+height:35px;
+padding-left: 10px;
+margin-left: 5px;
+width: 215px;
+outline: none;
+background-color: rgba(63, 70, 200, 0.279);
+border-radius: 5px;
+}
+
+.inputproject.openproject
+{
+  height: 90px;
+  transition: .3s;
+}
+.inputproject
+{
+  border-radius: 6px;
+  height: 46px;
+  margin-bottom: 3px;
   font-size: 14px;
   background-color: rgba(10, 30, 50, 0.21);
   transition: .3s;
 }
+.Addtask .bx
+{
+  margin-right: 15px;
+}
+.Addtask a
+{
+  align-content: center;
+  height: 100%;
+  width: 190px;
+  margin-right: auto;
+}
+
 .projects
 {
+  display: flex;
   border-radius: 6px;
   height: 35px;
   margin-bottom: 3px;
   align-content: center;
-  font-size: 12px;
+  font-size: 14px;
   transition: .3s;
-  background-color: rgba(31, 96, 160, 0.21);
+  background-color: rgba(84, 112, 225, 0.21);
 }
+.projects:hover
+{
+  background-color: rgba(99, 130, 255, 0.578);
+}
+.projects a
+{
+  align-content: center;
+  min-width:160px;
+  height: 35px;
+}
+
+.projects i
+{
+  margin-left: auto;
+  margin-right: 5px;
+  border-radius: 5px;
+  align-content: center;
+  opacity: 0;
+  padding: 8px;
+  color: rgb(255, 70, 70);
+}
+
+.projects i:hover
+{
+  background-color: rgba(255, 70, 70, 0.281);
+  transition:.2s;
+}
+
+
+.projects:hover i
+{
+opacity: 1;
+transition: .4s;
+}
+
 .projectbox{
   padding: 5px;
   cursor: pointer;
 }
-.navitem:hover
+.navitem:hover,.Addtask:hover
 {
-  background-color: rgba(18, 59, 99, 0.21);
+  background-color: rgba(35, 65, 216, 0.21);
   cursor: pointer;
   transform: .2;
 }
@@ -93,7 +198,10 @@ a {
 /* ///////////////// Main ////////////////// */
 #ProjectHeading
 {
+  font-size: 25px;
+  font-weight: 600;
   padding-left: 25px;
+  margin: 0px;
 }
 .projectBox
 {
@@ -116,6 +224,9 @@ margin-bottom: 250px;
   align-items: center;
   padding: 8px;
   padding-right: 12px;
+  background-image: -webkit-linear-gradient(88deg,rgba(7, 7, 20, 0.336) 35%,rgba(25, 25, 58, 0.708));
+  margin-bottom: 40px;
+
 }
 .head {
   margin: 5px;
@@ -250,7 +361,9 @@ font-size: 15px;
   margin: 6px;
 }
 .tasknote
-{ width: 100%;
+{ 
+  /* padding: 5px; */
+  width: 100%;
   border-radius: 7px;
   height: 100%;
   background-image: -webkit-linear-gradient(
@@ -271,6 +384,8 @@ font-size: 15px;
   font-size: 15px;
   font-weight: 300;
   padding: 4px;
+  margin: 5px;
+  margin-bottom: 0px;
   pointer-events: none;
 }
 .taskdecs
@@ -278,6 +393,8 @@ font-size: 15px;
   color: rgba(173, 180, 216, 0.752);
   font-size: 13px;
   padding: 4px;
+  margin: 5px;
+  margin-top: 0px;
   pointer-events: none;
 }
 
@@ -532,38 +649,3 @@ min-width:fit-content;
   background-color: rgba(0, 255, 255, 0.082);
 }
 
-
-/* /////////////////// Project /////////////////// */
-
-#InputProject
-{
-color: aliceblue;
-border: 0px;
-height:35px;
-padding-left: 10px;
-margin-left: 5px;
-width: 215px;
-outline: none;
-background-color: rgba(18, 59, 99, 0.21);
-border-radius: 5px;
-}
-.inputproject.openproject
-{
-  height: 90px;
-  transition: .3s;
-}
-.inputproject
-{
-  border-radius: 6px;
-  height: 45px;
-  margin-bottom: 3px;
-  font-size: 14px;
-  background-color: rgba(10, 30, 50, 0.21);
-  transition: .3s;
-}
-.Addtask
-{
-  padding:15px 0px;
-  color: rgba(201, 230, 255, 0.752);
-  padding-left: 10px;
-}

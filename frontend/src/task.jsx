@@ -8,6 +8,7 @@ import { useEffect } from "react";
 function Tasknote(props) {
   
   const content = props.content.replace(/\n/g, "<br>");
+  const linebreaks = (props.content.match(/\n/g) || []).length; 
   const task = props.task;
   const Id = props.id;
 
@@ -25,8 +26,8 @@ function Tasknote(props) {
     
 
 
-    $(".sideboxOptions").slideToggle(120);
-    $(".sidebox").toggleClass("sideboxOpen");
+    $(`.${props.section} .sideboxOptions`).slideToggle(120);
+    $(`.${props.section}.sidebox`).toggleClass("sideboxOpen");
     $("#edit_title").focus();
     props.onEdit(event.target.id,taskcontentValue,tasktitleValue);
   }
@@ -47,8 +48,8 @@ function Tasknote(props) {
 }
 
   useEffect(() => {
-    $("#" + Id).css("grid-column",tlength > 20 || clength > 200? tlength > 40? "span 3": "span 2": "span 1");
-    $("#" + Id).css("grid-row", clength > 150 ? "span 2" : "span 1");
+    $("#" + Id).css("grid-column",tlength > 20 || clength > 150? (tlength > 40 || clength > 240? "span 3": "span 2"): "span 1");
+    $("#" + Id).css("grid-row", tlength < 20 && (clength > 80 || linebreaks > 3)? "span 2" : "span 1");
   }, [tlength, clength, Id]);
 
   return (

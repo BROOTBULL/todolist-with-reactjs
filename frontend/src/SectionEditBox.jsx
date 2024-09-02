@@ -9,7 +9,6 @@ import PropTypes from "prop-types";
 function SectionEditBox(props)
 {
 
-  
   function handleLeaveEditbox()
   {   
     $(`.sectionEditBox`).removeClass("sideboxOpen");
@@ -55,7 +54,7 @@ async function handledelete()
     return(
         <div  className={'sectionEditBox '+ props.section} onMouseLeave={handleLeaveEditbox} >
         <div className="text sectionEditOption " onClick={handleEdit} style={{display:"none"}}>Edit</div>
-        <div className="text sectionEditOption delete" onClick={handledelete} style={{display:"none"}}>Delete<i className='bx bxs-x-square'></i></div>
+        <div className="text sectionEditOption delete" onClick={handledelete} style={{display:"none"}}>Delete<i className='bx bx-trash'></i></div>
          </div>
     )
 }

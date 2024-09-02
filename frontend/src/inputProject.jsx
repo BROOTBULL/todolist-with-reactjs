@@ -35,6 +35,7 @@ function InputProjects(props)
         try {
             await axios.post(`http://localhost:3000/projects`,ProjectName);
             console.log("axios post project name")
+            props.ProjectAdded(ProjectName.projectName);
             setProjectName({
                 projectName:"",
                 sections:[]
@@ -42,7 +43,7 @@ function InputProjects(props)
         } catch (error) {
             console.error('Error posting data:', error);
         }
-    props.fetchProjects();
+   
 
     }
     
@@ -51,7 +52,10 @@ function InputProjects(props)
 <>
 <div className="inputproject">
 <form onSubmit={handleSubmit}>
-<div className="Addtask"><a>AddTask</a><i onClick={handleclick} className='bx bx-plus-circle'></i></div>
+<div className="Addtask">
+    <a onClick={handleclick}>AddTask</a>
+  <button style={{all:"unset"}}><i  className='bx bx-plus-circle'></i></button>
+</div>
     <input
     type="text" 
     name="projectName" 
@@ -71,6 +75,6 @@ function InputProjects(props)
 
 InputProjects.propTypes=
 {
-   fetchProjects: PropTypes.func.isRequired
+   ProjectAdded: PropTypes.func.isRequired
 }
 export default InputProjects

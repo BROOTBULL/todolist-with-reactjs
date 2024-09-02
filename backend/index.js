@@ -37,7 +37,7 @@ const projectSchema=new mongoose.Schema({
   sections:[sectionSchema]
 })
 
-const TodoWebsite = mongoose.model("TodoTask", projectSchema);
+const TodoProjects = mongoose.model("TodoTask", projectSchema);
 
 
 app.post("/projects", async (req, res) => {
@@ -45,9 +45,9 @@ app.post("/projects", async (req, res) => {
     const ProjectName = req.body; // {projectName:"value"}
     console.log("Received tasklist:", ProjectName);
 
-const project =new TodoWebsite(ProjectName);
+const project =new TodoProjects(ProjectName);
 project.sections.push({sectionName:"Routiens",tasks:[{title:"Task tittle",description:"Task descriptions ..."}]})
-    await project.save(); // Save the updated TodoWebsite document
+    await project.save(); // Save the updated TodoProjects document
 
     console.log("project saved successfully");
     res.status(201).send("project saved successfully"); // Send success response with status code 201
@@ -61,7 +61,7 @@ project.sections.push({sectionName:"Routiens",tasks:[{title:"Task tittle",descri
 
 app.get("/projects", async (req, res) => {
   try {
-    const list = await TodoWebsite.find();
+    const list = await TodoProjects.find({projectName:{ $ne:"Today"}});
     res.status(200).json(list);
 
   } catch (err) {
@@ -84,10 +84,10 @@ const sectionName=req.params.section;
     const tasklist = req.body; // { title: '1', description: '1' }
     console.log("Received tasklist:", tasklist);
 
-    const list = await TodoWebsite.findOne({ projectName: projectName });
+    const list = await TodoProjects.findOne({ projectName: projectName });
 
     if (!list) {
-      return res.status(404).send("TodoWebsite not found"); 
+      return res.status(404).send("TodoProjects not found"); 
     }
     const section = list.sections.find(sec => sec.sectionName === sectionName); 
 
@@ -97,7 +97,7 @@ const sectionName=req.params.section;
       return res.status(404).send("Section not found"); 
     }
 
-    await list.save(); // Save the updated TodoWebsite document
+    await list.save(); // Save the updated TodoProjects document
 
     console.log("Task saved successfully");
     res.status(201).send("Task saved successfully"); // Send success response with status code 201
@@ -107,12 +107,26 @@ const sectionName=req.params.section;
   }
 });
 
+app.delete('/:project', async (req, res) => {
+
+  const projectName =req.params.project;
+
+  try {
+     await TodoProjects.deleteOne({ projectName:projectName});
+
+    res.send("successfully");
+  } catch (error) {
+    console.error('Error deleting task:', error);
+    res.status(500).send('Internal Server Error');
+  }
+});
+
 app.post("/:project", async (req, res) => {
   try {
     const projectName = req.params.project; // Extract the project name from params   important
     const sections = req.body; // Extract the sections from the request body
 
-    const list = await TodoWebsite.findOne({ projectName: projectName });
+    const list = await TodoProjects.findOne({ projectName: projectName });
 
     if (!list) {
       return res.status(404).send("Project not found");
@@ -135,12 +149,11 @@ app.get("/:project", async (req, res) => {
   try {
     const projectName = req.params.project; // Extract the project name from params   important
 
-    const project= await TodoWebsite.findOne({ projectName: projectName });
+    const project= await TodoProjects.findOne({ projectName: projectName });
 
     if (!project) {
       return res.status(404).send("Project not found");
     }
-console.log("happy:",project.sections);
 
     res.status(200).json(project.sections);
 
@@ -158,9 +171,9 @@ const sectionName=req.params.section;
 
 
   try {
-    const list = await TodoWebsite.findOne({ projectName: projectName });
+    const list = await TodoProjects.findOne({ projectName: projectName });
     if (!list) {
-      return res.status(404).send("TodoWebsite not found"); 
+      return res.status(404).send("TodoProjects not found"); 
     }
     const section = list.sections.find(sec => sec.sectionName === sectionName);
     const tasks=section.tasks;
@@ -183,10 +196,10 @@ app.put('/:project/:section/:id', async (req, res) => {
   console.log("put:", req.body);
   
   try {
-    const list = await TodoWebsite.findOne({ projectName:projectName });
+    const list = await TodoProjects.findOne({ projectName:projectName });
 
     if (!list) {
-      return res.status(404).send("TodoWebsite not found"); 
+      return res.status(404).send("TodoProjects not found"); 
     }
 
     const section = list.sections.find(sec => sec.sectionName === sectionName);
@@ -217,9 +230,9 @@ app.delete('/:project/:section/:id', async (req, res) => {
   const sectionName =req.params.section;
 
   try {
-    const list = await TodoWebsite.findOne({ projectName:projectName});
+    const list = await TodoProjects.findOne({ projectName:projectName});
     if (!list) {
-      return res.status(404).send("TodoWebsite not found");
+      return res.status(404).send("TodoProjects not found");
     }
     const section = list.sections.find(sec => sec.sectionName === sectionName);
 
@@ -253,10 +266,10 @@ app.put('/:project/:section', async (req, res) => {
   console.log("put:", req.body.sectionName);
   
   try {
-    const list = await TodoWebsite.findOne({ projectName:projectName });
+    const list = await TodoProjects.findOne({ projectName:projectName });
 
     if (!list) {
-      return res.status(404).send("TodoWebsite not found"); 
+      return res.status(404).send("TodoProjects not found"); 
     }
 
     const section = list.sections.find(sec => sec.sectionName === sectionName);
@@ -283,9 +296,9 @@ app.delete('/:project/:section', async (req, res) => {
   const sectionName =req.params.section;
 
   try {
-    const list = await TodoWebsite.findOne({ projectName:projectName});
+    const list = await TodoProjects.findOne({ projectName:projectName});
     if (!list) {
-      return res.status(404).send("TodoWebsite not found");
+      return res.status(404).send("TodoProjects not found");
     }
     const section = list.sections.find(sec => sec.sectionName === sectionName);
 

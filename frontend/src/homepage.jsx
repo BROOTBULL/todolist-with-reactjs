@@ -7,16 +7,15 @@ import ProjectBox from "./projectbox";
 
 
 
-
 function Home() {
-  const [isSidebarActive, setIsSidebarActive] = useState(false);
-  const [activeProject,setActiveProject]=useState("Home");
+  const [isSidebarActive, setIsSidebarActive] = useState(true);
+  const [activeProject,setActiveProject]=useState("Today");
   const [data, setData] = useState([]);
 
 function selectProject(e)
 {
-  console.log(e.target.id);
-  setActiveProject(e.target.id);
+  console.log(e.target.title);
+  setActiveProject(e.currentTarget.title);
 }
 
 
@@ -26,15 +25,18 @@ const fetchProjects = async () => {
     const response = await axios.get('http://localhost:3000/projects');
     setData(response.data);
     console.log(response.data)
+
   } catch (error) {
     console.error('Error fetching tasks:', error);
   }
 };
 
+
+
 useEffect(() => {
+ 
   fetchProjects();
 }, []);
-
 
 
 
@@ -42,28 +44,52 @@ useEffect(() => {
     setIsSidebarActive(!isSidebarActive);
 
     $(".navbox").fadeToggle(120);
-    $(".sidebar").toggleClass("active");
+    $(".sidebar").toggleClass("close");
    
   }
 
+  async function handleDeleteProject(e)
+  {
+    const projectDelete=e.target.title;
+    
+    await axios.delete(`http://localhost:3000/${projectDelete}`)
+    .then(response => {
+      console.log('project deleted',response.data);
+      fetchProjects()
+      setActiveProject("Today")
+    })
+    .catch(error => {
+      console.error('Error updating task:', error);
+      
+    });
+
+  }
+
+
+  function ProjectAdded(project)
+  {
+    setActiveProject(project)
+    fetchProjects()
+  }
 
 
   return (
     <>
       <div className="fullPage">
         <div className="sidebar">
-          <div className="text navbox" style={{display:"none"}}>
+          <div className="text navbox" >
           <h1 className="text head">TodoList</h1>
             <div className="navitem profile">
               <a href="">UserName</a>
             </div>
          
-            <InputProjects fetchProjects={fetchProjects}/>
+            <InputProjects ProjectAdded={ProjectAdded}/>
 
             <div className="projectbox">
             {data.map((project,index)=>(
-                <div className="projects" id={project.projectName} onClick={selectProject} key={index}>
-                <a style={{pointerEvents:"none"}}>{project.projectName}</a>
+                <div className="projects" key={index}>
+                <a onClick={selectProject} title={project.projectName} ># {project.projectName}</a>
+                <i className='bx bxs-trash-alt' title={project.projectName} onClick={handleDeleteProject}></i>
                 </div>
             ))}
             </div>
@@ -74,7 +100,7 @@ useEffect(() => {
             <div className="navitem">
               <a href="">Inbox</a>
             </div>
-            <div className="navitem">
+            <div onClick={selectProject} title="Today" className="navitem">
               <a href="">Today</a>
             </div>
             <div className="navitem">
@@ -91,7 +117,7 @@ useEffect(() => {
                 }
               ></i>
             </button>
-            <h1 id="ProjectHeading" className="text">{activeProject}</h1>
+            <h1 id="ProjectHeading" className="text"># {activeProject}</h1>
             <button className="viewbtn btn">
               view <i className="bx bx-slider-alt"></i>
             </button>
@@ -101,9 +127,6 @@ useEffect(() => {
 
 
           <ProjectBox activeProject={activeProject}/>
-
-
-
 
             
         </div>

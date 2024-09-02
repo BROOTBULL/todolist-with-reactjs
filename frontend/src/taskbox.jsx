@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import Tasknote from './task';
 import Input from "./input";
 import axios from "axios";
@@ -16,6 +16,7 @@ import SectionEditBox from "./SectionEditBox";
 
 
 function handleMouseOut() {
+
   $(".sideboxOptions").slideUp(120);
   $(".sidebox").removeClass("sideboxOpen");
   $(".editform").slideUp(120);
@@ -36,9 +37,10 @@ function TaskBox(props)
   const [data, setData] = useState([]);
   const [dataLength,setDataLength]=useState()
   const [clickedSection,setClickedSection]=useState("")
+  const [sectionName, setSectionName] = useState("");
   const projectName=props.activeProject;
   const section=props.section;
-
+  const inputRef = useRef(null);
 
 
 
@@ -67,10 +69,15 @@ function TaskBox(props)
     }
   };
 
+
+
   useEffect(() => {
    
     fetchTasks();
-  
+  }, [props.section]);
+
+  useEffect(() => {
+    setSectionName(props.section);
   }, [props.section]);
   
   useEffect(() => {
@@ -84,6 +91,8 @@ function TaskBox(props)
   useEffect(() => {
     setClickedSection(section);
   }, [section]);
+
+ 
 
 
   function handleEditSection(event)
@@ -126,10 +135,13 @@ function TaskBox(props)
   const EditsectionName=$(`.EditsectionName.${section}`).val();
   console.log(EditsectionName);
 
-  await axios.put(`http://localhost:3000/${props.activeProject}/${props.section}`,{sectionName:EditsectionName,tasks:[]})
+  await axios.put(`http://localhost:3000/${props.activeProject}/${props.section}`,  { sectionName: EditsectionName, tasks: [] })
   .then(response => {
     console.log('section name successfully changed:', response.data);
     props.EditSection();
+    if (inputRef.current) {
+      inputRef.current.blur(); // Remove focus from the input after submission
+    }
   })
   .catch(error => {
     console.error('Error updating task:', error);
@@ -145,51 +157,76 @@ function TaskBox(props)
   return (
     <>
   <div className="sectionBox">
-    <form onSubmit={handleSectionName} className="Editsection">
-    <i className='bx bxs-chevron-down'  onClick={()=>{$(`#${props.section}`).slideToggle(300)}} ></i>
-    <input className={"text EditsectionName "+ section} defaultValue={section} ></input>
-    <div className="text taskNumber">{(dataLength!=0)?(dataLength+" tasks"):""}</div>
-    <i className='bx bx-dots-horizontal-rounded' onClick={handleEditSection} ></i>
+
+    <form 
+    onSubmit={handleSectionName} 
+    className="Editsection"
+    >
+
+    <i 
+    className='bx bxs-chevron-down'  
+    onClick={()=>{$(`#${props.section}`).slideToggle(200)} /**Toggle Bigbox */}
+    />
+
+    <input 
+    ref={inputRef} 
+    name={sectionName}
+    className={"text EditsectionName "+ section}   
+    value={sectionName.replace(/_/g," ")} 
+    onChange={(e) => setSectionName(e.target.value.replace(/ /g,"_"))}
+    />
+
+    <div 
+    className="text taskNumber">
+    {(dataLength!=0)?(dataLength+" tasks"):""}
+    </div>
+
+    <i 
+    className='bx bx-dots-horizontal-rounded' 
+    onClick={handleEditSection} 
+    />
+
     </form>
    
-    <SectionEditBox
-projectName={projectName}
-section={clickedSection}
-DeleteSection={props.EditSection}/>
+      <SectionEditBox
+        projectName={projectName}
+        section={clickedSection}
+        DeleteSection={props.EditSection}
+      />
 
-    <div id={section} className="bigbox"  onMouseLeave={handleMouseOut}>
-    <div className="TaskBox" >
-        {data.map((task, index) => (
-          <Tasknote
-            onEdit={handleOnEdit}
-            section={section}
-            key={index}
-            id={task._id}
-            taskLength={task.title.length}
-            contentLength={task.description.length}
-            task={task.title}
-            content={task.description}
-          />
-        ))}
+      <div id={section} className="bigbox"  onMouseLeave={handleMouseOut}>
+      <div className="TaskBox" >
+          {data.map((task, index) => (
+            <Tasknote
+              onEdit={handleOnEdit}
+              section={section}
+              key={index}
+              id={task._id}
+              taskLength={task.title.length}
+              contentLength={task.description.length}
+              task={task.title}
+              content={task.description}
+            />
+          ))}
+        </div>
+
+        <Input 
+        onAdd={handleAdd} 
+        projectName={projectName}
+        section={section}
+        />
+
+        <FloatingEditBox 
+        Id={passedValues.id}
+        fetchTasks={fetchTasks}
+        title={passedValues.title}
+        content={passedValues.content}
+        projectName={projectName}
+        section={section}
+        />
+
+        </div>
       </div>
-
-      <Input 
-      onAdd={handleAdd} 
-      projectName={projectName}
-      section={section}
-       />
-
-      <FloatingEditBox 
-       Id={passedValues.id}
-       fetchTasks={fetchTasks}
-       title={passedValues.title}
-       content={passedValues.content}
-       projectName={projectName}
-       section={section}
-       />
-
-      </div>
-    </div>
     </>
   );
 }

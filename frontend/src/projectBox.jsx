@@ -4,33 +4,35 @@ import { useEffect, useState } from "react";
 import TaskBox from "./taskbox";
 import InputSections from "./inputSection";
 
-
-
-
 function ProjectBox(props)
 {
     const [sections,setsections]=useState([]);
     const activeProject=props.activeProject;
 
+console.log("/");
 
     const fetchSections = async () => {
     
-        if((props.activeProject)!="Home")
         try {
             const response=await axios.get(`http://localhost:3000/${props.activeProject}`)
             setsections(response.data);
             console.log("sections fetch successfully",response.data)
+          
         }
         catch(err)
         {
             console.log(err)
         }
     }
+    useEffect(() => {
+      
+            fetchSections();
+        
+    }, [props.activeProject]);
+    
 
-    useEffect(()=>{
-        setsections([]);
-        fetchSections();
-    },[activeProject]);
+
+    
 
     const handleAddSection=()=>{
         fetchSections();
@@ -51,7 +53,7 @@ function ProjectBox(props)
              />
         ))
 
-        }
+    }
         
         <InputSections 
           activeProject={activeProject}

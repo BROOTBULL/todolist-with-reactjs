@@ -10,19 +10,21 @@ import PropTypes from "prop-types"
 function InputSections(props)
 {
     const activeProject =props.activeProject;
-
-const [sectionName,setSectionName]=useState({
-    sectionName:"",task:[{title:"Tasks...",description:"Descriptions..."}]
-})
+    const [sectionName,setSectionName]=useState({
+    sectionName:"",tasks:[{title:"Tasks...",description:"Descriptions..."}]
+    })
 
 
     async function handleSubmit(e)
 {
+   
     e.preventDefault();
     try {
+        console.log(sectionName.sectionName.replace(/ /g,"_"));
+        
         await axios.post(`http://localhost:3000/${activeProject}`,sectionName);
         console.log("Section Names: ",sectionName)
-        setSectionName({sectionName:"",tasks:[]});
+        setSectionName({sectionName:"",tasks:[{title:"Tasks...",description:"Descriptions..."}]});
         props.AddSection()
       
     } catch (error) {
@@ -38,15 +40,15 @@ const [sectionName,setSectionName]=useState({
     <input
      
     type="text"
-    onChange={(e)=>{setSectionName({ ...sectionName, sectionName: e.target.value })}}
+    onChange={(e)=>{setSectionName({ ...sectionName, sectionName: e.target.value.replace(/ /g,"_") })}}
     name="SectionName" 
     id="InputSection"
-    value={sectionName.sectionName}
+    value={sectionName.sectionName.replace(/_/g," ")}
     placeholder="Add sections.." 
     autoComplete="off"
     required
     />
-    <i className='bx bx-plus'></i>
+    <button style={{all:"unset"}}><i className='bx bx-plus'></i></button>
 </form>
 </> 
 )

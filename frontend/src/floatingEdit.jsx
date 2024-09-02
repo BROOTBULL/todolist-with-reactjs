@@ -7,23 +7,6 @@ import PropTypes from "prop-types";
 
 
 
-function handleEdit()
-{
-  $(".editform").slideToggle(120);
-  $(".sideboxOptions").slideUp(120);
-  $("#edit_title").focus()
-}
-
-
-function handleLeavesidebox()
-{   
-  $(".sidebox").removeClass("sideboxOpen");
-  $(".sideboxOptions").slideUp(120);
-  $(".editform").slideUp(120);
-  
-}
-
-
 
   
   
@@ -49,6 +32,28 @@ function FloatingEditBox(props)
       }, [props.title, props.content]);
 
     
+
+
+
+      function handleEdit()
+      {
+        $(`.${props.section} .editform`).slideToggle(120);
+        $(`.${props.section} .sideboxOptions`).slideUp(120);
+        $(`.${props.section}.sidebox #edit_title`).focus()
+      }
+      
+      
+      function handleLeavesidebox()
+      {   
+        $(`.${props.section}.sidebox`).removeClass("sideboxOpen");
+        $(`.${props.section} .sideboxOptions`).slideUp(120);
+        $(`.${props.section} .editform`).slideUp(120);
+        
+      }
+      
+
+
+
 
 function handledelete()
 {
@@ -109,7 +114,7 @@ $(".editform").slideUp(120);
 
 
     return(
-        <div className="sidebox" onMouseLeave={handleLeavesidebox} >
+        <div className={props.section+" sidebox"} onMouseLeave={handleLeavesidebox} >
         <div className="text sideboxOptions" onClick={handleEdit} style={{display:"none"}}>Edit
          
         </div>
@@ -135,14 +140,14 @@ $(".editform").slideUp(120);
                className="edit-content edit inputbox"
                onChange={(e) => setEditData({ ...editData, description: e.target.value })}
                name="edit_content"
-               value={editData.description.replace(/<[^>]*>/g, '')}
+               value={editData.description.replace(/<[^>]*>/g, '\n')}
                placeholder="description"
                type="text"
                autoComplete="off"
              />
              <button className="editbtn">edit</button>
            </form>
-           <h3 className="text sideboxOptions delete" onClick={handledelete} style={{display:"none"}}>Delete<i className='bx bxs-x-square'></i></h3>
+           <h3 className="text sideboxOptions delete" onClick={handledelete} style={{display:"none"}}>Delete<i className='bx bx-trash'></i></h3>
          </div>
     )
 }
