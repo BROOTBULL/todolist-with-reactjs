@@ -115,7 +115,7 @@ border-radius: 5px;
 {
   align-content: center;
   height: 100%;
-  width: 190px;
+  min-width: 120px;
   margin-right: auto;
 }
 
@@ -131,7 +131,7 @@ border-radius: 5px;
 }
 .projects:hover
 {
-  background-color: rgba(99, 130, 255, 0.578);
+  background-color: rgba(33, 43, 82, 0.578);
 }
 .projects a
 {
@@ -174,9 +174,22 @@ transition: .4s;
   cursor: pointer;
   transform: .2;
 }
-.profile {
+.navitem.profile {
+
   font-size: 18px;
-  margin-bottom: 25px;
+  min-width: 180px;
+  padding-right: 5px;
+}
+.UserOptions
+{
+  position: absolute;
+  top: 60px;
+  left: 5px;
+  border-radius: 7px;
+  padding: 5px;
+  width:260px;
+  height:fit-content;
+  background-image: -webkit-linear-gradient(-30deg,rgb(23, 23, 42) 10%,rgb(9, 9, 21));
 }
 
 a {
@@ -423,10 +436,6 @@ i:hover {
   border-radius: 7px;
   padding: 5px;
 }
-.viewOptions .sideboxOptions
-{
-  padding: 5px 7px;
-}
 
 /* ////////////////// Edit Box //////////////////// */
 .bigbox
@@ -634,7 +643,6 @@ min-width:fit-content;
 {
   border-radius: 5px;
   color: rgba(200, 229, 255, 0.873);
-  margin: 0px;
   padding: 8px;
   font-size: 16px;
   cursor: pointer;

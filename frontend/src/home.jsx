@@ -4,6 +4,7 @@ import InputProjects from "./inputProject";
 import axios from "axios";
 import ProjectBox from "./projectbox";
 import useUserInfo from "../Contexts/UserContext";
+import UserOptions from "./UserOptions";
 
 
 
@@ -37,6 +38,7 @@ const fetchProjects = async () => {
 useEffect(() => {
  
   fetchProjects();
+
 }, []);
 
 
@@ -46,6 +48,8 @@ useEffect(() => {
 
     $(".navbox").fadeToggle(120);
     $(".sidebar").toggleClass("close");
+    $("#InputProject").slideUp(100);
+    $(".inputproject").removeClass("openproject");
    
   }
 
@@ -82,11 +86,10 @@ const {isLoggedIn,setIsLoggedIn}=useUserInfo()
       <div className="fullPage">
         <div className="sidebar">
           <div className="text navbox" >
-          <h1 className="text head">TodoList</h1>
-
-            <div className="navitem profile">
-              <a href="">UserName</a>
+            <div onClick={()=>{$(".UserOptions").slideToggle(100)}} className="navitem profile">
+              <a><i className='bx bxs-user-circle'/> UserName  <i className='bx bx-chevron-down'/></a>
             </div>
+            <UserOptions/>
 
             <div className="navitem">
               <a href="">Search</a>
@@ -104,11 +107,12 @@ const {isLoggedIn,setIsLoggedIn}=useUserInfo()
             <InputProjects ProjectAdded={ProjectAdded}/>
 <hr />
 <div className="projectbox">
-{data.map((project,index)=>(
+{data.map((project,index)=>(<>
     <div className="projects" key={index}>
     <a onClick={selectProject} title={project.projectName} ># {project.projectName}</a>
     <i className='bx bxs-trash-alt' title={project.projectName} onClick={handleDeleteProject}></i>
     </div>
+    </>
 ))}
 </div>
           </div>
@@ -127,9 +131,9 @@ const {isLoggedIn,setIsLoggedIn}=useUserInfo()
               view <i className="bx bx-slider-alt"></i>
             </div>
             <div style={{display:"none"}} className="viewOptions">
-                <div className="text sideboxOptions">Change Theme</div>
+                <div className="text sectionEditOption">Change Theme</div>
                 <hr style={{width:"90%"}}/>
-                <div onClick={()=>setIsLoggedIn(!isLoggedIn)} className="text sideboxOptions delete">Logout</div>
+                <div onClick={()=>setIsLoggedIn(!isLoggedIn)} className="text sectionEditOption delete">Logout</div>
             </div>
           </div>
 

@@ -12,14 +12,14 @@ function SectionEditBox(props)
   function handleLeaveEditbox()
   {   
     $(`.sectionEditBox`).removeClass("sideboxOpen");
-    $(`.sectionEditOption`).slideUp(120);
+    $(`.sectionBox .sectionEditOption`).slideUp(120);
     
   }
   
 
   function handleEdit()
 {
-  $(".sectionEditOption").slideUp(120);
+  $(".sectionBox .sectionEditOption").slideUp(120);
   $(`.sectionEditBox`).removeClass("sideboxOpen");
   $(`.EditsectionName.${props.section}`).focus()
 }
@@ -45,7 +45,7 @@ async function handledelete()
 
 
 
-  $(".sectionEditOption").slideUp(120);
+  $(".sectionBox .sectionEditOption").slideUp(120);
   $(".sectionEditBox").removeClass("sideboxOpen");
 }
 

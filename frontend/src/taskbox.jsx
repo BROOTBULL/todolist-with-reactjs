@@ -106,12 +106,12 @@ function TaskBox(props)
         left: clickleft-120 + "px",
       });
     
-    $(`.sectionEditBox`).removeClass("sideboxOpen");
-    $(`.sectionEditOption`).slideUp(120);
+    $(`.sectionBox .sectionEditBox`).removeClass("sideboxOpen");
+    $(`.sectionBox .sectionEditOption`).slideUp(120);
 
     setClickedSection(section);
     $(`.sectionEditBox.${section}`).toggleClass("sideboxOpen");
-    $(`.${section} .sectionEditOption`).slideToggle(120);
+    $(`.sectionBox .${section} .sectionEditOption`).slideToggle(120);
 
 
    
@@ -119,8 +119,8 @@ function TaskBox(props)
       {  $(".projectBox").on("click",()=>{
       
            
-          $(`.sectionEditBox`).removeClass("sideboxOpen");
-          $(`.sectionEditOption`).slideUp(120);
+          $(`.sectionBox .sectionEditBox`).removeClass("sideboxOpen");
+          $(`.sectionBox .sectionEditOption`).slideUp(120);
           $(".projectBox").off("click");
       })   
       }

@@ -11,10 +11,6 @@ $("#InputProject").slideToggle(120);
 $(".inputproject").toggleClass("openproject");
 $("#InputProject").focus();
 
-
-$(".inputproject").hasClass("openproject")?$(".bx-plus-circle").fadeIn(200):$(".bx-plus-circle").fadeOut(200);
-
-
 }
 
 
@@ -57,7 +53,7 @@ function InputProjects(props)
 <form onSubmit={handleSubmit}>
 <div className="Addtask">
     <a onClick={handleclick}>Add New Project</a>
-  <button style={{display:"none",all:"unset"}}><i  className='bx bx-plus-circle'></i></button>
+  <button style={{all:"unset"}}><i  className='bx bx-plus-circle'></i></button>
 </div>
     <input
     type="text" 
