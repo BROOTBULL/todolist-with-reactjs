@@ -1,16 +1,18 @@
-// import { useState } from "react";
+import { useState } from "react";
+import useUserInfo, { UserContextProvider } from "../Contexts/UserContext";
+import Homepage from "../HomePage/homepage";
 import "./App.css";
-// import $ from "jquery";
-import Home from "./homepage"
+import Home from "./home";
 
-function App() 
-{
+function App() {
 
+const [isLoggedIn,setIsLoggedIn]=useState(useUserInfo().isLoggedIn);
+console.log(isLoggedIn);
 
   return (
-    <>
-    <Home />
-    </>
+    <UserContextProvider value={{isLoggedIn,setIsLoggedIn}}>
+      {isLoggedIn? <Homepage />: <Home />}
+    </UserContextProvider>
   );
 }
 

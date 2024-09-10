@@ -3,6 +3,8 @@ import $ from "jquery";
 import InputProjects from "./inputProject";
 import axios from "axios";
 import ProjectBox from "./projectbox";
+import useUserInfo from "../Contexts/UserContext";
+
 
 
 
@@ -14,7 +16,6 @@ function Home() {
 
 function selectProject(e)
 {
-  console.log(e.target.title);
   setActiveProject(e.currentTarget.title);
 }
 
@@ -72,26 +73,19 @@ useEffect(() => {
     fetchProjects()
   }
 
+const {isLoggedIn,setIsLoggedIn}=useUserInfo()
 
   return (
     <>
+       
+
       <div className="fullPage">
         <div className="sidebar">
           <div className="text navbox" >
           <h1 className="text head">TodoList</h1>
+
             <div className="navitem profile">
               <a href="">UserName</a>
-            </div>
-         
-            <InputProjects ProjectAdded={ProjectAdded}/>
-
-            <div className="projectbox">
-            {data.map((project,index)=>(
-                <div className="projects" key={index}>
-                <a onClick={selectProject} title={project.projectName} ># {project.projectName}</a>
-                <i className='bx bxs-trash-alt' title={project.projectName} onClick={handleDeleteProject}></i>
-                </div>
-            ))}
             </div>
 
             <div className="navitem">
@@ -106,6 +100,17 @@ useEffect(() => {
             <div className="navitem">
               <a href="">Upcoming</a>
             </div>
+<hr />
+            <InputProjects ProjectAdded={ProjectAdded}/>
+<hr />
+<div className="projectbox">
+{data.map((project,index)=>(
+    <div className="projects" key={index}>
+    <a onClick={selectProject} title={project.projectName} ># {project.projectName}</a>
+    <i className='bx bxs-trash-alt' title={project.projectName} onClick={handleDeleteProject}></i>
+    </div>
+))}
+</div>
           </div>
         </div>
         <div className={"mainBody " + (isSidebarActive ? "changeMainBody" : "")}>
@@ -118,17 +123,18 @@ useEffect(() => {
               ></i>
             </button>
             <h1 id="ProjectHeading" className="text"># {activeProject}</h1>
-            <button className="viewbtn btn">
+            <div onClick={()=>$(".viewOptions").slideToggle(300)} style={{padding:"0px 10px",marginLeft:"auto",marginRight:"2%"}}className="text navitem">
               view <i className="bx bx-slider-alt"></i>
-            </button>
+            </div>
+            <div style={{display:"none"}} className="viewOptions">
+                <div className="text sideboxOptions">Change Theme</div>
+                <hr style={{width:"90%"}}/>
+                <div onClick={()=>setIsLoggedIn(!isLoggedIn)} className="text sideboxOptions delete">Logout</div>
+            </div>
           </div>
 
-
-
-
-          <ProjectBox activeProject={activeProject}/>
-
-            
+         <ProjectBox activeProject={activeProject}/>
+  
         </div>
       </div>
     </>

@@ -21,7 +21,6 @@ function Tasknote(props) {
    {
     const tasktitleValue=(event.currentTarget.querySelector(".tasktitle")).innerHTML;
     const taskcontentValue=(event.currentTarget.querySelector(".taskdecs")).innerHTML;
-   console.log(tasktitleValue,taskcontentValue);
    
     
 

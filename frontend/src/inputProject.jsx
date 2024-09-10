@@ -11,6 +11,10 @@ $("#InputProject").slideToggle(120);
 $(".inputproject").toggleClass("openproject");
 $("#InputProject").focus();
 
+
+$(".inputproject").hasClass("openproject")?$(".bx-plus-circle").fadeIn(200):$(".bx-plus-circle").fadeOut(200);
+
+
 }
 
 
@@ -31,7 +35,6 @@ function InputProjects(props)
     async function handleSubmit(e)
     {
         e.preventDefault()
-        console.log(ProjectName)
         try {
             await axios.post(`http://localhost:3000/projects`,ProjectName);
             console.log("axios post project name")
@@ -53,8 +56,8 @@ function InputProjects(props)
 <div className="inputproject">
 <form onSubmit={handleSubmit}>
 <div className="Addtask">
-    <a onClick={handleclick}>AddTask</a>
-  <button style={{all:"unset"}}><i  className='bx bx-plus-circle'></i></button>
+    <a onClick={handleclick}>Add New Project</a>
+  <button style={{display:"none",all:"unset"}}><i  className='bx bx-plus-circle'></i></button>
 </div>
     <input
     type="text" 
@@ -64,6 +67,7 @@ function InputProjects(props)
     value={ProjectName.projectName}
     onChange={(e)=>setProjectName({...ProjectName , projectName:e.target.value})}
     autoComplete="off"
+    required
     />
 </form>
 

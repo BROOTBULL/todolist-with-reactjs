@@ -108,7 +108,7 @@ function TaskBox(props)
     
     $(`.sectionEditBox`).removeClass("sideboxOpen");
     $(`.sectionEditOption`).slideUp(120);
-    console.log("section:",section);
+
     setClickedSection(section);
     $(`.sectionEditBox.${section}`).toggleClass("sideboxOpen");
     $(`.${section} .sectionEditOption`).slideToggle(120);
@@ -117,7 +117,6 @@ function TaskBox(props)
    
     if ($(`.sectionEditBox.${section}`).hasClass("sideboxOpen"))
       {  $(".projectBox").on("click",()=>{
-      console.log("hiiii");
       
            
           $(`.sectionEditBox`).removeClass("sideboxOpen");
@@ -133,7 +132,6 @@ function TaskBox(props)
   event.preventDefault();
 
   const EditsectionName=$(`.EditsectionName.${section}`).val();
-  console.log(EditsectionName);
 
   await axios.put(`http://localhost:3000/${props.activeProject}/${props.section}`,  { sectionName: EditsectionName, tasks: [] })
   .then(response => {
@@ -165,7 +163,7 @@ function TaskBox(props)
 
     <i 
     className='bx bxs-chevron-down'  
-    onClick={()=>{$(`#${props.section}`).slideToggle(200)} /**Toggle Bigbox */}
+    onClick={()=>{$(`#${section}`).slideToggle(250)} /**Toggle Bigbox */}
     />
 
     <input 
@@ -235,6 +233,7 @@ TaskBox.propTypes=
 {
    activeProject: PropTypes.string.isRequired,
    section: PropTypes.string.isRequired,
+   id: PropTypes.string.isRequired,
    EditSection:PropTypes.func
 }
 

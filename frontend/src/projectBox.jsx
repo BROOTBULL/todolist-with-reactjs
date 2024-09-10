@@ -8,8 +8,7 @@ function ProjectBox(props)
 {
     const [sections,setsections]=useState([]);
     const activeProject=props.activeProject;
-
-console.log("/");
+    
 
     const fetchSections = async () => {
     
@@ -44,9 +43,10 @@ console.log("/");
        <div className="projectBox" >
        
 
-        {sections.map((section,index)=>(
+        {sections.map((section,id)=>(
             <TaskBox 
-            key={index}
+            key={id}
+            id={section._id}
             activeProject={activeProject}
             section={section.sectionName}
             EditSection={handleAddSection}

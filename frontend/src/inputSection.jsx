@@ -3,10 +3,6 @@ import { useState } from "react";
 import PropTypes from "prop-types"
 
 
-
-
-
-
 function InputSections(props)
 {
     const activeProject =props.activeProject;
@@ -20,7 +16,6 @@ function InputSections(props)
    
     e.preventDefault();
     try {
-        console.log(sectionName.sectionName.replace(/ /g,"_"));
         
         await axios.post(`http://localhost:3000/${activeProject}`,sectionName);
         console.log("Section Names: ",sectionName)
@@ -47,8 +42,13 @@ function InputSections(props)
     placeholder="Add sections.." 
     autoComplete="off"
     required
+
     />
-    <button style={{all:"unset"}}><i className='bx bx-plus'></i></button>
+
+    <button style={{all:"unset"}}>
+     <i className='bx bx-plus'/>
+    </button>
+
 </form>
 </> 
 )
