@@ -107,12 +107,12 @@ const {isLoggedIn,setIsLoggedIn}=useUserInfo()
             <InputProjects ProjectAdded={ProjectAdded}/>
 <hr />
 <div className="projectbox">
-{data.map((project,index)=>(<>
-    <div className="projects" key={index}>
+{data.map((project)=>(
+    <div className="projects" key={project._id}>
     <a onClick={selectProject} title={project.projectName} ># {project.projectName}</a>
     <i className='bx bxs-trash-alt' title={project.projectName} onClick={handleDeleteProject}></i>
     </div>
-    </>
+    
 ))}
 </div>
           </div>

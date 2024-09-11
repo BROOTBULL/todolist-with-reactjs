@@ -1,6 +1,6 @@
 import useUserInfo from "../Contexts/UserContext";
 
-export default function Headder(){
+export default function Header(){
   const { isLoggedIn, setIsLoggedIn } = useUserInfo();
 
     return(

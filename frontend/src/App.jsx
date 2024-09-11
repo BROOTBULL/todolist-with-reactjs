@@ -2,7 +2,8 @@ import { useState } from "react";
 import useUserInfo, { UserContextProvider } from "../Contexts/UserContext";
 import Homepage from "../HomePage/homepage";
 import "./App.css";
-import Home from "./home";
+// import SignUpPage from "../SignUpPage/signUp";
+import Home from "./home"
 
 function App() {
 
@@ -11,7 +12,7 @@ console.log(isLoggedIn);
 
   return (
     <UserContextProvider value={{isLoggedIn,setIsLoggedIn}}>
-      {isLoggedIn? <Homepage />: <Home />}
+      {isLoggedIn? <Homepage />: <Home/>}
     </UserContextProvider>
   );
 }

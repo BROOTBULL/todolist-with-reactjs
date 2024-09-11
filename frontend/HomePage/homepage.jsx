@@ -1,6 +1,6 @@
 import useUserInfo from "../Contexts/UserContext";
-import { Footer } from "./footer";
-import Headder from "./headder";
+import Footer from "./footer";
+import Header from "./header";
 import "./homepage.css";
 import HowtoUse from "./howtouse";
 
@@ -8,7 +8,7 @@ function Homepage() {
   const { isLoggedIn, setIsLoggedIn } = useUserInfo();
   return (
     <>
-      <Headder />
+      <Header />
 
       {/**    //////////////// Head ///////////////       */}
 
