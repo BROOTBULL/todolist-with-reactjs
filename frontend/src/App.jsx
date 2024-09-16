@@ -1,19 +1,18 @@
-import { useState } from "react";
-import useUserInfo, { UserContextProvider } from "../Contexts/UserContext";
 import Homepage from "../HomePage/homepage";
 import "./App.css";
-// import SignUpPage from "../SignUpPage/signUp";
+import SignUpPage from "../SignUpPage/signUp";
+import {BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from "./home"
 
 function App() {
-
-const [isLoggedIn,setIsLoggedIn]=useState(useUserInfo().isLoggedIn);
-console.log(isLoggedIn);
-
   return (
-    <UserContextProvider value={{isLoggedIn,setIsLoggedIn}}>
-      {isLoggedIn? <Homepage />: <Home/>}
-    </UserContextProvider>
+    <BrowserRouter>
+      <Routes>
+        <Route exact path="/" element={<Homepage />} />
+        <Route path="/SignUp" element={<SignUpPage />} />
+        <Route path="/Home" element={<Home/>} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 

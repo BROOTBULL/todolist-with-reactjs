@@ -3,8 +3,8 @@ import $ from "jquery";
 import InputProjects from "./inputProject";
 import axios from "axios";
 import ProjectBox from "./projectbox";
-import useUserInfo from "../Contexts/UserContext";
 import UserOptions from "./UserOptions";
+import { Link } from "react-router-dom";
 
 
 
@@ -14,6 +14,8 @@ function Home() {
   const [isSidebarActive, setIsSidebarActive] = useState(true);
   const [activeProject,setActiveProject]=useState("Today");
   const [data, setData] = useState([]);
+
+
 
 function selectProject(e)
 {
@@ -77,7 +79,6 @@ useEffect(() => {
     fetchProjects()
   }
 
-const {isLoggedIn,setIsLoggedIn}=useUserInfo()
 
   return (
     <>
@@ -133,7 +134,7 @@ const {isLoggedIn,setIsLoggedIn}=useUserInfo()
             <div style={{display:"none"}} className="viewOptions">
                 <div className="text sectionEditOption">Change Theme</div>
                 <hr style={{width:"90%"}}/>
-                <div onClick={()=>setIsLoggedIn(!isLoggedIn)} className="text sectionEditOption delete">Logout</div>
+                <Link to="/SignUp" className="text sectionEditOption delete">Logout</Link>
             </div>
           </div>
 

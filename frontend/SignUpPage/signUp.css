@@ -9,10 +9,96 @@
 .signUpBox >*
 {
     flex:1;
-    height: 700px;
-    border-radius: 10px;
+    margin: 0px 20px;
+    padding: 20px;
+    height: fit-content;
+    border-radius: 15px;
 }
 .signup
 {
-    background-color: rgba(16, 20, 40, 0.438);
+    text-align: center;
+    background-color: rgba(16, 20, 40, 0.373);
+    box-shadow: 7px 7px 20px rgba(0, 0, 0, 0.808);
+
+}
+.signup h1
+{
+    color: rgb(225, 230, 255) !important;
+    padding: 10px;
+    font-weight: 400;
+    font-size: 43px;
+}
+.User_input_box
+{
+    padding: 10%;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+}
+.signup .userInput
+{
+    color: rgba(236, 239, 255, 0.712);
+    border-width: 3px;
+    border-color: rgba(62, 75, 146, 0.278);
+    border-style: solid;
+    font-size: 15px;
+    padding: 5px 10px;
+    height: 35px;
+    width: 75%;
+    margin: 10px 0px;
+    outline: none;
+    background-color: transparent;
+    border-radius: 15px;
+}
+
+.signup .userInput::placeholder
+{
+    color: rgba(131, 141, 195, 0.181);
+}
+/* 
+.Oauths
+{
+    height: 40px;
+    width: 40px;
+    padding-top: 5px;
+    margin: 30px;
+    font-size: 22px ;
+    border-width: 3px;
+    color: rgba(255, 255, 255, 0.778) !important;
+    border-color: rgba(255, 255, 255, 0.612);
+    background-color: rgba(255, 255, 255, 0.14);
+    border-style: solid;
+    border-radius: 100%;
+    cursor: pointer;
+    transition:.3s;
+} */
+
+/* .Oauths:hover
+{
+    background-color: rgba(255, 255, 255, 0.312);
+
+} */
+
+.user_submit_btn
+{
+    padding: 10px;
+    color: rgba(236, 239, 255, 0.8) !important;
+    width: 60%;
+    font-size: 22px ;
+    margin: 25px 0px;
+    border-radius: 15px;
+    box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.588);
+    background-image: -webkit-linear-gradient(
+        50deg,
+        rgba(64, 64, 125, 0.436) 20%,
+        rgba(20, 20, 45, 0.686)
+      );
+    cursor: pointer;
+    transition:.3s;
+}
+.user_submit_btn:hover
+{
+    text-shadow: 0px 0px 10px rgba(255, 255, 255, 0.293);
+    box-shadow: 0px 0px 20px rgba(105, 103, 162, 0.112);
+    background-color: rgba(63, 70, 200, 0.279);  
 }

@@ -1,14 +1,13 @@
-import useUserInfo from "../Contexts/UserContext"
-
+import {Link} from "react-router-dom"
 export default function UserOptions()
 {
-    const {isLoggedIn,setIsLoggedIn}=useUserInfo()
+
 
     return(
         <>
         <div style={{display:"none"}} className="UserOptions">
 
-        <div onClick={()=>setIsLoggedIn(!isLoggedIn)} className="text sectionEditOption delete">Logout</div>
+        <Link to="/SignUp"  className="text sectionEditOption delete">Logout</Link>
 
         </div>
         </>

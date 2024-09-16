@@ -1,11 +1,13 @@
-import useUserInfo from "../Contexts/UserContext";
+import { useNavigate } from "react-router-dom";
 import Footer from "./footer";
 import Header from "./header";
 import "./homepage.css";
 import HowtoUse from "./howtouse";
 
 function Homepage() {
-  const { isLoggedIn, setIsLoggedIn } = useUserInfo();
+
+  const navigate =useNavigate();
+
   return (
     <>
       <Header />
@@ -29,7 +31,7 @@ function Homepage() {
           </p>
           <div
             onClick={() => {
-              setIsLoggedIn(!isLoggedIn);
+            navigate("/Home")
             }}
             className="text navOption signUp"
           >
@@ -73,8 +75,7 @@ function Homepage() {
       <div className="headline text">
         Gain calmness and clarity with the world’s most beloved productivity app
         <div
-          onClick={() => {
-            setIsLoggedIn(!isLoggedIn);}}
+          onClick={() => navigate("/Home")}
           className="text navOption signUp" >
           Start for free
         </div>

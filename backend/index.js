@@ -1,15 +1,25 @@
-const express = require("express");
-const bodyParser = require("body-parser");
-const mongoose = require("mongoose");
-const cors=require("cors");
+import express from "express";
+import bodyParser from "body-parser";
+import mongoose from "mongoose";
+import cors from "cors";
+import dotenv from "dotenv";
+import { TodoProjects } from "./modeules/todo.module.js";
+import authRouter from "./Routes/auth.routes.js";
 
+dotenv.config();
 const app = express();
-const url =
-  "mongodb+srv://arjit0228:002611Ar*@arjitgupta.qra2q.mongodb.net/Mylist?retryWrites=true&w=majority&appName=ArjitGuptas";
+const url =process.env.MONGO_URI;
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(cors());
+
+
+
+app.use("/api/auth",authRouter);
+
+
+
 
 async function connectToMongo() {
   try {
@@ -21,23 +31,9 @@ async function connectToMongo() {
 }
 connectToMongo();
 
-const taskSchema = new mongoose.Schema({
-  title: String,
-  description: String,
-  time: String,
-});
 
-const sectionSchema=new mongoose.Schema({
-  sectionName:String,
-  tasks:[taskSchema]
-})
 
-const projectSchema=new mongoose.Schema({
-  projectName:String,
-  sections:[sectionSchema]
-})
 
-const TodoProjects = mongoose.model("TodoTask", projectSchema);
 
 
 app.post("/projects", async (req, res) => {
