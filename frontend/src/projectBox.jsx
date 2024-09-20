@@ -15,7 +15,7 @@ function ProjectBox(props)
         try {
             const response=await axios.get(`http://localhost:3000/${props.activeProject}`)
             setsections(response.data);
-            console.log("sections fetch successfully",response.data)
+            (props.activeProject!=="Today")&&console.log("sections fetch successfully:",response.data)
           
         }
         catch(err)
@@ -24,9 +24,9 @@ function ProjectBox(props)
         }
     }
     useEffect(() => {
-      
-            fetchSections();
         
+      fetchSections();
+
     }, [props.activeProject]);
     
 

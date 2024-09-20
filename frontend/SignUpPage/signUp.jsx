@@ -3,6 +3,10 @@ import Footer from "../HomePage/footer";
 import "./signUp.css"
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import useUserInfo from "../Contexts/UserContext";
+
+const URL="http://localhost:3000";
+
 
 export default function SignUpPage()
 {
@@ -11,6 +15,9 @@ export default function SignUpPage()
     email:"",
     password:""
   })
+
+  const {setId}=useUserInfo();
+
   const Navigate=useNavigate();
 
 
@@ -19,8 +26,9 @@ export default function SignUpPage()
   e.preventDefault();
 
   try {
-    const response =await axios.post(`http://localhost:3000/api/auth/signUp`, userInfo);
+    const response =await axios.post(`${URL}/api/auth/signUp`, userInfo);
     console.log(response.data);
+    setId(response.data);
     setUserInfo({
       username:"",
       email:"",

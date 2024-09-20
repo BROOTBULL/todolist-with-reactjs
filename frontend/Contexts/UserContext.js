@@ -2,8 +2,10 @@ import { createContext, useContext } from "react";
 
 
 export const UserContext = createContext({
-    isLoggedIn: true,
-    setIsLoggedIn:()=>{}
+  id:"",
+  setId:()=>{},
+  ProjectSelected:"",
+  setSelectedProject:()=>{}
 });
 
 

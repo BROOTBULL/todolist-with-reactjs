@@ -5,6 +5,8 @@ import cors from "cors";
 import dotenv from "dotenv";
 import { TodoProjects } from "./modeules/todo.module.js";
 import authRouter from "./Routes/auth.routes.js";
+import todoRouter from "./Routes/todo.routes.js";
+
 
 dotenv.config();
 const app = express();
@@ -17,7 +19,7 @@ app.use(cors());
 
 
 app.use("/api/auth",authRouter);
-
+app.use("/api",todoRouter);
 
 
 
@@ -30,42 +32,6 @@ async function connectToMongo() {
   }
 }
 connectToMongo();
-
-
-
-
-
-
-app.post("/projects", async (req, res) => {
-  try {
-    const ProjectName = req.body; // {projectName:"value"}
-    console.log("Received tasklist:", ProjectName);
-
-const project =new TodoProjects(ProjectName);
-project.sections.push({sectionName:"Routiens",tasks:[{title:"Task tittle",description:"Task descriptions ..."}]})
-    await project.save(); // Save the updated TodoProjects document
-
-    console.log("project saved successfully");
-    res.status(201).send("project saved successfully"); // Send success response with status code 201
-  } catch (err) {
-    console.error("Error saving task:", err);
-    res.status(500).send("Error saving task"); // Send error response with status code 500
-  }
-});
-
-
-
-app.get("/projects", async (req, res) => {
-  try {
-    const list = await TodoProjects.find({projectName:{ $ne:"Today"}});
-    res.status(200).json(list);
-
-  } catch (err) {
-    console.error("Error fetching tasks:", err); // Log the error
-    res.status(500).send("Error fetching tasks"); // Send error response with status code 500
-  }
-});
-
 
 
  app.post("/:project/:section/", async (req, res) => {

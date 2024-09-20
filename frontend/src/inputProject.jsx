@@ -2,8 +2,9 @@ import axios from "axios";
 import { useState} from "react";
 import $ from "jquery";
 import PropTypes from "prop-types"
+import useUserInfo from "../Contexts/UserContext";
 
-
+const URL="http://localhost:3000";
 
 
 function handleclick(){
@@ -17,11 +18,10 @@ $("#InputProject").focus();
 function InputProjects(props)
 {
     const [ProjectName,setProjectName]=useState({
-        projectName:"",
-        sections:[]
+        projectName:""
     });
 
-
+    const {id:userId}=useUserInfo()
     
 
 
@@ -32,12 +32,11 @@ function InputProjects(props)
     {
         e.preventDefault()
         try {
-            await axios.post(`http://localhost:3000/projects`,ProjectName);
+            await axios.post(`${URL}/api/${userId}/projects`,ProjectName);
             console.log("axios post project name")
             props.ProjectAdded(ProjectName.projectName);
             setProjectName({
-                projectName:"",
-                sections:[]
+                projectName:""
             })
         } catch (error) {
             console.error('Error posting data:', error);
@@ -61,7 +60,7 @@ function InputProjects(props)
     id="InputProject"
     style={{display:"none"}}
     value={ProjectName.projectName}
-    onChange={(e)=>setProjectName({...ProjectName , projectName:e.target.value})}
+    onChange={(e)=>setProjectName({ projectName:e.target.value})}
     autoComplete="off"
     required
     />

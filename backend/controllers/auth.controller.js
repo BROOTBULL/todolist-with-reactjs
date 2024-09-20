@@ -13,8 +13,13 @@ else
  {
  
     const newuser = new User(req.body);
+
+    {
+     //hashing password
+     }
+     
     newuser.save();
-    res.status(200).send("User succesfully Signed Up");
+    res.status(200).send(newuser._id);
 }
 }
 

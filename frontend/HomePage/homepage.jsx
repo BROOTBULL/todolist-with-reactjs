@@ -31,7 +31,7 @@ function Homepage() {
           </p>
           <div
             onClick={() => {
-            navigate("/Home")
+            navigate("/SignUp")
             }}
             className="text navOption signUp"
           >

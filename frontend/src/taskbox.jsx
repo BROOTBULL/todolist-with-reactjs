@@ -38,11 +38,10 @@ function TaskBox(props)
   const [dataLength,setDataLength]=useState()
   const [clickedSection,setClickedSection]=useState("")
   const [sectionName, setSectionName] = useState("");
-  const projectName=props.activeProject;
-  const section=props.section;
   const inputRef = useRef(null);
 
 
+  const {activeProject:projectName,section,id}=props;
 
 
   function handleOnEdit(id,content,title)
@@ -63,18 +62,21 @@ function TaskBox(props)
     try {
       const response = await axios.get(`http://localhost:3000/${props.activeProject}/${props.section}/`);
       setData(response.data);
-      console.log("sections responce :",response.data)
+      console.log("Task responce :",response.data)
     } catch (error) {
       console.error('Error fetching tasks:', error);
     }
   };
 
 
+  
+
 
   useEffect(() => {
-   
-    fetchTasks();
-  }, [props.section]);
+    if(props.activeProject){ 
+    fetchTasks();}
+    
+  }, [id]);
 
   useEffect(() => {
     setSectionName(props.section);
@@ -194,11 +196,11 @@ function TaskBox(props)
 
       <div id={section} className="bigbox"  onMouseLeave={handleMouseOut}>
       <div className="TaskBox" >
-          {data.map((task, index) => (
+          {data.map((task) => (
             <Tasknote
               onEdit={handleOnEdit}
               section={section}
-              key={index}
+              key={task._id}
               id={task._id}
               taskLength={task.title.length}
               contentLength={task.description.length}
