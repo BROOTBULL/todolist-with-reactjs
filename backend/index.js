@@ -6,6 +6,10 @@ import dotenv from "dotenv";
 import { TodoProjects } from "./modeules/todo.module.js";
 import authRouter from "./Routes/auth.routes.js";
 import todoRouter from "./Routes/todo.routes.js";
+import passport from "passport";
+import session from "express-session"
+import { Strategy } from "passport-local";
+import cookieParser from "cookie-parser"
 
 
 dotenv.config();
@@ -14,19 +18,37 @@ const url =process.env.MONGO_URI;
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.json());
+app.use(cookieParser());
 app.use(cors());
 
+app.use(session({
+  secret:process.env.SECRET,
+  resave:false,
+  saveUninitialized:true,
+  cookie:{
+    maxAge:1000*60*60
+  }
+}))
+
+app.use(passport.initialize());
+app.use(passport.session());
 
 
 app.use("/api/auth",authRouter);
 app.use("/api",todoRouter);
 
+passport.use(new Strategy(async function verify(username,password,cb)
+{
+  
+}))
 
 
 async function connectToMongo() {
   try {
     await mongoose.connect(url);
     console.log("Connected to MongoDB server");
+  
+    
   } catch (error) {
     console.error("Error connecting to MongoDB:", error);
   }
@@ -69,19 +91,7 @@ const sectionName=req.params.section;
   }
 });
 
-app.delete('/:project', async (req, res) => {
 
-  const projectName =req.params.project;
-
-  try {
-     await TodoProjects.deleteOne({ projectName:projectName});
-
-    res.send("successfully");
-  } catch (error) {
-    console.error('Error deleting task:', error);
-    res.status(500).send('Internal Server Error');
-  }
-});
 
 app.post("/:project", async (req, res) => {
   try {
@@ -276,6 +286,10 @@ app.delete('/:project/:section', async (req, res) => {
     res.status(500).send('Internal Server Error');
   }
 });
+
+
+passport.serializeUser((userId,cb)=>{cb(null,userId)})
+passport.deserializeUser((userId,cb)=>{cb(null,userId)})
 
 
 

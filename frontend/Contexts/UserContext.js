@@ -1,15 +1,16 @@
 import { createContext, useContext } from "react";
 
 
+
 export const UserContext = createContext({
-  id:"",
-  setId:()=>{},
+  userId:"",
+  setUserId:()=>{},
   ProjectSelected:"",
-  setSelectedProject:()=>{}
+  setSelectedProject:()=>{},
+  signUp:()=>{}
 });
 
 
-export const UserContextProvider = UserContext.Provider;
 
 
 export default function useUserInfo() {

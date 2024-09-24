@@ -3,26 +3,25 @@ import "./App.css";
 import SignUpPage from "../SignUpPage/signUp";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from "./home";
-import { UserContextProvider } from "../Contexts/UserContext";
-import { useState } from "react";
+import LogInPage from "../SignUpPage/login";
+
 
 function App() {
 
-  const [id,setId]=useState("");
-  const [ProjectSelected,setSelectedProject]=useState("");
 
 
 
   return (
-    <UserContextProvider value={{id,setId,ProjectSelected,setSelectedProject}}>
+ 
       <BrowserRouter>
         <Routes>
           <Route exact path="/" element={<Homepage />} />
           <Route path="/SignUp" element={<SignUpPage />} />
           <Route path="/Home" element={<Home />} />
+          <Route path="/LogInPage" element={<LogInPage />} />
         </Routes>
       </BrowserRouter>
-    </UserContextProvider>
+
   );
 }
 

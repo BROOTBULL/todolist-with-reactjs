@@ -13,7 +13,7 @@ export default function Header(){
           <div className="text navOption">About</div>
           <div className="text navOption">Contact us</div>
           <hr />
-          <div className="text navOption">Log In</div>
+          <Link to="/LogInPage" className="text navOption">Log In</Link>
           <Link to="/SignUp" className="text navOption signUp">
             Start for free
           </Link>

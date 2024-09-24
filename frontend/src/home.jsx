@@ -4,7 +4,7 @@ import InputProjects from "./inputProject";
 import axios from "axios";
 // import ProjectBox from "./projectBox";
 import UserOptions from "./UserOptions";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import useUserInfo from "../Contexts/UserContext";
 
 const URL="http://localhost:3000"
@@ -12,6 +12,9 @@ const URL="http://localhost:3000"
 
 
 function Home() {
+const navigate=useNavigate();
+navigate("/SignUp")
+
   const [isSidebarActive, setIsSidebarActive] = useState(true);
   const [data, setData] = useState([]);
 
@@ -33,7 +36,7 @@ const fetchProjects = async () => {
 
 
 useEffect(() => {
- 
+
   fetchProjects();
 
 }, []);
@@ -54,7 +57,7 @@ useEffect(() => {
   {
     const projectDelete=e.target.title;
     
-    await axios.delete(`${URL}/${projectDelete}`)
+    await axios.delete(`${URL}/api/${userId}/${projectDelete}`)
     .then(response => {
       console.log('project deleted',response.data);
       fetchProjects()

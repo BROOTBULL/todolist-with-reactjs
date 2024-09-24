@@ -3,7 +3,7 @@ import { User } from "../modeules/user.module.js";
 
 
 export const getProjects= async(req,res)=>{
-    try {
+    try { 
         const userId=req.params.userId;
 
         if(userId)
@@ -26,7 +26,6 @@ export const postProjects= async(req,res)=>{
         const userId=req.params.userId;
         const {projectName}=req.body;
         const user=await User.findOne({_id:userId});
-        console.log("user===>",user);
         
 
         if(user)
@@ -38,7 +37,6 @@ export const postProjects= async(req,res)=>{
 
         user.data.push(projects);
         user.save();
-        console.log("user===>",user);
 
         res.status(201).send("project saved successfully"); // Send success response with status code 201
 
@@ -47,5 +45,19 @@ export const postProjects= async(req,res)=>{
         console.error("Error saving task:", err);
         res.status(500).send("Error saving task"); // Send error response with status code 500
       }
+
+}
+
+export const deleteProjects=async (req,res)=>{
+  const userId=req.params.userId;
+  const projectName =req.params.project;
+
+  try {
+      await TodoProjects.deleteOne({owner:userId,projectName:projectName});
+      res.send("successfully");
+  } catch (error) {
+    console.error('Error deleting task:', error);
+    res.status(500).send('Internal Server Error');
+  }
 
 }
