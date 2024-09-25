@@ -3,7 +3,7 @@ import { SignUp ,LogIn ,LogOut ,verifyToken,checkAuth} from "../controllers/auth
 
 const authRouter =express.Router();
 
-authRouter.get("/chech-auth",verifyToken,checkAuth)
+authRouter.get("/check-auth",verifyToken,checkAuth)
 
 
 authRouter.post("/signUp",SignUp);
