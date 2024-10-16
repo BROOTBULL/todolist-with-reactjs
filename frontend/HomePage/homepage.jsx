@@ -75,7 +75,7 @@ function Homepage() {
       <div className="headline text">
         Gain calmness and clarity with the world’s most beloved productivity app
         <div
-          onClick={() => navigate("/Home")}
+          onClick={() => navigate("/SignUp")}
           className="text navOption signUp" >
           Start for free
         </div>

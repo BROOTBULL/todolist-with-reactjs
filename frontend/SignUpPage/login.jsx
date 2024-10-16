@@ -2,11 +2,10 @@ import "./signUp.css"
 import { useState } from "react";
 import Footer from "../HomePage/footer";
 import "./signUp.css"
-import axios from "axios";
-import { useNavigate } from "react-router-dom";
-import useUserInfo from "../Contexts/UserContext";
+import { authStore } from "../store/auth.store";
 
-const URL="http://localhost:3000";
+
+
 
 
 export default function LogInPage()
@@ -15,30 +14,19 @@ export default function LogInPage()
     email:"",
     password:""
   })
-
-  const {setId}=useUserInfo();
-
-  const Navigate=useNavigate();
-
+const {login}=authStore()
 
  async function handleUserInput(e)
  {
   e.preventDefault();
+  login(userInfo);
 
-  try {
-    const response =await axios.post(`${URL}/api/auth/logIn`, userInfo);
-    console.log(response.data);
-    setId(response.data);
-    setUserInfo({
-      email:"",
-      password:""
-    })
-} catch (error) {
-    console.error('Error posting data:', error);
-} 
+  setUserInfo({
+    email:"",
+    password:""
+  })
 
-   Navigate("/Home");
-   
+
  }
 
 

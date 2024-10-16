@@ -71,7 +71,7 @@ if (loading) {
           <Route path="/Home" element={ <AutheticatedUser>
               <Home />
             </AutheticatedUser>} />
-          <Route path="/LogInPage" element={   
+          <Route path="/LogIn" element={   
             <RedirectAutheticatedUser>
               <LogInPage />
             </RedirectAutheticatedUser>} />

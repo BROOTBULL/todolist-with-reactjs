@@ -100,7 +100,11 @@ export const LogIn = async (req, res) => {
       user.lastLogin=new Date();
       user.save();
 
-      res.json({ success: true, message: `Welcome ${user.username}` });
+      res.status(200).json({
+        success: true,
+        message: `${user.username} loggedin successfully`,
+        user: {...user._doc,password:undefined},
+      });
     } else res.json({ success: false, message: `password is incorrect` });
   } else res.status(400).json({ success: false, message: "User not found" });
 };

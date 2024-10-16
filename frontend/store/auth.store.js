@@ -13,6 +13,17 @@ export const authStore = create((set) => ({
   error: null,
 
   setProjectSelected: (projectName) => set({ ProjectSelected: projectName }),
+  
+  login:async(userInfo)=>{
+    try {
+      const response =await axios.post(`${authURL}/logIn`, userInfo);
+      console.log(response.data.message);
+      set({userId:response.data.user._id,isAuthanticated:true});
+    
+  } catch (error) {
+      console.error('Error posting data:', error);
+  } 
+  },
 
   signUp: async (userInfo) => {
     set({ error: null });

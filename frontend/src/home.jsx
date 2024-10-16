@@ -127,7 +127,7 @@ useEffect(() => {
             <div style={{display:"none"}} className="viewOptions">
                 <div className="text sectionEditOption">Change Theme</div>
                 <hr style={{width:"90%"}}/>
-                <Link to="/SignUp" onClick={()=>logout()} className="text sectionEditOption delete">Logout</Link>
+                <Link to="/" onClick={()=>logout()} className="text sectionEditOption delete">Logout</Link>
             </div>
           </div>
 

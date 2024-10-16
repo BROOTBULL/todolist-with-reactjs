@@ -8,7 +8,7 @@ const {logout}=authStore()
         <>
         <div style={{display:"none"}} className="UserOptions">
 
-        <Link to="/SignUp" onClick={()=>logout()} className="text sectionEditOption delete">Logout</Link>
+        <Link to="/" onClick={()=>logout()} className="text sectionEditOption delete">Logout</Link>
 
         </div>
         </>
