@@ -4,26 +4,28 @@ import InputProjects from "./inputProject";
 import axios from "axios";
 // import ProjectBox from "./projectBox";
 import UserOptions from "./UserOptions";
-import { Link, useNavigate } from "react-router-dom";
-import useUserInfo from "../Contexts/UserContext";
+import { Link } from "react-router-dom";
+
+import { authStore } from "../store/auth.store";
+
 
 const URL="http://localhost:3000"
 
 
 
 function Home() {
-const navigate=useNavigate();
-navigate("/SignUp")
+
 
   const [isSidebarActive, setIsSidebarActive] = useState(true);
   const [data, setData] = useState([]);
-
-  const {id:userId,ProjectSelected,setSelectedProject}=useUserInfo()
+  const {userId,ProjectSelected,setProjectSelected,logout}=authStore()
 
 
 
 const fetchProjects = async () => {
   try {
+    console.log("userId",userId);
+    
     const response = await axios.get(`${URL}/api/${userId}/projects`);
     setData(response.data);
     console.log("project Names==>",response.data)
@@ -36,10 +38,8 @@ const fetchProjects = async () => {
 
 
 useEffect(() => {
-
-  fetchProjects();
-
-}, []);
+    fetchProjects();
+}, [userId]);
 
 
 
@@ -55,13 +55,14 @@ useEffect(() => {
 
   async function handleDeleteProject(e)
   {
+   
     const projectDelete=e.target.title;
     
     await axios.delete(`${URL}/api/${userId}/${projectDelete}`)
     .then(response => {
       console.log('project deleted',response.data);
       fetchProjects()
-      setSelectedProject("Today")
+      setProjectSelected("Today")
     })
     .catch(error => {
       console.error('Error updating task:', error);
@@ -69,14 +70,7 @@ useEffect(() => {
     });
 
   }
-
-
-  function ProjectAdded(project)
-  {
-    setSelectedProject(project)
-    fetchProjects()
-  }
-
+  
 
   return (
     <>
@@ -96,20 +90,20 @@ useEffect(() => {
             <div className="navitem">
               <a href="">Inbox</a>
             </div>
-            <div onClick={()=>setSelectedProject("Today")} title="Today" className="navitem">
+            <div onClick={()=>setProjectSelected("Today")} title="Today" className="navitem">
               <a href="">Today</a>
             </div>
             <div className="navitem">
               <a href="">Upcoming</a>
             </div>
 <hr />
-            <InputProjects ProjectAdded={ProjectAdded}/>
+            <InputProjects />
 <hr />
 
 <div className="projectbox">
 {data.map((project)=>(
     <div className="projects" key={project._id}>
-    <a onClick={(e)=>setSelectedProject(e.currentTarget.title)} title={project.projectName} ># {project.projectName}</a>
+    <a onClick={(e)=> setProjectSelected(e.currentTarget.title)} title={project.projectName} ># {project.projectName}</a>
     <i className='bx bxs-trash-alt' title={project.projectName} onClick={handleDeleteProject}></i>
     </div>
     
@@ -133,7 +127,7 @@ useEffect(() => {
             <div style={{display:"none"}} className="viewOptions">
                 <div className="text sectionEditOption">Change Theme</div>
                 <hr style={{width:"90%"}}/>
-                <Link to="/SignUp" className="text sectionEditOption delete">Logout</Link>
+                <Link to="/SignUp" onClick={()=>logout()} className="text sectionEditOption delete">Logout</Link>
             </div>
           </div>
 

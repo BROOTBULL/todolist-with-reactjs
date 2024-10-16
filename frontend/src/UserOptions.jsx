@@ -1,13 +1,14 @@
 import {Link} from "react-router-dom"
+import { authStore } from "../store/auth.store"
 export default function UserOptions()
 {
 
-
+const {logout}=authStore()
     return(
         <>
         <div style={{display:"none"}} className="UserOptions">
 
-        <Link to="/SignUp"  className="text sectionEditOption delete">Logout</Link>
+        <Link to="/SignUp" onClick={()=>logout()} className="text sectionEditOption delete">Logout</Link>
 
         </div>
         </>

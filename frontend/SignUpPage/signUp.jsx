@@ -1,7 +1,6 @@
 import { useState } from "react";
 import Footer from "../HomePage/footer";
 import "./signUp.css"
-// import { useNavigate } from "react-router-dom";
 import { authStore } from "../store/auth.store";
 
 
@@ -15,10 +14,8 @@ export default function SignUpPage()
     password:""
   })
 
+
   const {signUp}=authStore()
-
-  // const Navigate=useNavigate();
-
 
  async function handleUserInput(e)
  {
@@ -31,6 +28,7 @@ export default function SignUpPage()
     email:"",
     password:""
   })
+  
  }
 
 

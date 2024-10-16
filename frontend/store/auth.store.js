@@ -1,21 +1,26 @@
 import axios from "axios";
 import { create } from "zustand";
 
-const URL = "http://localhost:3000/api/auth";
+const authURL = "http://localhost:3000/api/auth";
+
+
 axios.defaults.withCredentials = true;
 
 export const authStore = create((set) => ({
   userId: null,
   isAuthanticated: false,
+  ProjectSelected:"",
   error: null,
+
+  setProjectSelected: (projectName) => set({ ProjectSelected: projectName }),
 
   signUp: async (userInfo) => {
     set({ error: null });
 
     try {
-      const response = await axios.post(`${URL}/signUp`, userInfo);
+      const response = await axios.post(`${authURL}/signUp`, userInfo);
       console.log(response.data);
-      set({ user: response.data.username });
+      set({ userId: response.data.user._id,isAuthanticated:true});
     } catch (error) {
       console.log("Error posting data:", error);
     }
@@ -23,15 +28,28 @@ export const authStore = create((set) => ({
   checkauth: async () => {
     set({ error: null });
     try {
-      const response = await axios.get(`${URL}/check-auth`);
+      const response = await axios.get(`${authURL}/check-auth`);
       console.log("i got triggred");
-      console.log("response:",response.data);
-      
-      
+      console.log("response:",response.data);    
       set({ userId: response.data.user._id, isAuthanticated:true });
     } catch (error) {
-      set({ error: error.message, isAuthenticated: false });
-      console.log("Error checking auth:", error);
+      if (error.response) {
+        const errorMessage = error.response.data.message;
+        console.log("Error message:", errorMessage);
+        set({ error: errorMessage, isAuthenticated: false });
+      }
+  
     }
   },
+logout:async()=>
+{
+  try {
+    const response = await axios.post(`${authURL}/logOut`);
+    set({ userId: null,isAuthanticated:false});
+    console.log(response.data.message);
+    
+  } catch (error) {
+    console.log(error)
+  }
+}
 }));

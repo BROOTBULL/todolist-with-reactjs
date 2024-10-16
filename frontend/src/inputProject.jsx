@@ -1,8 +1,7 @@
 import axios from "axios";
 import { useState} from "react";
 import $ from "jquery";
-import PropTypes from "prop-types"
-import useUserInfo from "../Contexts/UserContext";
+import { authStore } from "../store/auth.store";
 
 const URL="http://localhost:3000";
 
@@ -15,13 +14,13 @@ $("#InputProject").focus();
 }
 
 
-function InputProjects(props)
+function InputProjects()
 {
     const [ProjectName,setProjectName]=useState({
         projectName:""
     });
 
-    const {id:userId}=useUserInfo()
+    const {userId,setProjectSelected,fetchprojects}=authStore()
     
 
 
@@ -34,7 +33,8 @@ function InputProjects(props)
         try {
             await axios.post(`${URL}/api/${userId}/projects`,ProjectName);
             console.log("axios post project name")
-            props.ProjectAdded(ProjectName.projectName);
+            setProjectSelected(ProjectName.projectName);
+            fetchprojects(userId)
             setProjectName({
                 projectName:""
             })
@@ -72,8 +72,5 @@ function InputProjects(props)
 )
 }
 
-InputProjects.propTypes=
-{
-   ProjectAdded: PropTypes.func.isRequired
-}
+
 export default InputProjects

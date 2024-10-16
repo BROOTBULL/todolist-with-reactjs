@@ -5,7 +5,7 @@ import generateTokenAndSetcookie from "../utils/generateTokenAndSetcookies.js";
 
 export const verifyToken = async (req,res,next)=>{
 const token =req.cookies.token;
-console.log(token);
+console.log("token:",token);
 
 try{
   console.log("verify");
@@ -13,8 +13,7 @@ try{
 if(!token)
 {
   console.log("no token");
-
-   res.status(400).json({seccess:false,message:"Unauthorised - no token provided"})
+  res.status(401).json({seccess:false,message:"Unauthorised - no token provided"})
 }
 else{
   console.log("token");
