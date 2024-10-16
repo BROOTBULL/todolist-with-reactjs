@@ -2,6 +2,7 @@ import { useState } from "react";
 import Footer from "../HomePage/footer";
 import "./signUp.css"
 import { authStore } from "../store/auth.store";
+import { useNavigate } from "react-router-dom";
 
 
 
@@ -14,7 +15,7 @@ export default function SignUpPage()
     password:""
   })
 
-
+  const navigate=useNavigate();
   const {signUp}=authStore()
 
  async function handleUserInput(e)
@@ -40,20 +41,20 @@ export default function SignUpPage()
             <i className="bx bxs-book-alt"></i> TodoList
             </div>
           </div>
-          <div style={{margin:" 2% 9%"}} className="head text">SignUp</div>
+          <div className="head_pagename text">SignUp</div>
           <div className="signUpBox">
             <div className="signup">
 
-              <h1 className="text">Create new account</h1>
+              <div className="head_info text">Create new account</div>
 
-              {/* <button className="Oauths text">
-              <i className='bx bxl-google'/>
+              <button className="Oauths google text">
+              <i className='bx bxl-google'/>Continue with Google
               </button>
-              <button className="Oauths blue text">
-              <i className='bx bxl-facebook'/>
-              </button> */}
+              <button className="Oauths facebook text">
+              <i className='bx bxl-facebook'/>Continue with facebook
+              </button>
 
-             <div style={{display:"flex",flexDirection:"row"}}>
+             <div style={{display:"flex",flexDirection:"row",marginTop:"15px"}}>
              <hr style={{borderWidth:"2px",width:"40%"}}/>
              <span style={{color:"rgba(62, 75, 146, 0.278)"}} className="text">OR</span>
              <hr style={{borderWidth:"2px",width:"40%"}}/>
@@ -68,7 +69,7 @@ export default function SignUpPage()
               onChange={(e)=>{ setUserInfo({...userInfo , username:e.currentTarget.value})}}
               value={userInfo.username}
               placeholder="Username *"
-              autoComplete="none"
+              autoComplete="off"
               required
                />
 
@@ -79,6 +80,7 @@ export default function SignUpPage()
               onChange={(e)=>{ setUserInfo({...userInfo , email:e.currentTarget.value})}}
               name="email"
               placeholder="Email *"
+              autoComplete="off"
               required
                />
 
@@ -89,11 +91,12 @@ export default function SignUpPage()
               onChange={(e)=>{ setUserInfo({...userInfo , password:e.currentTarget.value})}}
               name="password"
               placeholder="Password *"
+              autoComplete="off"
               required
                />
 
                <button  className="text btn user_submit_btn" onClick={handleUserInput}>Submit</button>
-
+               <div style={{fontSize:"12px",color:"rgba(131, 141, 195, 0.6)"}} className="text">Already Signed up ? <span onClick={()=>navigate("/Login")} style={{textDecoration:"underline",cursor:"pointer"}}> Go to Login page</span></div>
              </form>
       
             </div>

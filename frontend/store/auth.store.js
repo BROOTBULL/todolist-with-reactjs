@@ -2,18 +2,16 @@ import axios from "axios";
 import { create } from "zustand";
 
 const authURL = "http://localhost:3000/api/auth";
-const URL="http://localhost:3000";
 
-axios.defaults.withCredentials = true;
+
+axios.defaults.withCredentials = true;// line tells Axios HTTP client to send cookies with every request by default
 
 export const authStore = create((set) => ({
+  
   username:null,
   userId: null,
   isAuthanticated: false,
-  ProjectSelected:"",
   error: null,
-
-  setProjectSelected: (projectName) => set({ ProjectSelected: projectName }),
   
   login:async(userInfo)=>{
     try {
@@ -64,19 +62,5 @@ logout:async()=>
 },
 
 
-data:[],
-
-fetchProjects: async (userId) => {
-  try {
-    console.log("userId",userId);
-    
-    const response = await axios.get(`${URL}/api/${userId}/projects`);
-    set({data:response.data});
-    console.log("project Names==>",response.data)
-
-  } catch (error) {
-    console.error('Error fetching tasks:', error);
-  }
-}
 
 }));

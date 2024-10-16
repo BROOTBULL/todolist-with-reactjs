@@ -7,6 +7,7 @@ import UserOptions from "./UserOptions";
 import { Link } from "react-router-dom";
 
 import { authStore } from "../store/auth.store";
+import { todoStore } from "../store/todo.store";
 
 
 const URL="http://localhost:3000"
@@ -17,8 +18,8 @@ function Home() {
 
 
   const [isSidebarActive, setIsSidebarActive] = useState(true);
-  const {userId,ProjectSelected,setProjectSelected,logout}=authStore()
-  const {fetchProjects,data,username}=authStore()
+  const {userId,logout,username}=authStore()
+  const {fetchProjects,data,ProjectSelected,setProjectSelected}=todoStore()
 
 
 
@@ -49,7 +50,7 @@ useEffect(() => {
     await axios.delete(`${URL}/api/${userId}/${projectDelete}`)
     .then(response => {
       console.log('project deleted',response.data);
-      fetchProjects()
+      fetchProjects(userId)
       setProjectSelected("Today")
     })
     .catch(error => {

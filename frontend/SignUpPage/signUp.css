@@ -1,50 +1,44 @@
-.signUpBox
-{
-    display: flex;
-    flex-direction: row;
-    margin:1% 8% ;
-    gap: 40px;
-}
-
-.signUpBox >*
-{
-    flex:1;
-    margin: 0px 20px;
-    padding: 20px;
-    height: fit-content;
-    border-radius: 15px;
-}
 .signup
 {
+    display: flex;
+    flex-direction: column;
+    margin:1% 8% 8%;
+    padding: 20px;
+    padding-bottom: 5px;
+    width: 25%;
+    height: fit-content;
+    border-radius: 15px;
     text-align: center;
     background-color: rgba(16, 20, 40, 0.373);
     box-shadow: 7px 7px 20px rgba(0, 0, 0, 0.808);
-
 }
-
-.signup h1
+.head_pagename
 {
-    color: rgb(225, 230, 255) !important;
-    padding: 10px;
-    font-weight: 400;
-    font-size: 43px;
+    margin: 10px 9%;
+    font-size: 25px;
 }
+.head_info
+{
+    font-size: 30px;
+    padding: 20px;
+}
+
 .User_input_box
 {
-    padding: 10%;
+    padding: 20px;
     align-items: center;
     display: flex;
     flex-direction: column;
 }
 .signup .userInput
 {
-    color: rgba(236, 239, 255, 0.712);
-    border-width: 3px;
+    color: rgb(172, 206, 255);
+    border-width: 2px;
     border-color: rgba(62, 75, 146, 0.278);
     border-style: solid;
-    font-size: 15px;
+    font-size: 12px;
     padding: 5px 10px;
-    height: 35px;
+    height: 25px;
     width: 75%;
     margin: 10px 0px;
     outline: none;
@@ -54,40 +48,57 @@
 
 .signup .userInput::placeholder
 {
+    font-size: 12px;
     color: rgba(131, 141, 195, 0.181);
 }
-/* 
+
 .Oauths
 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     height: 40px;
-    width: 40px;
-    padding-top: 5px;
-    margin: 30px;
-    font-size: 22px ;
-    border-width: 3px;
+    width: 360px;
+    margin: 10px auto;
+    font-size: 15px ;
+    border-width: 1px;
+    padding: 10px;
     color: rgba(255, 255, 255, 0.778) !important;
     border-color: rgba(255, 255, 255, 0.612);
-    background-color: rgba(255, 255, 255, 0.14);
+    background-color: rgba(255, 255, 255, 0.06);
     border-style: solid;
-    border-radius: 100%;
+    border-radius: 10px;
     cursor: pointer;
     transition:.3s;
-} */
+} 
 
-/* .Oauths:hover
+.Oauths.facebook
+{
+    color: rgba(57, 153, 255, 0.778) !important;
+    border-color: rgba(57, 153, 255, 0.778);
+    background-color: rgba(107, 174, 255, 0.06);
+}
+
+.Oauths .bx
+{
+  margin:5px;
+  font-size: 20px;
+}
+
+.Oauths:hover
 {
     background-color: rgba(255, 255, 255, 0.312);
 
-} */
+}
 
 .user_submit_btn
 {
     padding: 10px;
     color: rgba(236, 239, 255, 0.8) !important;
-    width: 60%;
-    font-size: 22px ;
+    width: 50%;
+    font-size: 18px ;
     margin: 25px 0px;
-    border-radius: 15px;
+    border-radius: 10px;
     box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.588);
     background-image: -webkit-linear-gradient(
         50deg,

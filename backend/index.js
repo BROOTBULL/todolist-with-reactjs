@@ -19,7 +19,7 @@ const url =process.env.MONGO_URI;
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(cookieParser());
-app.use(cors({origin:"http://localhost:5173",credentials:true}));
+app.use(cors({origin:"http://localhost:5173",credentials:true}));//  Allows cookies and other credentials to be sent with requests
 
 app.use(session({
   secret:process.env.SECRET,
