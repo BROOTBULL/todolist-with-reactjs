@@ -20,7 +20,7 @@ function InputProjects()
         projectName:""
     });
 
-    const {userId,setProjectSelected,fetchprojects}=authStore()
+    const {userId,setProjectSelected,fetchProjects}=authStore()
     
 
 
@@ -34,7 +34,7 @@ function InputProjects()
             await axios.post(`${URL}/api/${userId}/projects`,ProjectName);
             console.log("axios post project name")
             setProjectSelected(ProjectName.projectName);
-            fetchprojects(userId)
+            fetchProjects(userId)
             setProjectName({
                 projectName:""
             })

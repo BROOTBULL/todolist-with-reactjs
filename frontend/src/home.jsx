@@ -17,29 +17,17 @@ function Home() {
 
 
   const [isSidebarActive, setIsSidebarActive] = useState(true);
-  const [data, setData] = useState([]);
   const {userId,ProjectSelected,setProjectSelected,logout}=authStore()
+  const {fetchProjects,data,username}=authStore()
 
 
-
-const fetchProjects = async () => {
-  try {
-    console.log("userId",userId);
-    
-    const response = await axios.get(`${URL}/api/${userId}/projects`);
-    setData(response.data);
-    console.log("project Names==>",response.data)
-
-  } catch (error) {
-    console.error('Error fetching tasks:', error);
-  }
-};
 
 
 
 useEffect(() => {
-    fetchProjects();
-}, [userId]);
+  fetchProjects(userId);
+  setProjectSelected("Today")
+}, [fetchProjects]);
 
 
 
@@ -80,7 +68,7 @@ useEffect(() => {
         <div className="sidebar">
           <div className="text navbox" >
             <div onClick={()=>{$(".UserOptions").slideToggle(100)}} className="navitem profile">
-              <a><i className='bx bxs-user-circle'/> UserName  <i className='bx bx-chevron-down'/></a>
+              <a><i className='bx bxs-user-circle'/> {username} <i style={{marginLeft:"auto"}} className='bx bx-chevron-down'/></a>
             </div>
             <UserOptions/>
 

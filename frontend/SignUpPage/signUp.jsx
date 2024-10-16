@@ -40,7 +40,7 @@ export default function SignUpPage()
             <i className="bx bxs-book-alt"></i> TodoList
             </div>
           </div>
-          <div style={{margin:" 5% 9%"}} className="head text">SignUp</div>
+          <div style={{margin:" 2% 9%"}} className="head text">SignUp</div>
           <div className="signUpBox">
             <div className="signup">
 
