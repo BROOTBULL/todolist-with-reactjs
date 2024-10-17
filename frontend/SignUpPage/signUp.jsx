@@ -100,7 +100,7 @@ export default function SignUpPage()
              </form>
       
             </div>
-            <div className="signupImage"></div>
+            <div className="signupImage"/>
           </div>
         <Footer/>
         </>

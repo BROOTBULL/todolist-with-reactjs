@@ -2,6 +2,7 @@ import axios from "axios";
 import { useState} from "react";
 import $ from "jquery";
 import { authStore } from "../store/auth.store";
+import { todoStore } from "../store/todo.store";
 
 const URL="http://localhost:3000";
 
@@ -20,7 +21,8 @@ function InputProjects()
         projectName:""
     });
 
-    const {userId,setProjectSelected,fetchProjects}=authStore()
+    const {userId}=authStore();
+    const {setProjectSelected,fetchProjects}=todoStore()
     
 
 
