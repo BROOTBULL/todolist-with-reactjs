@@ -6,11 +6,11 @@ const URL="http://localhost:3000";
 axios.defaults.withCredentials = true;// line tells Axios HTTP client to send cookies with every request by default
 
 
-export const todoStore = create((set)=>({
+export const todoStore = create((set,get)=>({
     
     ProjectSelected:"",
     setProjectSelected: (projectName) => set({ ProjectSelected: projectName }),
-    
+    sections:[],
 
     data:[],
 
@@ -26,7 +26,20 @@ export const todoStore = create((set)=>({
         console.error('Error fetching tasks:', error);
     }
     },
-
+    fetchSections: async () => {
+   console.log("hiii");
+   
+        try {
+            const {ProjectSelected}=get()
+            if(ProjectSelected)
+            {const response=await axios.get(`${URL}/${ProjectSelected}`)
+            set({sections:response.data});      
+        }}
+        catch(err)
+        {
+            console.log(err)
+        }
+    }
 
 
 }))

@@ -1,11 +1,12 @@
 import axios from "axios";
 import { useState } from "react";
-import PropTypes from "prop-types"
+import { todoStore } from "../store/todo.store";
 
 
-function InputSections(props)
+function InputSections()
 {
-    const activeProject =props.activeProject;
+    const URL="http://localhost:3000";
+    const {ProjectSelected,fetchSections}=todoStore()
     const [sectionName,setSectionName]=useState({
     sectionName:"",tasks:[{title:"Tasks...",description:"Descriptions..."}]
     })
@@ -17,10 +18,10 @@ function InputSections(props)
     e.preventDefault();
     try {
         
-        await axios.post(`http://localhost:3000/${activeProject}`,sectionName);
+        await axios.post(`${URL}/${ProjectSelected}`,sectionName);
         console.log("Section Names: ",sectionName)
         setSectionName({sectionName:"",tasks:[{title:"Tasks...",description:"Descriptions..."}]});
-        props.AddSection()
+        fetchSections()
       
     } catch (error) {
         console.error('Error posting data:', error);
@@ -52,12 +53,6 @@ function InputSections(props)
 </form>
 </> 
 )
-}
-InputSections.propTypes=
-{
-   activeProject: PropTypes.string.isRequired,
-   AddSection: PropTypes.func
-
 }
 
 export default InputSections

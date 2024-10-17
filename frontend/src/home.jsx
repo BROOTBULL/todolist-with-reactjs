@@ -2,7 +2,7 @@ import { useState,useEffect } from "react";
 import $ from "jquery";
 import InputProjects from "./inputProject";
 import axios from "axios";
-// import ProjectBox from "./projectBox";
+import ProjectBox from "./projectBox";
 import UserOptions from "./UserOptions";
 import { Link } from "react-router-dom";
 
@@ -120,7 +120,7 @@ useEffect(() => {
             </div>
           </div>
 
-         {/* <ProjectBox /> */}
+         <ProjectBox />
   
         </div>
       </div>

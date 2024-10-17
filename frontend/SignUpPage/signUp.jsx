@@ -38,7 +38,7 @@ export default function SignUpPage()
         <>
           <div className="home_heading">
             <div className="head text ">
-            <i className="bx bxs-book-alt"></i> TodoList
+            <i className="bx bxs-book-alt"></i> <span style={{cursor:"pointer"}} onClick={()=>navigate("/")}>TodoList</span>
             </div>
           </div>
           <div className="head_pagename text">SignUp</div>

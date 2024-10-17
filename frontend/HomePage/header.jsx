@@ -1,11 +1,12 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+
 
 export default function Header(){
-
+const navigate=useNavigate();
     return(
         <div className="home_heading">
         <div className="head text ">
-          <i className="bx bxs-book-alt"></i> TodoList
+          <i className="bx bxs-book-alt"></i> <span style={{cursor:"pointer"}} onClick={()=>navigate("/")}>TodoList</span>
         </div>
 
         <div className="navOptionBox">
