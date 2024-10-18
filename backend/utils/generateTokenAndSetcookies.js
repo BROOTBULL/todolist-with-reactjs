@@ -10,7 +10,7 @@ res.cookie("token",token,{
     httpOnly:true,//xss attak cyber security
     secure:process.env.NODE_ENV==="prodection",
     sameSite:"strict",
-    maxAge:60*60*1000,
+    maxAge:24*60*60*1000,
 });
 
 return token;

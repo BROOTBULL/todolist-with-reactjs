@@ -4,6 +4,7 @@ import Input from "./input";
 import axios from "axios";
 import PropTypes from "prop-types";
 import $ from "jquery"
+import { todoStore } from "../store/todo.store";
 import FloatingEditBox from "./floatingEdit";
 import SectionEditBox from "./SectionEditBox";
 
@@ -28,67 +29,44 @@ function handleMouseOut() {
 
 function TaskBox(props)
  {
+  const URL="http://localhost:3000";
 
-  const [passedValues, setPassedValues] = useState({
-    id:"",
-    content:"",
-    title:""
-  });
-  const [data, setData] = useState([]);
+
   const [dataLength,setDataLength]=useState()
   const [clickedSection,setClickedSection]=useState("")
   const [sectionName, setSectionName] = useState("");
   const inputRef = useRef(null);
 
 
-  const {activeProject:projectName,section,id}=props;
-
-
-  function handleOnEdit(id,content,title)
-  {
-    setPassedValues({
-      id:id,
-      content:content,
-      title:title
-    });
-
-  }
+  const {section,sectionId}=props;
+  const {data,ProjectSelected,fetchSections,fetchTasks}=todoStore();
 
 
 
 
 
-  const fetchTasks = async () => {
-    try {
-      const response = await axios.get(`http://localhost:3000/${props.activeProject}/${props.section}/`);
-      setData(response.data);
-      console.log("Task responce :",response.data)
-    } catch (error) {
-      console.error('Error fetching tasks:', error);
-    }
-  };
+
+
 
 
   
 
 
   useEffect(() => {
-    if(props.activeProject){ 
-    fetchTasks();}
+
+    fetchTasks(props.section)
     
-  }, [id]);
+  }, [ProjectSelected,sectionId]);
 
   useEffect(() => {
-    setSectionName(props.section);
-  }, [props.section]);
+    setSectionName(section);
+  }, [section]);
   
   useEffect(() => {
     setDataLength(data.length);
   }, [data]);
 
-  const handleAdd = () => {
-    fetchTasks(); // Refresh the task list
-  };
+
 
   useEffect(() => {
     setClickedSection(section);
@@ -135,10 +113,12 @@ function TaskBox(props)
 
   const EditsectionName=$(`.EditsectionName.${section}`).val();
 
-  await axios.put(`http://localhost:3000/${props.activeProject}/${props.section}`,  { sectionName: EditsectionName, tasks: [] })
+  await axios.put(`${URL}/${ProjectSelected}/${props.section}`,  { sectionName: EditsectionName, tasks: [] })
   .then(response => {
     console.log('section name successfully changed:', response.data);
-    props.EditSection();
+
+   fetchSections();
+
     if (inputRef.current) {
       inputRef.current.blur(); // Remove focus from the input after submission
     }
@@ -189,16 +169,13 @@ function TaskBox(props)
     </form>
    
       <SectionEditBox
-        projectName={projectName}
         section={clickedSection}
-        DeleteSection={props.EditSection}
       />
 
       <div id={section} className="bigbox"  onMouseLeave={handleMouseOut}>
       <div className="TaskBox" >
           {data.map((task) => (
             <Tasknote
-              onEdit={handleOnEdit}
               section={section}
               key={task._id}
               id={task._id}
@@ -211,18 +188,11 @@ function TaskBox(props)
         </div>
 
         <Input 
-        onAdd={handleAdd} 
-        projectName={projectName}
         section={section}
         />
 
         <FloatingEditBox 
-        Id={passedValues.id}
-        fetchTasks={fetchTasks}
-        title={passedValues.title}
-        content={passedValues.content}
-        projectName={projectName}
-        section={section}
+           section={section}
         />
 
         </div>
@@ -233,10 +203,8 @@ function TaskBox(props)
 
 TaskBox.propTypes=
 {
-   activeProject: PropTypes.string.isRequired,
-   section: PropTypes.string.isRequired,
-   id: PropTypes.string.isRequired,
-   EditSection:PropTypes.func
+   section: PropTypes.string,
+   sectionId: PropTypes.string,
 }
 
 export default TaskBox;

@@ -1,11 +1,11 @@
 import { useEffect} from "react";
-// import TaskBox from "./taskbox";
+import TaskBox from "./taskbox";
 import InputSections from "./inputSection";
 import { todoStore } from "../store/todo.store";
 
 function ProjectBox()
 {
-    const {/*sections,**/projectSelected,fetchSections}=todoStore()
+    const {sections,projectSelected,fetchSections}=todoStore()
   
     
 
@@ -13,9 +13,9 @@ function ProjectBox()
     useEffect(() => {
         
       fetchSections();
-      (projectSelected!=="Today")&&console.log("sections fetch successfully")
+    //   (projectSelected!=="Today")&&console.log("sections fetch successfully")
 
-    }, [projectSelected]);
+    }, [projectSelected,fetchSections]);
     
 
 
@@ -30,14 +30,13 @@ function ProjectBox()
        
 
         {
-        // sections.map((section,id)=>(
-        //     <TaskBox 
-        //     key={id}
-        //     id={section._id}
-        //     section={section.sectionName}
-        //     EditSection={handleAddSection}
-        //      />
-        // ))
+        sections.map((section,id)=>(
+            <TaskBox 
+            key={id}
+            SectionId={section._id}
+            section={section.sectionName}
+             />
+        ))
 
     }
         

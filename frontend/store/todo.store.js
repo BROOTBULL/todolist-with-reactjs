@@ -10,9 +10,18 @@ export const todoStore = create((set,get)=>({
     
     ProjectSelected:"",
     setProjectSelected: (projectName) => set({ ProjectSelected: projectName }),
+
     sections:[],
 
     data:[],
+
+    passedValues:{
+        id:"",
+        content:"",
+        title:""
+    },
+
+    setPassedValues:(id,content,title)=>set({id:id,content:content,title:title}),
 
     fetchProjects: async (userId) => {
     try {
@@ -27,10 +36,11 @@ export const todoStore = create((set,get)=>({
     }
     },
     fetchSections: async () => {
-   console.log("hiii");
+ 
    
         try {
             const {ProjectSelected}=get()
+            console.log(ProjectSelected);
             if(ProjectSelected)
             {const response=await axios.get(`${URL}/${ProjectSelected}`)
             set({sections:response.data});      
@@ -39,7 +49,18 @@ export const todoStore = create((set,get)=>({
         {
             console.log(err)
         }
-    }
+    },
+    fetchTasks :async (section) => {
+        try {
+          const {ProjectSelected}=get()
+
+          const response = await axios.get(`${URL}/${ProjectSelected}/${section}/`);
+          set({data:response.data});
+          console.log("Task responce :",response.data)
+        } catch (error) {
+          console.error('Error fetching tasks:', error);
+        }
+      }
 
 
 }))

@@ -1,7 +1,7 @@
-// import { useState } from "react";
 import PropTypes from "prop-types";
 import $ from "jquery";
 import { useEffect } from "react";
+import { todoStore } from "../store/todo.store";
 
 
 
@@ -14,7 +14,7 @@ function Tasknote(props) {
 
   const tlength = props.taskLength;
   const clength = props.contentLength;
-
+  const {setPassedValues}=todoStore();
 
 
   function handleClick(event)
@@ -28,7 +28,8 @@ function Tasknote(props) {
     $(`.${props.section} .sideboxOptions`).slideToggle(120);
     $(`.${props.section}.sidebox`).toggleClass("sideboxOpen");
     $("#edit_title").focus();
-    props.onEdit(event.target.id,taskcontentValue,tasktitleValue);
+
+    setPassedValues(event.target.id,taskcontentValue,tasktitleValue);
   }
 
 

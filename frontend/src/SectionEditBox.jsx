@@ -1,6 +1,7 @@
 import $ from "jquery"
 import axios from "axios";
 import PropTypes from "prop-types";
+import { todoStore } from "../store/todo.store";
 
 
 
@@ -8,6 +9,9 @@ import PropTypes from "prop-types";
 
 function SectionEditBox(props)
 {
+  const URL="http://localhost:3000";
+  const {fetchSections,ProjectSelected}=todoStore();
+
 
   function handleLeaveEditbox()
   {   
@@ -31,10 +35,10 @@ async function handledelete()
 {
 
   
-    await axios.delete(`http://localhost:3000/${props.projectName}/${props.section}`)
+    await axios.delete(`${URL}/${ProjectSelected}/${props.section}`)
       .then(response => {
-        console.log('Task deleted successfully:', response.data);
-        props.DeleteSection();
+        console.log('Section deleted successfully:', response.data);
+        fetchSections()
       })
       .catch(error => {
         console.error('Error updating task:', error);

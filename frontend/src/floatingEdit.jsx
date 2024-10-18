@@ -2,6 +2,7 @@ import $ from "jquery"
 import { useState,useEffect } from "react";
 import axios from "axios";
 import PropTypes from "prop-types";
+import { todoStore } from "../store/todo.store";
 
 
 
@@ -17,19 +18,24 @@ function FloatingEditBox(props)
 {
     
 
-    const id=props.Id;
+    const URL="http://localhost:3000";
+    const {ProjectSelected,passedValues,fetchTasks}=todoStore();
 
+    
+    const id=passedValues.Id;
     const [editData, setEditData] = useState({
-      title: props.title,
-      description: props.content,
+      title: passedValues.title,
+      description: passedValues.content,
       });
       
-      useEffect(() => {
-        setEditData({
-          title: props.title,
-          description: props.content,
-        });
-      }, [props.title, props.content]);
+
+    
+    useEffect(() => {
+      setEditData({
+        title: passedValues.title,
+        description: passedValues.content,
+      });
+    }, [passedValues.title, passedValues.content]);
 
     
 
@@ -59,10 +65,10 @@ function handledelete()
 {
 
   if (id) {
-    axios.delete(`http://localhost:3000/${props.projectName}/${props.section}/${id}`)
+    axios.delete(`${URL}/${ProjectSelected}/${props.section}/${id}`)
       .then(response => {
         console.log('Task deleted successfully:', response.data);
-        props.fetchTasks(); // Refresh the task list
+       fetchTasks(props.section); // Refresh the task list
       })
       .catch(error => {
         console.error('Error updating task:', error);
@@ -89,14 +95,14 @@ function handleSubmit(event)
  console.log(editData)
  
  if (id && editData) {
-  axios.put(`http://localhost:3000/${props.projectName}/${props.section}/${id}`, editData)
+  axios.put(`${URL}/${ProjectSelected}/${props.section}/${id}`, editData)
     .then(response => {
       console.log('Task updated successfully:', response.data);
       setEditData({
         title:"",
         description:""
       })
-      props.fetchTasks(); // Refresh the task list
+      fetchTasks(props.section); // Refresh the task list
     })
     .catch(error => {
       console.error('Error updating task:', error);
@@ -157,12 +163,7 @@ $(".editform").slideUp(120);
 
 
 FloatingEditBox.propTypes={
-  Id: PropTypes.string,
   section: PropTypes.string,
-  projectName: PropTypes.string,
-  title: PropTypes.string,
-  content: PropTypes.string,
-  fetchTasks:PropTypes.func.isRequired
 }
 
 export default FloatingEditBox

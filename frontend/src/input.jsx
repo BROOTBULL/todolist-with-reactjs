@@ -2,11 +2,14 @@ import { useState,useEffect }from "react";
 import PropTypes from "prop-types";
 import $ from "jquery";
 import axios from "axios";
+import { todoStore } from "../store/todo.store";
 
 
 function Input(props) {
 
-
+    const URL="http://localhost:3000";
+    const {fetchTasks,ProjectSelected}=todoStore()
+    
     const [newtask,setnewTask]=useState({
         title:"",
         description:"",
@@ -48,9 +51,11 @@ function Input(props) {
         console.log("handle submit")
     
         try {
-            await axios.post(`http://localhost:3000/${props.projectName}/${props.section}/`, newtask);
+            await axios.post(`${URL}/${ProjectSelected}/${props.section}/`, newtask);
             console.log("axios post")
-            if (props.onAdd) props.onAdd();
+             
+             fetchTasks(props.section)
+
              console.log("onAdd executed")
              setnewTask({
                 title: "",
@@ -111,8 +116,6 @@ function Input(props) {
 
 Input.propTypes=
 {
-   onAdd: PropTypes.func.isRequired,
-   projectName: PropTypes.string.isRequired,
    section: PropTypes.string.isRequired
 }
 export default Input
