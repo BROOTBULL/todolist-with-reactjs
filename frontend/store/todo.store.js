@@ -3,10 +3,12 @@ import { create } from "zustand";
 
 const URL="http://localhost:3000";
 
+
 axios.defaults.withCredentials = true;// line tells Axios HTTP client to send cookies with every request by default
 
 
-export const todoStore = create((set,get)=>({
+export const todoStore = create((set)=>({
+    Projects:[],
     
     ProjectSelected:"",
     setProjectSelected: (projectName) => set({ ProjectSelected: projectName }),
@@ -23,38 +25,39 @@ export const todoStore = create((set,get)=>({
 
     setPassedValues:(id,content,title)=>set({id:id,content:content,title:title}),
 
-    fetchProjects: async (userId) => {
+    fetchProjects: async () => {
     try {
-        console.log("userId",userId);
+        // console.log("userId",userId);
         
-        const response = await axios.get(`${URL}/api/${userId}/projects`);
-        set({data:response.data});
+        const response = await axios.get(`${URL}/api/projects`);
+        set({Projects:response.data});
         console.log("project Names==>",response.data)
 
     } catch (error) {
-        console.error('Error fetching tasks:', error);
+        console.error('Error fetching projects:', error);
     }
     },
-    fetchSections: async () => {
- 
+    fetchSections: async (ProjectSelected) => {
    
         try {
-            const {ProjectSelected}=get()
-            console.log(ProjectSelected);
+            console.log("Project selected:",ProjectSelected);
             if(ProjectSelected)
-            {const response=await axios.get(`${URL}/${ProjectSelected}`)
-            set({sections:response.data});      
+            { 
+            const response=await axios.get(`${URL}/api/${ProjectSelected}/sections`);
+            set({sections:response.data}); 
+            return response.data;
+
         }}
         catch(err)
         {
-            console.log(err)
+            console.log("Error fetching Sections",err)
         }
     },
-    fetchTasks :async (section) => {
+    fetchTasks :async (ProjectSelected,section) => {
         try {
-          const {ProjectSelected}=get()
+        
 
-          const response = await axios.get(`${URL}/${ProjectSelected}/${section}/`);
+          const response = await axios.get(`${URL}/api/${ProjectSelected}/${section}`);
           set({data:response.data});
           console.log("Task responce :",response.data)
         } catch (error) {

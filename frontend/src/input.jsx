@@ -51,10 +51,10 @@ function Input(props) {
         console.log("handle submit")
     
         try {
-            await axios.post(`${URL}/${ProjectSelected}/${props.section}/`, newtask);
+            await axios.post(`${URL}/api/${ProjectSelected}/${props.section}`, newtask);
             console.log("axios post")
              
-             fetchTasks(props.section)
+             fetchTasks(ProjectSelected,props.section)
 
              console.log("onAdd executed")
              setnewTask({

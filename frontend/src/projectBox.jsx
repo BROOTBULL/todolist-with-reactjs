@@ -5,23 +5,25 @@ import { todoStore } from "../store/todo.store";
 
 function ProjectBox()
 {
-    const {sections,projectSelected,fetchSections}=todoStore()
+    const {sections,ProjectSelected,fetchSections}=todoStore()
   
     
 
 
     useEffect(() => {
-        
-      fetchSections();
-    //   (projectSelected!=="Today")&&console.log("sections fetch successfully")
+      
+      fetchSections(ProjectSelected);
 
-    }, [projectSelected,fetchSections]);
+    }, [ProjectSelected]);
+
+    useEffect(() => {
+      
+     console.log("sections",sections);
+     
+  
+      }, [sections]);
+
     
-
-
-    
-
-
 
 
     return(

@@ -39,24 +39,15 @@ function TaskBox(props)
 
 
   const {section,sectionId}=props;
-  const {data,ProjectSelected,fetchSections,fetchTasks}=todoStore();
+  const {data,ProjectSelected,fetchSections,fetchTasks,sections}=todoStore();
 
-
-
-
-
-
-
-
-
-  
 
 
   useEffect(() => {
 
-    fetchTasks(props.section)
+    fetchTasks(ProjectSelected,section)
     
-  }, [ProjectSelected,sectionId]);
+  }, [sections,sectionId,fetchTasks]);
 
   useEffect(() => {
     setSectionName(section);
@@ -113,7 +104,7 @@ function TaskBox(props)
 
   const EditsectionName=$(`.EditsectionName.${section}`).val();
 
-  await axios.put(`${URL}/${ProjectSelected}/${props.section}`,  { sectionName: EditsectionName, tasks: [] })
+  await axios.put(`${URL}/api/${ProjectSelected}/${props.section}`,  { sectionName: EditsectionName, tasks: [] })
   .then(response => {
     console.log('section name successfully changed:', response.data);
 

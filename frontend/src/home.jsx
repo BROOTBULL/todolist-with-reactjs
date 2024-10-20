@@ -18,16 +18,15 @@ function Home() {
 
 
   const [isSidebarActive, setIsSidebarActive] = useState(true);
-  const {userId,logout,username}=authStore()
-  const {fetchProjects,data,ProjectSelected,setProjectSelected}=todoStore()
+  const {logout,username}=authStore()
+  const {fetchProjects,Projects,ProjectSelected,setProjectSelected}=todoStore()
 
 
 
 
 
 useEffect(() => {
-  fetchProjects(userId);
-  setProjectSelected("Today")
+  fetchProjects();
 }, [fetchProjects]);
 
 
@@ -47,10 +46,10 @@ useEffect(() => {
    
     const projectDelete=e.target.title;
     
-    await axios.delete(`${URL}/api/${userId}/${projectDelete}`)
+    await axios.delete(`${URL}/api/${projectDelete}`)
     .then(response => {
       console.log('project deleted',response.data);
-      fetchProjects(userId)
+      fetchProjects()
       setProjectSelected("Today")
     })
     .catch(error => {
@@ -90,7 +89,7 @@ useEffect(() => {
 <hr />
 
 <div className="projectbox">
-{data.map((project)=>(
+{Projects.map((project)=>(
     <div className="projects" key={project._id}>
     <a onClick={(e)=> setProjectSelected(e.currentTarget.title)} title={project.projectName} ># {project.projectName}</a>
     <i className='bx bxs-trash-alt' title={project.projectName} onClick={handleDeleteProject}></i>

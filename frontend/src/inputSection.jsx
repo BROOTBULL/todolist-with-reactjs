@@ -18,10 +18,10 @@ function InputSections()
     e.preventDefault();
     try {
         
-        await axios.post(`${URL}/${ProjectSelected}`,sectionName);
-        console.log("Section Names: ",sectionName)
+        const response=await axios.post(`${URL}/api/${ProjectSelected}/add_Sections`,sectionName)
+        console.log("Section Names: ",response.data)
         setSectionName({sectionName:"",tasks:[{title:"Tasks...",description:"Descriptions..."}]});
-        fetchSections()
+        fetchSections(ProjectSelected)
       
     } catch (error) {
         console.error('Error posting data:', error);

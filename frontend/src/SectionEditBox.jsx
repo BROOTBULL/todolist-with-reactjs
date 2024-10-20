@@ -10,7 +10,7 @@ import { todoStore } from "../store/todo.store";
 function SectionEditBox(props)
 {
   const URL="http://localhost:3000";
-  const {fetchSections,ProjectSelected}=todoStore();
+  const {fetchSections,ProjectSelected,setProjectSelected}=todoStore();
 
 
   function handleLeaveEditbox()
@@ -35,10 +35,11 @@ async function handledelete()
 {
 
   
-    await axios.delete(`${URL}/${ProjectSelected}/${props.section}`)
+    await axios.delete(`${URL}/api/${ProjectSelected}/${props.section}`)
       .then(response => {
         console.log('Section deleted successfully:', response.data);
-        fetchSections()
+        setProjectSelected("Today")
+        fetchSections(ProjectSelected)
       })
       .catch(error => {
         console.error('Error updating task:', error);

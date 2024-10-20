@@ -1,67 +1,30 @@
 import { User } from "../modeules/user.module.js";
-import jwt from "jsonwebtoken"
 import bcrypt from "bcrypt";
 import generateTokenAndSetcookie from "../utils/generateTokenAndSetcookies.js";
 
-export const verifyToken = async (req,res,next)=>{
-const token =req.cookies.token;
-console.log("token:",token);
 
-try{
-  console.log("verify");
-  
-if(!token)
-{
-  console.log("no token");
-  res.status(401).json({seccess:false,message:"Unauthorised - no token provided"})
-}
-else{
-  console.log("token");
+export const checkAuth = async (req, res) => {
+  try {
+    const user = await User.findById(req.userId);
 
-   const tokenVerify=jwt.verify(token,process.env.JWT_SECRET);
-   if(!tokenVerify)
-   return res.status(401).json({success:false,message:"Unauthorised - token is not valid"})
-   req.userId=tokenVerify.userId;
-  console.log("going to check auth");
+    if (!user) {
+      console.log("no user found");
 
-   next()
+      return res.status(400).json({ success: true, message: "User not found" });
+    }
 
-}}
-catch(err){
-console.log("error in verifytoken",err)
-return res.status(500).json({success:false,message:"Something went wrong"})
-}
-}
-
-export const checkAuth=async (req,res)=>{
-   try {
-  console.log("in check auth");
-
-      const user= await User.findById(req.userId);
-      console.log("user:",user);
-      
-      if (!user)
-      {
-        console.log("no user found");
-        
-         return res.status(400).json({success:true,message:"User not found"})
-      }
-console.log("user found");
-
-      res.status(200).json({
-         success:true,
-         user:{...user._doc,//change user data from json to object ..can user .toObject or can use .findById(req.userId).select(-password)... "-" indicate remove password
-             password:undefined}
-      })
-
-      
-   } catch (error) {
-     console.log("Error in checkAuth",error);
-     res.status(400).json({success:false,message:error.message})
-      
-   }
-}
-
+    res.status(200).json({
+      success: true,
+      user: {
+        ...user._doc, //change user data from json to object ..can user .toObject or can use .findById(req.userId).select(-password)... "-" indicate remove password
+        password: undefined,
+      },
+    });
+  } catch (error) {
+    console.log("Error in checkAuth", error);
+    res.status(400).json({ success: false, message: error.message });
+  }
+};
 
 export const SignUp = async (req, res) => {
   const { username, email, password } = req.body;
@@ -70,18 +33,17 @@ export const SignUp = async (req, res) => {
   if (await User.findOne({ email: email })) {
     res.json({ success: false, message: "User Already Exists" });
   } else {
-    console.log(req.session);
 
     bcrypt.hash(password, 10, (err, hash) => {
       const NewUser = new User({ username, email, password: hash });
       NewUser.save();
 
-      generateTokenAndSetcookie(res, NewUser._id);
+      generateTokenAndSetcookie(res, NewUser._id); //give id of new user to generate token
 
       res.status(200).json({
         success: true,
         message: "User created successfully",
-        user: {...NewUser._doc,password:undefined},
+        user: { ...NewUser._doc, password: undefined },
       });
     });
   }
@@ -95,15 +57,15 @@ export const LogIn = async (req, res) => {
     const isvalidPassword = await bcrypt.compare(password, user.password);
 
     if (isvalidPassword) {
-      generateTokenAndSetcookie(res,user._id);
+      generateTokenAndSetcookie(res, user._id);//generate new token everytime user login
 
-      user.lastLogin=new Date();
+      user.lastLogin = new Date();
       user.save();
 
       res.status(200).json({
         success: true,
         message: `${user.username} loggedin successfully`,
-        user: {...user._doc,password:undefined},
+        user: { ...user._doc, password: undefined },
       });
     } else res.json({ success: false, message: `password is incorrect` });
   } else res.status(400).json({ success: false, message: "User not found" });

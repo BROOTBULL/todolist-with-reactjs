@@ -1,7 +1,6 @@
 import axios from "axios";
 import { useState} from "react";
 import $ from "jquery";
-import { authStore } from "../store/auth.store";
 import { todoStore } from "../store/todo.store";
 
 const URL="http://localhost:3000";
@@ -21,7 +20,6 @@ function InputProjects()
         projectName:""
     });
 
-    const {userId}=authStore();
     const {setProjectSelected,fetchProjects}=todoStore()
     
 
@@ -33,10 +31,10 @@ function InputProjects()
     {
         e.preventDefault()
         try {
-            await axios.post(`${URL}/api/${userId}/projects`,ProjectName);
+            await axios.post(`${URL}/api/projects`,ProjectName);
             console.log("axios post project name")
             setProjectSelected(ProjectName.projectName);
-            fetchProjects(userId)
+            fetchProjects()
             setProjectName({
                 projectName:""
             })

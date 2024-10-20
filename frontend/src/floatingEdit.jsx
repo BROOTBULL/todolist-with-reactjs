@@ -65,10 +65,10 @@ function handledelete()
 {
 
   if (id) {
-    axios.delete(`${URL}/${ProjectSelected}/${props.section}/${id}`)
+    axios.delete(`${URL}/api/${ProjectSelected}/${props.section}/${id}`)
       .then(response => {
         console.log('Task deleted successfully:', response.data);
-       fetchTasks(props.section); // Refresh the task list
+       fetchTasks(ProjectSelected,props.section); // Refresh the task list
       })
       .catch(error => {
         console.error('Error updating task:', error);
@@ -95,14 +95,14 @@ function handleSubmit(event)
  console.log(editData)
  
  if (id && editData) {
-  axios.put(`${URL}/${ProjectSelected}/${props.section}/${id}`, editData)
+  axios.put(`${URL}/api/${ProjectSelected}/${props.section}/${id}`, editData)
     .then(response => {
       console.log('Task updated successfully:', response.data);
       setEditData({
         title:"",
         description:""
       })
-      fetchTasks(props.section); // Refresh the task list
+      fetchTasks(ProjectSelected,props.section); // Refresh the task list
     })
     .catch(error => {
       console.error('Error updating task:', error);

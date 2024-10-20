@@ -69,7 +69,6 @@ Tasknote.propTypes = {
   taskLength: PropTypes.number.isRequired,
   contentLength: PropTypes.number.isRequired,
   id: PropTypes.string.isRequired,
-  onEdit: PropTypes.func.isRequired,
 };
 
 export default Tasknote;

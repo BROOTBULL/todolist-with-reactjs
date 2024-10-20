@@ -4,8 +4,8 @@ import { User } from "../modeules/user.module.js";
 
 export const getProjects= async(req,res)=>{
     try { 
-        const userId=req.params.userId;
-
+        const userId=req.userId;
+        
         if(userId)
         {
             const projectNamelist= await TodoProjects.find({owner:userId})
@@ -14,8 +14,8 @@ export const getProjects= async(req,res)=>{
          {   res.status(200).json(projectNamelist);}
         }
       } catch (err) {
-        console.error("Error fetching tasks:", err); // Log the error
-        res.status(500).send("Error fetching tasks"); // Send error response with status code 500
+        console.error("Error fetching Projects:", err); // Log the error
+        res.status(500).send("Error fetching Projects"); // Send error response with status code 500
       }
 }
 
@@ -23,7 +23,7 @@ export const postProjects= async(req,res)=>{
   
     try {
         
-        const userId=req.params.userId;
+        const userId=req.userId;
         const {projectName}=req.body;
         const user=await User.findOne({_id:userId});
         
@@ -49,7 +49,7 @@ export const postProjects= async(req,res)=>{
 }
 
 export const deleteProjects=async (req,res)=>{
-  const userId=req.params.userId;
+  const userId=req.userId;
   const projectName =req.params.project;
 
   try {

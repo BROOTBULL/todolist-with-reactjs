@@ -1,15 +1,27 @@
 import express from "express";
-import { getProjects,postProjects ,deleteProjects} from "../controllers/todo.controller.js";
+import { getProjects,postProjects ,deleteProjects} from "../controllers/Projects.controller.js";
+import { verifyToken } from "../utils/verifyToken.middleware.js";
+import { deleteSections, getSections, postSections, putSections } from "../controllers/Sections.controller.js";
+import { getTasks, postTasks, putTasks } from "../controllers/tasks.controller.js";
 
 const todoRouter=express.Router();
 
-todoRouter.get("/:userId/projects",getProjects);
-todoRouter.post("/:userId/projects",postProjects);
-todoRouter.delete("/:userId/:project",deleteProjects);
+todoRouter.get("/projects",verifyToken,getProjects);
+todoRouter.post("/projects",verifyToken,postProjects);
+todoRouter.delete("/:project",verifyToken,deleteProjects);
 
 
 
-// todoRouter.get("/:projectName",getSections);
-// todoRouter.post("/:projectName",getSections);
+todoRouter.get("/:projectName/sections",verifyToken,getSections);
+todoRouter.post("/:project/add_Sections",verifyToken,postSections);
+todoRouter.put("/:project/:section",verifyToken,putSections);
+todoRouter.delete("/:project/:section",verifyToken,deleteSections);
+
+
+todoRouter.get("/:project/:section",verifyToken,getTasks);
+todoRouter.post("/:project/:section",verifyToken,postTasks);
+todoRouter.put("/:project/:section/:id",verifyToken,putTasks);
+// todoRouter.delete("/:project/:section",verifyToken,deleteSections);
+
 
 export default todoRouter;
