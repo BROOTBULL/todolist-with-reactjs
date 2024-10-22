@@ -5,7 +5,10 @@ import { todoStore } from "../store/todo.store";
 
 function ProjectBox()
 {
-    const {sections,ProjectSelected,fetchSections}=todoStore()
+    const sections = todoStore((state) => state.sections);
+    const ProjectSelected = todoStore((state) => state.ProjectSelected);
+    const fetchSections = todoStore((state) => state.fetchSections);
+
   
     
 
@@ -13,15 +16,8 @@ function ProjectBox()
     useEffect(() => {
       
       fetchSections(ProjectSelected);
-
-    }, [ProjectSelected]);
-
-    useEffect(() => {
-      
-     console.log("sections",sections);
-     
-  
-      }, [sections]);
+      console.log("useEffect ProjectBox");
+    }, [ProjectSelected,fetchSections]);
 
     
 
@@ -29,20 +25,24 @@ function ProjectBox()
     return(
         <>
        <div className="projectBox" >
+
+        {ProjectSelected&&console.log("Project selected:",ProjectSelected)}
+        {console.log("rendering ProjectBox")}
        
 
         {
         sections.map((section,id)=>(
             <TaskBox 
             key={id}
-            SectionId={section._id}
+            sectionId={section._id}
+            tasks={section.tasks}
             section={section.sectionName}
              />
         ))
 
     }
         
-        <InputSections />
+        <InputSections sections={sections}/>
        
        </div>
 

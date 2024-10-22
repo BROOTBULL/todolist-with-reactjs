@@ -38,7 +38,6 @@ async function handledelete()
     await axios.delete(`${URL}/api/${ProjectSelected}/${props.section}`)
       .then(response => {
         console.log('Section deleted successfully:', response.data);
-        setProjectSelected("Today")
         fetchSections(ProjectSelected)
       })
       .catch(error => {

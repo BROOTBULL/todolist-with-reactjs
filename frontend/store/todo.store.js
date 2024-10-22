@@ -14,6 +14,16 @@ export const todoStore = create((set)=>({
     setProjectSelected: (projectName) => set({ ProjectSelected: projectName }),
 
     sections:[],
+    addSection:(sections,section)=>(set({sections:[...sections ,section]})),
+    addTask: (sectionId, newTask) => (set((state) => ({
+        sections: state.sections.map((section) =>
+            
+            section._id === sectionId
+                ? { ...section, tasks: [...(section.tasks || []), newTask] } // Add the new task to the section
+                : section
+    )
+    }))),
+    
 
     data:[],
 
@@ -32,6 +42,7 @@ export const todoStore = create((set)=>({
         const response = await axios.get(`${URL}/api/projects`);
         set({Projects:response.data});
         console.log("project Names==>",response.data)
+        return response.data.length
 
     } catch (error) {
         console.error('Error fetching projects:', error);
@@ -40,11 +51,12 @@ export const todoStore = create((set)=>({
     fetchSections: async (ProjectSelected) => {
    
         try {
-            console.log("Project selected:",ProjectSelected);
             if(ProjectSelected)
             { 
             const response=await axios.get(`${URL}/api/${ProjectSelected}/sections`);
             set({sections:response.data}); 
+            console.log("section fetched todostore");
+            
             return response.data;
 
         }}
@@ -59,7 +71,8 @@ export const todoStore = create((set)=>({
 
           const response = await axios.get(`${URL}/api/${ProjectSelected}/${section}`);
           set({data:response.data});
-          console.log("Task responce :",response.data)
+          console.log("Task responce todostore:",response.data)
+
         } catch (error) {
           console.error('Error fetching tasks:', error);
         }

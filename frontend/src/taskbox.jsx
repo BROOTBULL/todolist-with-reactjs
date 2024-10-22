@@ -27,7 +27,7 @@ function handleMouseOut() {
 
 
 
-function TaskBox(props)
+function TaskBox({section,sectionId,tasks})
  {
   const URL="http://localhost:3000";
 
@@ -38,30 +38,35 @@ function TaskBox(props)
   const inputRef = useRef(null);
 
 
-  const {section,sectionId}=props;
-  const {data,ProjectSelected,fetchSections,fetchTasks,sections}=todoStore();
 
+  // const sections = todoStore((state) => state.sections);
+  const ProjectSelected = todoStore((state) => state.ProjectSelected);
+  const fetchSections = todoStore((state) => state.fetchSections);
+  // const fetchTasks = todoStore((state) => state.fetchTasks);
 
-
-  useEffect(() => {
-
-    fetchTasks(ProjectSelected,section)
-    
-  }, [sections,sectionId,fetchTasks]);
-
-  useEffect(() => {
-    setSectionName(section);
-  }, [section]);
   
-  useEffect(() => {
-    setDataLength(data.length);
-  }, [data]);
+
+
+  // useEffect(() => {
+  //   console.log("fetchTasks");
+
+  //   fetchTasks(ProjectSelected,section)
+    
+  // }, [fetchTasks]);
+
+  // useEffect(() => {
+  //   setSectionName(section);
+  // }, [section]);
+  
+  // useEffect(() => {
+  //   setDataLength(data.length);
+  // }, [data]);
 
 
 
-  useEffect(() => {
-    setClickedSection(section);
-  }, [section]);
+  // useEffect(() => {
+  //   setClickedSection(section);
+  // }, [section]);
 
  
 
@@ -104,7 +109,7 @@ function TaskBox(props)
 
   const EditsectionName=$(`.EditsectionName.${section}`).val();
 
-  await axios.put(`${URL}/api/${ProjectSelected}/${props.section}`,  { sectionName: EditsectionName, tasks: [] })
+  await axios.put(`${URL}/api/${ProjectSelected}/${section}`,  { sectionName: EditsectionName, tasks: [] })
   .then(response => {
     console.log('section name successfully changed:', response.data);
 
@@ -127,6 +132,8 @@ function TaskBox(props)
 
   return (
     <>
+    {console.log("rendering taskbox section:",section,tasks)
+    }
   <div className="sectionBox">
 
     <form 
@@ -143,7 +150,7 @@ function TaskBox(props)
     ref={inputRef} 
     name={sectionName}
     className={"text EditsectionName "+ section}   
-    value={sectionName.replace(/_/g," ")} 
+    value={section.replace(/_/g," ")} 
     onChange={(e) => setSectionName(e.target.value.replace(/ /g,"_"))}
     />
 
@@ -165,11 +172,11 @@ function TaskBox(props)
 
       <div id={section} className="bigbox"  onMouseLeave={handleMouseOut}>
       <div className="TaskBox" >
-          {data.map((task) => (
+          {tasks&&tasks.map((task,index) => (
             <Tasknote
               section={section}
-              key={task._id}
-              id={task._id}
+              key={index}
+              id={index}
               taskLength={task.title.length}
               contentLength={task.description.length}
               task={task.title}
@@ -180,6 +187,7 @@ function TaskBox(props)
 
         <Input 
         section={section}
+        sectionId={sectionId}
         />
 
         <FloatingEditBox 
@@ -195,6 +203,7 @@ function TaskBox(props)
 TaskBox.propTypes=
 {
    section: PropTypes.string,
+   tasks: PropTypes.array,
    sectionId: PropTypes.string,
 }
 

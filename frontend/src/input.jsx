@@ -5,10 +5,10 @@ import axios from "axios";
 import { todoStore } from "../store/todo.store";
 
 
-function Input(props) {
+function Input({section,sectionId}) {
 
     const URL="http://localhost:3000";
-    const {fetchTasks,ProjectSelected}=todoStore()
+    const {ProjectSelected,addTask}=todoStore()
     
     const [newtask,setnewTask]=useState({
         title:"",
@@ -51,10 +51,10 @@ function Input(props) {
         console.log("handle submit")
     
         try {
-            await axios.post(`${URL}/api/${ProjectSelected}/${props.section}`, newtask);
+            await axios.post(`${URL}/api/${ProjectSelected}/${section}`, newtask);
             console.log("axios post")
              
-             fetchTasks(ProjectSelected,props.section)
+             addTask(sectionId,newtask)
 
              console.log("onAdd executed")
              setnewTask({
@@ -74,7 +74,7 @@ function Input(props) {
     
       <form 
       className="inputform" 
-      onClick={()=> {$(`#${props.section}.des-box`).slideDown(300);}} 
+      onClick={()=> {$(`#${section}.des-box`).slideDown(300);}} 
       onSubmit={HandleSubmit}
       >
         
@@ -90,7 +90,7 @@ function Input(props) {
             > </input>
             
         
-           <div id={props.section} className=" des-box "    style={{display:"none"}}>
+           <div id={section} className=" des-box "    style={{display:"none"}}>
            <textarea
             onChange={handleChange}
             className="descriptionbox inputbox text"
@@ -116,6 +116,7 @@ function Input(props) {
 
 Input.propTypes=
 {
-   section: PropTypes.string.isRequired
+   section: PropTypes.string.isRequired,
+   sectionId: PropTypes.string.isRequired,
 }
 export default Input

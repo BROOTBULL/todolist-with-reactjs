@@ -48,12 +48,12 @@ function Tasknote(props) {
 }
 
   useEffect(() => {
-    $("#" + Id).css("grid-column",tlength > 20 || clength > 150? (tlength > 40 || clength > 240? "span 3": "span 2"): "span 1");
-    $("#" + Id).css("grid-row", tlength < 20 && (clength > 80 || linebreaks > 3)? "span 2" : "span 1");
+    $("#tasknotes" + Id).css("grid-column",tlength > 20 || clength > 150? (tlength > 40 || clength > 240? "span 3": "span 2"): "span 1");
+    $("#tasknotes" + Id).css("grid-row", tlength < 20 && (clength > 80 || linebreaks > 3)? "span 2" : "span 1");
   }, [tlength, clength, Id]);
 
   return (
-    <div id={Id} onClick={handleClick} onMouseOver={handleMouseOver} className="tasknote text">
+    <div id={"tasknotes"+Id} onClick={handleClick} onMouseOver={handleMouseOver} className="tasknote text">
       <div className="tasktitle">{task}</div>
       <div
         className="taskdecs"
@@ -68,7 +68,7 @@ Tasknote.propTypes = {
   section: PropTypes.string.isRequired,
   taskLength: PropTypes.number.isRequired,
   contentLength: PropTypes.number.isRequired,
-  id: PropTypes.string.isRequired,
+  id: PropTypes.number.isRequired,
 };
 
 export default Tasknote;
