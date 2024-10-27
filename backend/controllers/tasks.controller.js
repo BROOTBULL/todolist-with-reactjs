@@ -103,6 +103,9 @@ export const deleteTasks=async(req,res)=>{
     const projectName =req.params.project;
     const sectionName =req.params.section;
 
+    console.log(req.body);
+    
+
     try {
         const list = await TodoProjects.findOne({ projectName:projectName,owner:userId });
         if (!list) {

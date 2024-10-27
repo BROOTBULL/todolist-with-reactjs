@@ -14,15 +14,16 @@ import { todoStore } from "../store/todo.store";
 
 
 
-function FloatingEditBox(props)
+function FloatingEditBox({section,sectionId})
 {
     
 
     const URL="http://localhost:3000";
-    const {ProjectSelected,passedValues,fetchTasks}=todoStore();
+    const {ProjectSelected,passedValues,EditTask,deleteTask}=todoStore();
 
     
-    const id=passedValues.Id;
+    const id=passedValues.id;
+    // const id=sectionId;
     const [editData, setEditData] = useState({
       title: passedValues.title,
       description: passedValues.content,
@@ -43,17 +44,17 @@ function FloatingEditBox(props)
 
       function handleEdit()
       {
-        $(`.${props.section} .editform`).slideToggle(120);
-        $(`.${props.section} .sideboxOptions`).slideUp(120);
-        $(`.${props.section}.sidebox #edit_title`).focus()
+        $(`.${section} .editform`).slideToggle(120);
+        $(`.${section} .sideboxOptions`).slideUp(120);
+        $(`.${section}.sidebox #edit_title`).focus()
       }
       
       
       function handleLeavesidebox()
       {   
-        $(`.${props.section}.sidebox`).removeClass("sideboxOpen");
-        $(`.${props.section} .sideboxOptions`).slideUp(120);
-        $(`.${props.section} .editform`).slideUp(120);
+        $(`.${section}.sidebox`).removeClass("sideboxOpen");
+        $(`.${section} .sideboxOptions`).slideUp(120);
+        $(`.${section} .editform`).slideUp(120);
         
       }
       
@@ -65,10 +66,11 @@ function handledelete()
 {
 
   if (id) {
-    axios.delete(`${URL}/api/${ProjectSelected}/${props.section}/${id}`)
+    deleteTask(sectionId,id)
+
+    axios.delete(`${URL}/api/${ProjectSelected}/${section}/${id}`)
       .then(response => {
         console.log('Task deleted successfully:', response.data);
-       fetchTasks(ProjectSelected,props.section); // Refresh the task list
       })
       .catch(error => {
         console.error('Error updating task:', error);
@@ -93,16 +95,18 @@ function handleSubmit(event)
 
  event.preventDefault()
  console.log(editData)
+
+ EditTask(sectionId,id,editData)
+
  
  if (id && editData) {
-  axios.put(`${URL}/api/${ProjectSelected}/${props.section}/${id}`, editData)
+  axios.put(`${URL}/api/${ProjectSelected}/${section}/${id}`, editData)
     .then(response => {
       console.log('Task updated successfully:', response.data);
       setEditData({
         title:"",
         description:""
       })
-      fetchTasks(ProjectSelected,props.section); // Refresh the task list
     })
     .catch(error => {
       console.error('Error updating task:', error);
@@ -120,7 +124,7 @@ $(".editform").slideUp(120);
 
 
     return(
-        <div className={props.section+" sidebox"} onMouseLeave={handleLeavesidebox} >
+        <div className={section+" sidebox"} onMouseLeave={handleLeavesidebox} >
         <div className="text sideboxOptions" onClick={handleEdit} style={{display:"none"}}>Edit
          
         </div>
@@ -164,6 +168,7 @@ $(".editform").slideUp(120);
 
 FloatingEditBox.propTypes={
   section: PropTypes.string,
+  sectionId: PropTypes.string,
 }
 
 export default FloatingEditBox

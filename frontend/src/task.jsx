@@ -19,17 +19,17 @@ function Tasknote(props) {
 
   function handleClick(event)
    {
-    const tasktitleValue=(event.currentTarget.querySelector(".tasktitle")).innerHTML;
+    const tasktitleValue=(event.currentTarget.querySelector(".tasktitle")).innerHTML;    
     const taskcontentValue=(event.currentTarget.querySelector(".taskdecs")).innerHTML;
    
     
+    setPassedValues(Id,taskcontentValue,tasktitleValue);
 
 
     $(`.${props.section} .sideboxOptions`).slideToggle(120);
     $(`.${props.section}.sidebox`).toggleClass("sideboxOpen");
     $("#edit_title").focus();
 
-    setPassedValues(event.target.id,taskcontentValue,tasktitleValue);
   }
 
 
@@ -63,12 +63,12 @@ function Tasknote(props) {
   );
 }
 Tasknote.propTypes = {
-  task: PropTypes.string.isRequired,
-  content: PropTypes.string.isRequired,
-  section: PropTypes.string.isRequired,
-  taskLength: PropTypes.number.isRequired,
-  contentLength: PropTypes.number.isRequired,
-  id: PropTypes.number.isRequired,
+  task: PropTypes.string,
+  content: PropTypes.string,
+  section: PropTypes.string,
+  taskLength: PropTypes.number,
+  contentLength: PropTypes.number,
+  id: PropTypes.string,
 };
 
 export default Tasknote;

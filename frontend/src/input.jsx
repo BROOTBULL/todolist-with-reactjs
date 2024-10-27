@@ -48,20 +48,15 @@ function Input({section,sectionId}) {
 
     const HandleSubmit = async (event) => {
         event.preventDefault();
-        console.log("handle submit")
+        addTask(sectionId,newtask)
+        setnewTask({
+           title: "",
+           description: ""
+       });
     
         try {
             await axios.post(`${URL}/api/${ProjectSelected}/${section}`, newtask);
-            console.log("axios post")
-             
-             addTask(sectionId,newtask)
-
-             console.log("onAdd executed")
-             setnewTask({
-                title: "",
-                description: ""
-            });
-    
+            console.log("axios post tasks:",newtask.title," ",newtask.description)
         } catch (error) {
             console.error('Error posting data:', error);
         }
@@ -116,7 +111,7 @@ function Input({section,sectionId}) {
 
 Input.propTypes=
 {
-   section: PropTypes.string.isRequired,
-   sectionId: PropTypes.string.isRequired,
+   section: PropTypes.string,
+   sectionId: PropTypes.string,
 }
 export default Input

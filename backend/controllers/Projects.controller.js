@@ -32,7 +32,7 @@ export const postProjects= async(req,res)=>{
         {
 
         const projects =new TodoProjects({projectName:projectName,owner:userId});
-        projects.sections.push({sectionName:"Routiens",tasks:[{title:"Task tittle",description:"Task descriptions ..."}]})
+        projects.sections.push({sectionName:"Routiens",tasks:[{title:"Task title",description:"Task descriptions ..."}]})
         await projects.save();
 
         user.data.push(projects);

@@ -15,12 +15,37 @@ export const todoStore = create((set)=>({
 
     sections:[],
     addSection:(sections,section)=>(set({sections:[...sections ,section]})),
+    deleteSection: (sectionId) => set(({ sections }) => ({
+        sections: sections.filter((section) => section._id !== sectionId)
+      })),
+      
+    
     addTask: (sectionId, newTask) => (set((state) => ({
         sections: state.sections.map((section) =>
             
             section._id === sectionId
                 ? { ...section, tasks: [...(section.tasks || []), newTask] } // Add the new task to the section
                 : section
+    )
+    }))), 
+    EditTask: (sectionId,taskId, editedTask) => (set((state) => ({
+        sections: state.sections.map((section) =>
+            
+            section._id === sectionId
+                ? {...section,
+                    tasks:section.tasks.map((task)=>{
+                    task._id===taskId?
+                    {...task,title:editedTask.title,description:editedTask.content }
+                    :task
+                })  } 
+                : section
+    )
+    }))), 
+    
+    deleteTask: (sectionId, tasksIdToRemove) => (set((state) => ({
+        sections: state.sections.map((section) =>
+            
+            section._id === sectionId? { ...section, tasks: section.tasks? section.tasks.filter((task)=>task._id !==tasksIdToRemove) : [] } : section
     )
     }))),
     
@@ -33,7 +58,7 @@ export const todoStore = create((set)=>({
         title:""
     },
 
-    setPassedValues:(id,content,title)=>set({id:id,content:content,title:title}),
+    setPassedValues:(id,content,title)=>set({passedValues:{id:id,content:content,title:title}}),
 
     fetchProjects: async () => {
     try {

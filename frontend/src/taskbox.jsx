@@ -32,41 +32,21 @@ function TaskBox({section,sectionId,tasks})
   const URL="http://localhost:3000";
 
 
-  const [dataLength,setDataLength]=useState()
   const [clickedSection,setClickedSection]=useState("")
   const [sectionName, setSectionName] = useState("");
   const inputRef = useRef(null);
+  const dataLength=tasks.length;
 
 
-
-  // const sections = todoStore((state) => state.sections);
   const ProjectSelected = todoStore((state) => state.ProjectSelected);
   const fetchSections = todoStore((state) => state.fetchSections);
-  // const fetchTasks = todoStore((state) => state.fetchTasks);
-
-  
-
-
-  // useEffect(() => {
-  //   console.log("fetchTasks");
-
-  //   fetchTasks(ProjectSelected,section)
-    
-  // }, [fetchTasks]);
-
-  // useEffect(() => {
-  //   setSectionName(section);
-  // }, [section]);
-  
-  // useEffect(() => {
-  //   setDataLength(data.length);
-  // }, [data]);
 
 
 
-  // useEffect(() => {
-  //   setClickedSection(section);
-  // }, [section]);
+
+  useEffect(() => {
+    setClickedSection(section);
+  }, [section]);
 
  
 
@@ -85,13 +65,12 @@ function TaskBox({section,sectionId,tasks})
     $(`.sectionBox .sectionEditBox`).removeClass("sideboxOpen");
     $(`.sectionBox .sectionEditOption`).slideUp(120);
 
-    setClickedSection(section);
     $(`.sectionEditBox.${section}`).toggleClass("sideboxOpen");
     $(`.sectionBox .${section} .sectionEditOption`).slideToggle(120);
 
 
    
-    if ($(`.sectionEditBox.${section}`).hasClass("sideboxOpen"))
+    if (!$(`.sectionEditBox.${section}`).hasClass("sideboxOpen"))
       {  $(".projectBox").on("click",()=>{
       
            
@@ -100,6 +79,8 @@ function TaskBox({section,sectionId,tasks})
           $(".projectBox").off("click");
       })   
       }
+    setClickedSection(section);
+
   }
 
 
@@ -132,8 +113,7 @@ function TaskBox({section,sectionId,tasks})
 
   return (
     <>
-    {console.log("rendering taskbox section:",section,tasks)
-    }
+ 
   <div className="sectionBox">
 
     <form 
@@ -168,15 +148,17 @@ function TaskBox({section,sectionId,tasks})
    
       <SectionEditBox
         section={clickedSection}
+        sectionId={sectionId}
       />
 
       <div id={section} className="bigbox"  onMouseLeave={handleMouseOut}>
       <div className="TaskBox" >
           {tasks&&tasks.map((task,index) => (
+            (console.log("task,taskId:",task,task._id)),
             <Tasknote
               section={section}
               key={index}
-              id={index}
+              id={task._id}
               taskLength={task.title.length}
               contentLength={task.description.length}
               task={task.title}
@@ -192,6 +174,8 @@ function TaskBox({section,sectionId,tasks})
 
         <FloatingEditBox 
            section={section}
+           sectionId={sectionId}
+
         />
 
         </div>

@@ -26,10 +26,6 @@ function ProjectBox()
         <>
        <div className="projectBox" >
 
-        {ProjectSelected&&console.log("Project selected:",ProjectSelected)}
-        {console.log("rendering ProjectBox")}
-       
-
         {
         sections.map((section,id)=>(
             <TaskBox 

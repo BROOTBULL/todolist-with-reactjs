@@ -36,8 +36,7 @@ function Home() {
 
     await axios
       .delete(`${URL}/api/${projectDelete}`)
-      .then((response) => {
-        console.log("project deleted", response.data);
+      .then(() => {
         fetchProjects();
         setProjectSelected("Today");
       })
@@ -50,9 +49,7 @@ function Home() {
   {
     try {
       setLoading(true);
-      console.log("useEffect Project");
-      const ProjectLength=await fetchProjects();
-      console.log(ProjectLength);
+      await fetchProjects();
     } catch (error) {
       console.log(error);
     } finally {
@@ -61,6 +58,7 @@ function Home() {
   } 
    useEffect(() => {
      loadProjects()
+     setProjectSelected("Today");
   }, []);
 
   return (

@@ -7,10 +7,10 @@ import { todoStore } from "../store/todo.store";
 
 
 
-function SectionEditBox(props)
+function SectionEditBox({section,sectionId})
 {
   const URL="http://localhost:3000";
-  const {fetchSections,ProjectSelected,setProjectSelected}=todoStore();
+  const {deleteSection,ProjectSelected}=todoStore();
 
 
   function handleLeaveEditbox()
@@ -25,7 +25,7 @@ function SectionEditBox(props)
 {
   $(".sectionBox .sectionEditOption").slideUp(120);
   $(`.sectionEditBox`).removeClass("sideboxOpen");
-  $(`.EditsectionName.${props.section}`).focus()
+  $(`.EditsectionName.${section}`).focus()
 }
 
 
@@ -34,11 +34,11 @@ function SectionEditBox(props)
 async function handledelete()
 {
 
+  deleteSection(sectionId)
   
-    await axios.delete(`${URL}/api/${ProjectSelected}/${props.section}`)
+    await axios.delete(`${URL}/api/${ProjectSelected}/${section}`)
       .then(response => {
         console.log('Section deleted successfully:', response.data);
-        fetchSections(ProjectSelected)
       })
       .catch(error => {
         console.error('Error updating task:', error);
@@ -56,7 +56,7 @@ async function handledelete()
 
 
     return(
-        <div  className={'sectionEditBox '+ props.section} onMouseLeave={handleLeaveEditbox} >
+        <div  className={'sectionEditBox '+ section} onMouseLeave={handleLeaveEditbox} >
         <div className="text sectionEditOption " onClick={handleEdit} style={{display:"none"}}>Edit</div>
         <div className="text sectionEditOption delete" onClick={handledelete} style={{display:"none"}}>Delete<i className='bx bx-trash'></i></div>
          </div>
@@ -69,8 +69,7 @@ async function handledelete()
 
 SectionEditBox.propTypes={
   section: PropTypes.string,
-  projectName: PropTypes.string,
-  DeleteSection:PropTypes.func
+  sectionId: PropTypes.string,
 }
 
 export default SectionEditBox

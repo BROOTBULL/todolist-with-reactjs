@@ -7,7 +7,6 @@ import PropTypes from "prop-types";
 function InputSections({sections})
 {
     const URL="http://localhost:3000";
-    // const {ProjectSelected,fetchSections}=todoStore()
 
     const ProjectSelected = todoStore((state) => state.ProjectSelected);
     const addSection = todoStore((state) => state.addSection);
@@ -21,14 +20,15 @@ function InputSections({sections})
 {
    
     e.preventDefault();
+    setSectionName({sectionName:"",tasks:[{title:"Tasks...",description:"Descriptions..."}]});
+    addSection(sections,sectionName)
+    
+  
     try {
         
         const response=await axios.post(`${URL}/api/${ProjectSelected}/add_Sections`,sectionName)
-        console.log("Section Names: ",response.data)
-        setSectionName({sectionName:"",tasks:[{title:"Tasks...",description:"Descriptions..."}]});
-        addSection(sections,sectionName)
-        
-      
+        console.log("New Section Names: ",response.data)
+
     } catch (error) {
         console.error('Error posting data:', error);
     }
