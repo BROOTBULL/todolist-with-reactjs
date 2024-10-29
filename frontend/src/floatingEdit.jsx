@@ -67,6 +67,7 @@ function handledelete()
 
   if (id) {
     deleteTask(sectionId,id)
+console.log("id to be deleted:",id);
 
     axios.delete(`${URL}/api/${ProjectSelected}/${section}/${id}`)
       .then(response => {

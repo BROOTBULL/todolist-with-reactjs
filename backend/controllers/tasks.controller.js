@@ -52,9 +52,10 @@ export const postTasks=async(req,res)=>{
         }
 
         await list.save(); // Save the updated TodoProjects document
+        const newTask = section.tasks[section.tasks.length - 1];
 
         console.log("Task saved successfully");
-        res.status(201).send("Task saved successfully"); // Send success response with status code 201
+        res.status(201).send({task:newTask,message:"Task saved successfully"}); // Send success response with status code 201
     } catch (err) {
         console.error("Error saving task:", err);
         res.status(500).send("Error saving task"); // Send error response with status code 500

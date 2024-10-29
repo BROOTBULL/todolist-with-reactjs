@@ -56,40 +56,6 @@ async function connectToMongo() {
 connectToMongo();
 
 
-//  app.post("/:project/:section", async (req, res) => {
-
-// });
-
-
-
-
-// app.get("/:project/:section/", async (req, res) => {
-
-
-// });
-
-
-
-
-// app.put('/:project/:section/:id', async (req, res) => {
-//   
-// });
-
-// app.delete('/:project/:section/:id', async (req, res) => {
-
-// });
-
-
-
-
-
-
-// passport.serializeUser((userId,cb)=>{cb(null,userId)})
-// passport.deserializeUser((userId,cb)=>{cb(null,userId)})
-
-
-
-
 app.listen(3000, () => {
   console.log("Server started on port 3000");
 });

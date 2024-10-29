@@ -46,6 +46,7 @@ function TaskBox({section,sectionId,tasks})
 
   useEffect(() => {
     setClickedSection(section);
+    setSectionName(section)
   }, [section]);
 
  
@@ -128,9 +129,9 @@ function TaskBox({section,sectionId,tasks})
 
     <input 
     ref={inputRef} 
-    name={sectionName}
+    name={section}
     className={"text EditsectionName "+ section}   
-    value={section.replace(/_/g," ")} 
+    value={sectionName.replace(/_/g," ")} 
     onChange={(e) => setSectionName(e.target.value.replace(/ /g,"_"))}
     />
 
@@ -153,12 +154,12 @@ function TaskBox({section,sectionId,tasks})
 
       <div id={section} className="bigbox"  onMouseLeave={handleMouseOut}>
       <div className="TaskBox" >
-          {tasks&&tasks.map((task,index) => (
-            (console.log("task,taskId:",task,task._id)),
+          {tasks&&tasks.map((task) => (
+            // (console.log("task,taskId:",task,task.description)),
             <Tasknote
               section={section}
-              key={index}
-              id={task._id}
+              key={task._id}
+              id={task._id}//it will work for program id and db id both
               taskLength={task.title.length}
               contentLength={task.description.length}
               task={task.title}

@@ -2,13 +2,15 @@ import { useState,useEffect }from "react";
 import PropTypes from "prop-types";
 import $ from "jquery";
 import axios from "axios";
+import { v4 as uuidv4 } from 'uuid';//create a temp Id for state 
 import { todoStore } from "../store/todo.store";
 
 
 function Input({section,sectionId}) {
 
     const URL="http://localhost:3000";
-    const {ProjectSelected,addTask}=todoStore()
+    const {ProjectSelected,addTask,setServerId}=todoStore()
+
     
     const [newtask,setnewTask]=useState({
         title:"",
@@ -48,18 +50,29 @@ function Input({section,sectionId}) {
 
     const HandleSubmit = async (event) => {
         event.preventDefault();
-        addTask(sectionId,newtask)
+        const tempId=uuidv4();
+
+        addTask(sectionId,newtask,tempId)
         setnewTask({
-           title: "",
-           description: ""
-       });
-    
+            title: "",
+            description: ""
+        })
+     
         try {
-            await axios.post(`${URL}/api/${ProjectSelected}/${section}`, newtask);
-            console.log("axios post tasks:",newtask.title," ",newtask.description)
+            const response=await axios.post(`${URL}/api/${ProjectSelected}/${section}`, newtask);
+            console.log("axios post serverTasksId :",response.data.task,"temp Id:",tempId)
+            const taskServerId=response.data.task._id;
+            console.log("serverId of last added:",taskServerId);
+            
+            console.log("Before set:", todoStore.getState().sections);
+            
+            setServerId(sectionId,tempId,taskServerId)    //         set server id in the task id and removing tmp id
+            console.log("After set:", todoStore.getState().sections);
+          
         } catch (error) {
             console.error('Error posting data:', error);
         }
+        
     }
     
 

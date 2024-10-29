@@ -1,6 +1,7 @@
 import axios from "axios";
 import { create } from "zustand";
 
+
 const URL="http://localhost:3000";
 
 
@@ -20,24 +21,44 @@ export const todoStore = create((set)=>({
       })),
       
     
-    addTask: (sectionId, newTask) => (set((state) => ({
+    addTask: (sectionId, addedTask,tempId) => {
+
+        const newTask={...addedTask,_id:tempId}
+        set((state) => ({
         sections: state.sections.map((section) =>
             
             section._id === sectionId
                 ? { ...section, tasks: [...(section.tasks || []), newTask] } // Add the new task to the section
                 : section
     )
-    }))), 
+    }))}, 
+
+    setServerId:(sectionId,tempId,taskServerId)=>{
+        
+        set((state) => ({
+            sections: state.sections.map((section) =>
+        
+                section._id === sectionId
+                    ? {...section,
+                        tasks:section.tasks.map((task)=>
+                            task._id===tempId?
+                        {...task, _id:taskServerId }
+                        :task
+                    )  } 
+                    : section
+        )}));
+    },
+
     EditTask: (sectionId,taskId, editedTask) => (set((state) => ({
         sections: state.sections.map((section) =>
             
             section._id === sectionId
                 ? {...section,
-                    tasks:section.tasks.map((task)=>{
+                    tasks:section.tasks.map((task)=>
                     task._id===taskId?
-                    {...task,title:editedTask.title,description:editedTask.content }
+                    {...task,title:editedTask.title,description:editedTask.description }
                     :task
-                })  } 
+                ) } 
                 : section
     )
     }))), 
@@ -101,7 +122,8 @@ export const todoStore = create((set)=>({
         } catch (error) {
           console.error('Error fetching tasks:', error);
         }
-      }
+      }, 
+ 
 
 
 }))
