@@ -8,6 +8,7 @@ import { Link } from "react-router-dom";
 
 import { authStore } from "../store/auth.store";
 import { todoStore } from "../store/todo.store";
+import TodayWindow from "./HomeWindows/today.window";
 
 const URL = "http://localhost:3000";
 
@@ -134,7 +135,7 @@ function Home() {
               ></i>
             </button>
             <h1 id="ProjectHeading" className="text">
-              # {ProjectSelected}
+               {ProjectSelected}
             </h1>
             <div
               onClick={() => $(".viewOptions").slideToggle(300)}
@@ -160,7 +161,7 @@ function Home() {
             </div>
           </div>
 
-          {!loading ? <ProjectBox/> : ""}
+          {ProjectSelected!=="Today"?!loading ? <ProjectBox/> : "":<TodayWindow/>}
         </div>
       </div>
     </>

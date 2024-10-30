@@ -21,7 +21,7 @@ function handleMouseOut() {
   $(".sideboxOptions").slideUp(120);
   $(".sidebox").removeClass("sideboxOpen");
   $(".editform").slideUp(120);
-  $(".des-box").slideUp(500);
+  // $(".des-box").slideUp(500);
 
 }
 
@@ -154,12 +154,12 @@ function TaskBox({section,sectionId,tasks})
 
       <div id={section} className="bigbox"  onMouseLeave={handleMouseOut}>
       <div className="TaskBox" >
-          {tasks&&tasks.map((task) => (
+          {tasks&&tasks.map((task,index) => (
             // (console.log("task,taskId:",task,task.description)),
             <Tasknote
               section={section}
-              key={task._id}
-              id={task._id}//it will work for program id and db id both
+              key={index}
+              id={task._id}
               taskLength={task.title.length}
               contentLength={task.description.length}
               task={task.title}

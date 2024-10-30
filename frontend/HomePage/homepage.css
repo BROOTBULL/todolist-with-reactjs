@@ -14,10 +14,11 @@
 }
 hr
 {
-    border-color: rgba(30, 32, 66, 0.43);
+    border-color: rgba(43, 46, 96, 0.297);
     border-width: 1px;
     border-radius: 5px;
     border-style: solid;
+    margin: 1px auto;
     
 }
 

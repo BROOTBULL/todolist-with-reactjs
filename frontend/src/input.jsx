@@ -1,4 +1,4 @@
-import { useState,useEffect }from "react";
+import { useState,useEffect, useRef }from "react";
 import PropTypes from "prop-types";
 import $ from "jquery";
 import axios from "axios";
@@ -10,7 +10,8 @@ function Input({section,sectionId}) {
 
     const URL="http://localhost:3000";
     const {ProjectSelected,addTask,setServerId}=todoStore()
-
+    const i=useRef(null)
+    const TodayRef=useRef(null)
     
     const [newtask,setnewTask]=useState({
         title:"",
@@ -74,7 +75,18 @@ function Input({section,sectionId}) {
         }
         
     }
+
+    const toggleDropdown=(e,ref)=>{
+      
+      $(ref.current).css({top:e.screenY-60,left:e.screenX-20})   
+      $(ref.current).slideToggle(300)   
+    }
     
+    const handleCancel=(e)=>{
+      e.preventDefault()
+      setnewTask({title: "",description: ""})
+      $(i.current).slideUp(300).blur()
+    }
 
 
 
@@ -82,12 +94,13 @@ function Input({section,sectionId}) {
     
       <form 
       className="inputform" 
-      onClick={()=> {$(`#${section}.des-box`).slideDown(300);}} 
       onSubmit={HandleSubmit}
       >
         
             <input
             onChange={handleChange}
+            onFocus={()=> {$(i.current).slideDown(300),console.log(i.current);
+            }}
             className="titlebox inputbox"
             type="text"
             name="title"
@@ -98,7 +111,8 @@ function Input({section,sectionId}) {
             > </input>
             
         
-           <div id={section} className=" des-box "    style={{display:"none"}}>
+           <div ref={i} className=" des-box "    style={{display:"none"}}>
+         
            <textarea
             onChange={handleChange}
             className="descriptionbox inputbox text"
@@ -108,12 +122,22 @@ function Input({section,sectionId}) {
             value={newtask.description}
             id="description"
             required
-            > </textarea>
+            />
 
-            {/* <input type="date" /> */}
+             <div className="taskOptions">
+             <button className="buttons" type="button"onClick={(e)=>toggleDropdown(e,TodayRef)}>Today</button>
+                <div ref={TodayRef} className="Options text"  style={{display:"none"}}>
+               
+                </div>
+             <button ref={i} className="buttons" onClick={toggleDropdown} >Priority</button>
+             </div>
 
-
-            <button type="submit" className="addbtn"><i className='bx bx-plus' ></i></button>
+            <hr style={{width:"93%"}}/>
+            <div className="taskOptions">
+            <button ref={i} className="buttons" onClick={toggleDropdown}>{ProjectSelected} / {section} <i className='bx bxs-chevron-down'/></button>
+            <button ref={i}  className="cancel buttons" onClick={handleCancel} >Cancel</button>
+            <button ref={i} type="submit" className="add buttons">Add Task</button>
+            </div>
            </div>
         
       </form>

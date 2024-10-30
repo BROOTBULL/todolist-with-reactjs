@@ -25,6 +25,10 @@ const userSchema = new mongoose.Schema({
     data:[{
         type: mongoose.Schema.Types.ObjectId,
         ref:"TodoProjects"
+    }],
+    dataToday:[{
+        type: mongoose.Schema.Types.ObjectId,
+        ref:"TodayTaskList"
     }]
 
 },{timestamps:true});
