@@ -4,6 +4,7 @@ import $ from "jquery";
 import axios from "axios";
 import { v4 as uuidv4 } from 'uuid';//create a temp Id for state 
 import { todoStore } from "../store/todo.store";
+import TodayOptions from "./InputBox/inputboxOptions";
 
 
 function Input({section,sectionId}) {
@@ -78,7 +79,7 @@ function Input({section,sectionId}) {
 
     const toggleDropdown=(e,ref)=>{
       
-      $(ref.current).css({top:e.screenY-60,left:e.screenX-20})   
+      $(ref.current).css({top:e.target.offsetTop+38,left:e.target.offsetLeft+1})   
       $(ref.current).slideToggle(300)   
     }
     
@@ -127,7 +128,7 @@ function Input({section,sectionId}) {
              <div className="taskOptions">
              <button className="buttons" type="button"onClick={(e)=>toggleDropdown(e,TodayRef)}>Today</button>
                 <div ref={TodayRef} className="Options text"  style={{display:"none"}}>
-               
+               <TodayOptions/>
                 </div>
              <button ref={i} className="buttons" onClick={toggleDropdown} >Priority</button>
              </div>

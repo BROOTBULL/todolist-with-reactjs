@@ -19,7 +19,7 @@ import SectionEditBox from "./SectionEditBox";
 function handleMouseOut() {
 
   $(".sideboxOptions").slideUp(120);
-  $(".sidebox").removeClass("sideboxOpen");
+  $(".sidebox").slideUp(120);
   $(".editform").slideUp(120);
   // $(".des-box").slideUp(500);
 

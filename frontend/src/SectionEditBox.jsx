@@ -56,9 +56,9 @@ async function handledelete()
 
 
     return(
-        <div  className={'sectionEditBox '+ section} onMouseLeave={handleLeaveEditbox} >
-        <div className="text sectionEditOption " onClick={handleEdit} style={{display:"none"}}>Edit</div>
-        <div className="text sectionEditOption delete" onClick={handledelete} style={{display:"none"}}>Delete<i className='bx bx-trash'></i></div>
+        <div  className={'sectionEditBox optionsBox '+ section} onMouseLeave={handleLeaveEditbox} >
+        <div className="text sectionEditOption options " onClick={handleEdit} style={{display:"none"}}>Edit</div>
+        <div className="text sectionEditOption options delete" onClick={handledelete} style={{display:"none"}}>Delete<i className='bx bx-trash'></i></div>
          </div>
     )
 }

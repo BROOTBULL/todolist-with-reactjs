@@ -27,24 +27,26 @@ function Tasknote(props) {
 
 
     $(`.${props.section} .sideboxOptions`).slideToggle(120);
-    $(`.${props.section}.sidebox`).toggleClass("sideboxOpen");
+    $(`.${props.section}.sidebox`).slideToggle(120);
     $("#edit_title").focus();
 
   }
 
 
 
-  function handleMouseOver(event){
 
-    if (!$(".sidebox").hasClass("sideboxOpen")){
-    const clickheight =event.target.offsetTop;
-    const clickleft = event.target.offsetLeft;
-    const clickwidth=event.target.offsetWidth;
-    $(".sidebox").css({
-        top: clickheight + "px",
-        left: clickleft+clickwidth-38 + "px",
-      });
-    }
+  function handleMouseOver(event){
+    const { top, left } = $(event.target).offset();
+    const width = $(event.target).outerWidth();
+    $(".sidebox").slideUp(100).animate({
+      top: top + "px",
+      left: left + width + 3 + "px",
+    });
+    $(".sideboxOptions").slideUp(100)
+   
+   
+    
+
 }
 
   useEffect(() => {
@@ -53,7 +55,7 @@ function Tasknote(props) {
   }, [tlength, clength, Id]);
 
   return (
-    <div id={"tasknotes"+Id} onClick={handleClick} onMouseOver={handleMouseOver} className="tasknote text">
+    <div id={"tasknotes"+Id} onClick={handleClick} onMouseOver={handleMouseOver}className="tasknote text">
       <div className="tasktitle">{task}</div>
       <div
         className="taskdecs"

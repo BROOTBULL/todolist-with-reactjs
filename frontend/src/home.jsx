@@ -148,13 +148,13 @@ function Home() {
             >
               view <i className="bx bx-slider-alt"></i>
             </div>
-            <div style={{ display: "none" }} className="viewOptions">
-              <div className="text sectionEditOption">Change Theme</div>
+            <div className="viewOptions optionsBox">
+              <div className="text options">Change Theme</div>
               <hr style={{ width: "90%" }} />
               <Link
                 to="/"
                 onClick={() => logout()}
-                className="text sectionEditOption delete"
+                className="text options delete"
               >
                 Logout
               </Link>

@@ -52,7 +52,7 @@ function FloatingEditBox({section,sectionId})
       
       function handleLeavesidebox()
       {   
-        $(`.${section}.sidebox`).removeClass("sideboxOpen");
+        $(`.${section}.sidebox`).slideUp(120);;
         $(`.${section} .sideboxOptions`).slideUp(120);
         $(`.${section} .editform`).slideUp(120);
         
@@ -84,7 +84,8 @@ console.log("id to be deleted:",id);
 
   $(".editform").slideUp(120);
   $(".sideboxOptions").slideUp(120);
-  $(".sidebox").removeClass("sideboxOpen");
+  $(".sidebox").slideUp(120);
+
 }
 
 
@@ -118,14 +119,14 @@ function handleSubmit(event)
 
 
 
-$(".sidebox").removeClass("sideboxOpen");
+$(".sidebox").slideUp(120);
 $(".editform").slideUp(120);
 
 }
 
 
     return(
-        <div className={section+" sidebox"} onMouseLeave={handleLeavesidebox} >
+        <div className={section+" sidebox optionsBox"} style={{display:"none"}} onMouseLeave={handleLeavesidebox} >
         <div className="text sideboxOptions" onClick={handleEdit} style={{display:"none"}}>Edit
          
         </div>
